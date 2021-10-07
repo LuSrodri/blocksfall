@@ -1,0 +1,108 @@
+
+html {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Righteous', cursive;
+}
+
+body {
+    background-color: #fad02c;
+    height: 100%;
+}
+
+#main {
+    position: relative;
+    border: 10px solid;
+    width: 95%;
+    height: 95%;
+    margin: auto;
+}
+
+img.icon {  
+    position: absolute;
+    display: block;
+    width: 100px;
+    height: 80px;
+    top: 100%;
+    left: 100%;
+    margin-top: -90px; 
+    margin-left: -110px;
+}
+
+.title {
+    box-shadow: 10px 10px black;
+    padding: 10px;
+    color: yellow;
+    margin: 150px auto 0 auto;
+    width: 400px;
+    text-align: center;
+    font-size: 70px;
+    background-color: #202028;
+    border: 2px solid #202028;
+    user-select: none;
+}
+
+.title:hover {
+    color: #202028;
+    background-color: yellow;
+    border: 2px solid yellow;
+}
+
+div.divbtn {
+    margin: 0 auto;
+    text-align: center;
+}
+
+a.btn2 {
+    font-size: 35px;
+    width: 300px;
+}
+
+a.btn3 {
+    color: #202028;
+    background-color: yellow;
+}
+
+a.btn3:hover {
+    color: yellow;
+    background-color: #202028;
+}
+
+.btn {
+    cursor: pointer;
+    margin: 50px auto 0 auto;
+    display: inline-block;
+    text-decoration: none;
+    color: yellow;
+    padding: 15px 40px;
+    font-size: 55px;
+    background-color: #202028;
+    text-align: center;
+    box-shadow: 10px 10px  black; 
+    user-select: none;
+}
+  
+.btn:hover {
+    background-color: yellow;
+    text-decoration: none;
+    color: #202028;
+}
+
+
+@media screen and (max-width: 500px) {
+    
+    .title {
+        width: 250px;
+        font-size: 35px;
+    }
+    
+    a.btn2 {
+        font-size: 20px;
+        width: 200px;
+    }
+   
+    .btn {
+        font-size: 35px;
+    }
+   
+} 
