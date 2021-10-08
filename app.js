@@ -9,7 +9,7 @@ app.get('/index.html', (req, res) =>{
   res.redirect('/');
 });
 
-app.get('', (req, res) =>{
+app.get('/', (req, res) =>{
   app.use(express.static(__dirname+"/css"));
   app.use(express.static(__dirname+"/images"));
   
@@ -31,5 +31,5 @@ app.get('/play', (req, res) =>{
   res.sendFile(__dirname+"/html/play.html");
 });
 
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
   });
