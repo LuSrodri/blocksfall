@@ -33,8 +33,9 @@ setInterval(()=>{
     }
     else if(verifyIfCompleteALine()){
         while(verifyIfCompleteALine()){
-            clearLine();
+            m = clearLine(m);
             printGame();
+            updateScore();
         }
     }
     else{
@@ -83,12 +84,21 @@ document.body.addEventListener('keydown', function (event) {
     }
 });
 
-function clearLine(){
+function updateScore(){
+    let score = document.getElementById("score").innerHTML;
+    score = parseInt(score);
+    score += 10;
+    document.getElementById("score").innerHTML = score;
+}
+
+function clearLine(mCL){
+    let mat = makeMatrix(10,20);
     for(let x=(m.length-1) ; x>=0; x--){
         if(x !== 0){
-            m[x] = m[x-1];
+            mat[x] = mCL[x-1];
         }
     }
+    return mat;
 }
 
 function verifyIfCompleteALine(){
