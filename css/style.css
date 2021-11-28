@@ -1,21 +1,39 @@
 
 html {
     height: 100%;
+    width: 100%;
     overflow: hidden;
     font-family: 'Righteous', cursive;
+
 }
 
 body {
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url('./background-image-blocksfall.jpeg');
     background-color: #fad02c;
     height: 100%;
 }
 
+.paragrafo{
+    color: white;
+    font-size: 15px;
+}
+.paragrafo1{
+    color: orange;
+}
+
 #main {
     position: relative;
-    border: 10px solid;
-    width: 98%;
+    width: 50%;
     height: 95%;
     margin: auto;
+    padding-bottom: 10px;
+}
+
+div.main2{
+    display: block;
 }
 
 img.icon {  
@@ -69,49 +87,102 @@ a.btn3:hover {
 }
 
 .btn {
+    border-top: 10px solid rgb(255, 183, 50);
+    border-left: 10px solid rgb(255, 183, 50) ;
+    border-bottom: 10px solid black;
+    border-right: 10px solid black;
     cursor: pointer;
     margin: 50px auto 0 auto;
     display: inline-block;
     text-decoration: none;
-    color: yellow;
+    color: black;
     padding: 15px 40px;
     font-size: 55px;
-    background-color: #202028;
+    background-color: orange;
     text-align: center;
-    box-shadow: 10px 10px  black; 
     user-select: none;
 }
   
 .btn:hover {
-    background-color: yellow;
+    border-top: 10px solid black;
+    border-left: 10px solid black ;
+    border-bottom: 10px solid rgb(255, 183, 50);
+    border-right: 10px solid rgb(255, 183, 50);
     text-decoration: none;
     color: #202028;
 }
 
 canvas {
-    display: block;
     margin: 0 auto;
     padding: 0;
-    border: 8px solid black;
+    border: 5px solid orange;
     width: 290px;
     height: 580px;
 }
 
+a#btndia{
+    border: 2px solid black;
+    display: inline;
+    height: 3px;
+    width: 15px;
+    padding: 0 15px;
+    text-align: center;
+    padding: 5px;
+    font-size: 15px;
+    margin: 0;
+    border-radius: 10%;
+}
+
+a#btndia:hover{
+    background-color: black;
+    color: orange;
+}
+
 h4 {
-    padding: 10px;
+    padding: 20px;
     color: #fad02c;
     margin: 10px auto 5px auto;
-    width: 150px;
+    width: 250px;
     text-align: center;
     font-size: 20px;
     background-color: #202028;
-    border: 2px solid black;
+    border: 2px solid orange;
     border-radius: 5px;
     user-select: none;
 }
 
-#score {
+.score {
     color: white;
+}
+
+#dia{
+    z-index: 3;
+    margin-top: 50px;
+    width: 500px;
+    height: 500px;
+    background-color: orange;
+    border: 10px solid black ;
+    box-shadow: 10px 10px  gray; 
+}
+
+dialog::before {
+    background: hsla(0, 0%, 0%, .5);
+}
+
+.all {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.manual{
+    background-color: #202028;
+    padding: 25px;
+    border: 5px solid orange;
+}
+
+#col1{
+    width: 250px;
+    margin-right: 10px;
 }
 
 

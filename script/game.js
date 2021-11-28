@@ -1,3 +1,4 @@
+
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -12,6 +13,8 @@ let m = new Array();
 m = makeMatrix(10,20);
 console.log(m);
 
+let openAux = true;
+
 let letters = ['T','Z','I','L','J','S','O'];
 let random = Math.floor(Math.random() * letters.length);
 let letter = letters[random];
@@ -25,27 +28,30 @@ setInterval(()=>{
     let letters = ['T','Z','I','L','J','S','O'];
     let teste = testIfHavePiece();
     
-    if(teste){
-        downPiece(letter);
-        printGame(letter);
-        xPosition = wherePiece('x');
-        yPosition = wherePiece('y');
-    }
-    else if(verifyIfCompleteALine()){
-        while(verifyIfCompleteALine()){
-            m = clearLine(m);
-            printGame();
-            updateScore();
+    if(openAux){
+
+        if(teste){
+            downPiece(letter);
+            printGame(letter);
+            xPosition = wherePiece('x');
+            yPosition = wherePiece('y');
         }
-    }
-    else{
-        let random = Math.floor(Math.random() * letters.length);
-        letter = letters[random];
-        block = createBlock(letter);
-        putPiece(block,0,3);
-        printGame(letter);
-        xPosition = wherePiece('x');
-        yPosition = wherePiece('y');
+        else if(verifyIfCompleteALine()){
+            while(verifyIfCompleteALine()){
+                m = clearLine(m);
+                printGame();
+                updateScore();
+            }
+        }
+        else{
+            let random = Math.floor(Math.random() * letters.length);
+            letter = letters[random];
+            block = createBlock(letter);
+            putPiece(block,0,3);
+            printGame(letter);
+            xPosition = wherePiece('x');
+            yPosition = wherePiece('y');
+        }
     }
     // console.log("Posicao X = "+ xPosition);
     // console.log("Posicao y = "+ yPosition);
@@ -54,48 +60,65 @@ setInterval(()=>{
 
 document.body.addEventListener('keydown', function (event) {
     const key = event.key;
-    if(key === "A" || key === "a"){
-        changeDirection('L');
-        printGame(letter);
-        xPosition = wherePiece('x');
-        yPosition = wherePiece('y');
-    }
-    if(key === "D" || key === "d"){
-        changeDirection('R');
-        printGame(letter);
-        xPosition = wherePiece('x');
-        yPosition = wherePiece('y');
-    }
-    if(key === "S" || key === "s"){
-        downPiece(letter);
-        printGame(letter);
-        xPosition = wherePiece('x');
-        yPosition = wherePiece('y');
-    }
-    if(key === "E" || key === "e"){
-        block = rotatePiece('R',block)
-        putPiece(block,xPosition,yPosition);
-        printGame(letter);
-    }
-    if(key === "Q" || key === "q"){
-        block = rotatePiece('L',block);
-        putPiece(block,xPosition,yPosition);
-        printGame(letter);
+    if(openAux){
+
+        if(key === "A" || key === "a"){
+            changeDirection('L');
+            printGame(letter);
+            xPosition = wherePiece('x');
+            yPosition = wherePiece('y');
+        }
+        if(key === "D" || key === "d"){
+            changeDirection('R');
+            printGame(letter);
+            xPosition = wherePiece('x');
+            yPosition = wherePiece('y');
+        }
+        if(key === "S" || key === "s"){
+            downPiece(letter);
+            printGame(letter);
+            xPosition = wherePiece('x');
+            yPosition = wherePiece('y');
+        }
+        if(key === "E" || key === "e"){
+            block = rotatePiece('R',block)
+            putPiece(block,xPosition,yPosition);
+            printGame(letter);
+        }
+        if(key === "Q" || key === "q"){
+            block = rotatePiece('L',block);
+            putPiece(block,xPosition,yPosition);
+            printGame(letter);
+        }
     }
 });
 
+function setOpenAux(op){
+    openAux = op;
+}
+
 function updateScore(){
-    let score = document.getElementById("score").innerHTML;
-    score = parseInt(score);
-    score += 10;
-    document.getElementById("score").innerHTML = score;
+    let score = document.getElementsByClassName("score");
+    for(let x = 0; x<score.length; x++){
+        let scoreAux = score[x].innerHTML;
+        scoreAux = parseInt(scoreAux);
+        scoreAux += 10;
+        document.getElementsByClassName("score")[x].innerHTML = scoreAux;
+    }
 }
 
 function clearLine(mCL){
     let mat = makeMatrix(10,20);
-    for(let x=(m.length-1) ; x>=0; x--){
-        if(x !== 0){
-            mat[x] = mCL[x-1];
+    for(let x=(m.length-1) ; x>0; x--){
+        if(m[x].indexOf(0) !== 1 && m[x].indexOf(1) !== 1){
+            for(let y=(m.length-1) ; y>0; y--){
+                if(y<=x){
+                    mat[y] = mCL[y-1];
+                }
+                else{
+                    mat[y] = mCL[y];
+                }
+            }
         }
     }
     return mat;

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,14 +10,43 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="./menu.js"></script>
 </head>
+
 <body>
-    
+    <dialog id="dia" style="text-align: center;">
+        <h4>SCORE: <span class="score">0</span> </h4>
+        <a class="btn btn2" onclick="window.location.replace('/');">BACK</a>
+    </dialog>
+
     <div id="main">
-        <h4>SCORE: <span id="score">0</span> </h4>
-        <canvas id="game"></canvas>
-        <script src="./game.js"></script>
+
+        
+        <div class="all">
+            <div id="col1">
+                <h4 style="width: auto;"> <a class="btn" id="btndia" onclick="setOpenAux(openDialog())">MENU</i></a></h4>
+                <div class="manual">
+                    <span class="paragrafo"> - Press <span class="paragrafo1">A, S and D</span>  to move the piece.</span><br>
+                    <span class="paragrafo"> - Press <span class="paragrafo1">Q, and E</span>  to rotate the piece.</span><br>
+                    <span class="paragrafo"> - You lose when the pieces catch up the top border.</span><br> <br>
+                    <img src="control.jpeg" style="width: 100%; height: 100%;  " alt="">
+                </div>
+            </div>
+            <div>
+                <h4> 
+                    SCORE: <span class="score">0</span> </h4>
+                <canvas id="game"></canvas>
+            </div>
+            <script src="./game.js"></script>
+            <!-- <div class="clearfix"></div> -->
+        </div>
+
     </div>
 
+
 </body>
+
 </html>

@@ -12,6 +12,7 @@ app.get('/index.html', (req, res) =>{
 app.get('/', (req, res) =>{
   app.use(express.static(__dirname+"/css"));
   app.use(express.static(__dirname+"/images"));
+  app.use(express.static(__dirname+"/script"));
   
   res.sendFile(__dirname+"/html/index.html");
 });
@@ -19,12 +20,14 @@ app.get('/', (req, res) =>{
 app.get('/lobby', (req, res) =>{
   app.use(express.static(__dirname+"/css"));
   app.use(express.static(__dirname+"/images"));
+  app.use(express.static(__dirname+"/script"));
   
   res.sendFile(__dirname+"/html/pre_lobby.html");
 });
 
 app.get('/play', (req, res) =>{
   app.use(express.static(__dirname+"/css"));
+  app.use(express.static(__dirname+"/images"));
   app.use(express.static(__dirname+"/script"));
   
   
