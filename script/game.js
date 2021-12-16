@@ -2,8 +2,8 @@
 const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
 
-canvas.width = 100;
-canvas.height = 200;
+canvas.width = 800;
+canvas.height = 1600;
 
 ctx.fillStyle = "#2a2a30";
 ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -36,9 +36,9 @@ setInterval(()=>{
             xPosition = wherePiece('x');
             yPosition = wherePiece('y');
         }
-        else if(verifyIfCompleteALine()){
-            while(verifyIfCompleteALine()){
-                m = clearLine(m);
+        else if(verifyIfCompleteALine() >= 0){
+            while(verifyIfCompleteALine() >= 0){
+                m = clearLine(m,verifyIfCompleteALine());
                 printGame();
                 updateScore();
             }
@@ -107,18 +107,14 @@ function updateScore(){
     }
 }
 
-function clearLine(mCL){
+function clearLine(mCL,xaux){
     let mat = makeMatrix(10,20);
     for(let x=(m.length-1) ; x>0; x--){
-        if(m[x].indexOf(0) !== 1 && m[x].indexOf(1) !== 1){
-            for(let y=(m.length-1) ; y>0; y--){
-                if(y<=x){
-                    mat[y] = mCL[y-1];
-                }
-                else{
-                    mat[y] = mCL[y];
-                }
-            }
+        mat[x] = mCL[x];
+    }
+    for(let x=(m.length-1) ; x>0; x--){
+        if(x<=xaux){
+            mat[x] = mCL[x-1];
         }
     }
     return mat;
@@ -126,11 +122,12 @@ function clearLine(mCL){
 
 function verifyIfCompleteALine(){
     for(let x=(m.length-1) ; x>=0; x--){
-        if(m[x].indexOf(0) === -1){
-            return true;
+        if(m[x].indexOf(0) === -1 && m[x].indexOf(1) !== 1){
+            console.log("uma linha completa")
+            return x;
         }
     }
-    return false;
+    return -1;
 }
 
 function printGame(letter){ //print the game with the colors of the pieces
@@ -138,15 +135,15 @@ function printGame(letter){ //print the game with the colors of the pieces
         for(let y=0;y< m[x].length ;y++){
             if(m[x][y] === 1){
                 ctx.fillStyle = colors(letter);
-                ctx.fillRect(y*10,x*10,(y+10),(x+10));
+                ctx.fillRect(y*80,x*80,(y+80),(x+80));
             }
             else if(m[x][y] === 0){
                 ctx.fillStyle = '#2a2a30';
-                ctx.fillRect(y*10,x*10,(y+10),(x+10));
+                ctx.fillRect(y*80,x*80,(y+80),(x+80));
             }
             else if(m[x][y] !== 1 && m[x][y] !== 0){
                 ctx.fillStyle = colors(m[x][y]);
-                ctx.fillRect(y*10,x*10,(y+10),(x+10));
+                ctx.fillRect(y*80,x*80,(y+80),(x+80));
             }
         }
     }

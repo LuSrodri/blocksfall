@@ -13,6 +13,7 @@ app.get('/', (req, res) =>{
   app.use(express.static(__dirname+"/css"));
   app.use(express.static(__dirname+"/images"));
   app.use(express.static(__dirname+"/script"));
+  app.use(express.static(__dirname+"/fonts"));
   
   res.sendFile(__dirname+"/html/index.html");
 });
@@ -29,6 +30,7 @@ app.get('/play', (req, res) =>{
   app.use(express.static(__dirname+"/css"));
   app.use(express.static(__dirname+"/images"));
   app.use(express.static(__dirname+"/script"));
+  app.use(express.static(__dirname+"/fonts"));
   
   
   res.sendFile(__dirname+"/html/play.html");

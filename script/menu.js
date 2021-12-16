@@ -2,12 +2,12 @@
 
 function openDialog(){
 
-    if(document.getElementById("dia").hasAttribute("open")){
-        document.getElementById("dia").removeAttribute("open");
+    if(document.getElementById("dialogMenu").hasAttribute("open")){
+        document.getElementById("dialogMenu").removeAttribute("open");
         return true;
     }
     else{
-        document.getElementById("dia").setAttribute("open",null);
+        document.getElementById("dialogMenu").setAttribute("open",null);
         return false;
     }
 }

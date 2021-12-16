@@ -1,89 +1,48 @@
 
+@font-face {
+	font-family: FORCED-SQUARE;
+	src: url(./FORCED-SQUARE.ttf)
+}
+
 html {
     height: 100%;
     width: 100%;
     overflow: hidden;
-    font-family: 'Righteous', cursive;
+    font-family: FORCED-SQUARE, cursive;
 
 }
 
 body {
-    background-position: center;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-image: url('./background-image-blocksfall.jpeg');
-    background-color: #fad02c;
+    display: flex;
+    flex-direction: row;
+    background-color: orange;
     height: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
-.paragrafo{
-    color: white;
-    font-size: 15px;
-}
-.paragrafo1{
-    color: orange;
+.container{
+    width: 90%;
+    height: 90%;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 #main {
-    position: relative;
-    width: 50%;
-    height: 95%;
-    margin: auto;
-    padding-bottom: 10px;
-}
-
-div.main2{
-    display: block;
-}
-
-img.icon {  
-    position: absolute;
-    display: block;
-    width: 100px;
-    height: 80px;
-    top: 100%;
-    left: 100%;
-    margin-top: -90px; 
-    margin-left: -110px;
+    background-color: orange;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .title {
-    box-shadow: 10px 10px black;
-    padding: 10px;
-    color: yellow;
-    margin: 150px auto 0 auto;
-    width: 400px;
-    text-align: center;
-    font-size: 70px;
-    background-color: #202028;
-    border: 2px solid #202028;
+    margin: 0;
+    font-size: 100px;
     user-select: none;
-}
-
-.title:hover {
-    color: #202028;
-    background-color: yellow;
-    border: 2px solid yellow;
-}
-
-div.divbtn {
-    margin: 0 auto;
-    text-align: center;
-}
-
-a.btn2 {
-    font-size: 35px;
-    width: 300px;
-}
-
-a.btn3 {
-    color: #202028;
-    background-color: yellow;
-}
-
-a.btn3:hover {
-    color: yellow;
-    background-color: #202028;
 }
 
 .btn {
@@ -92,17 +51,14 @@ a.btn3:hover {
     border-bottom: 10px solid black;
     border-right: 10px solid black;
     cursor: pointer;
-    margin: 50px auto 0 auto;
-    display: inline-block;
     text-decoration: none;
     color: black;
     padding: 15px 40px;
-    font-size: 55px;
+    font-size: 40px;
     background-color: orange;
-    text-align: center;
     user-select: none;
 }
-  
+
 .btn:hover {
     border-top: 10px solid black;
     border-left: 10px solid black ;
@@ -112,79 +68,98 @@ a.btn3:hover {
     color: #202028;
 }
 
-canvas {
-    margin: 0 auto;
-    padding: 0;
-    border: 5px solid orange;
-    width: 290px;
-    height: 580px;
-}
-
-a#btndia{
-    border: 2px solid black;
-    display: inline;
-    height: 3px;
-    width: 15px;
-    padding: 0 15px;
-    text-align: center;
-    padding: 5px;
-    font-size: 15px;
-    margin: 0;
-    border-radius: 10%;
-}
-
-a#btndia:hover{
-    background-color: black;
-    color: orange;
-}
-
-h4 {
-    padding: 20px;
-    color: #fad02c;
-    margin: 10px auto 5px auto;
-    width: 250px;
-    text-align: center;
+.btnDialog{
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: solid black 3px;
+    background-color: #fad02c;
     font-size: 20px;
-    background-color: #202028;
-    border: 2px solid orange;
-    border-radius: 5px;
-    user-select: none;
 }
 
-.score {
-    color: white;
-}
-
-#dia{
-    z-index: 3;
-    margin-top: 50px;
-    width: 500px;
-    height: 500px;
+.btnDialog:hover {
+    padding: 5px 10px;
+    border: solid black 3px;
     background-color: orange;
-    border: 10px solid black ;
-    box-shadow: 10px 10px  gray; 
+    font-size: 20px;
 }
 
-dialog::before {
-    background: hsla(0, 0%, 0%, .5);
-}
-
-.all {
+#hud {
+    background-color: orange;
+    height: 100%;
+    width: 60%;
     display: flex;
-    margin-bottom: 10px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.information{
+    height: 100%;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.scoreAndMenu{
+    border: 5px solid black;
+    background-color: #202028;
+    padding: 0 25px;
+    width: 100%;
+    margin-bottom: 5px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .manual{
     background-color: #202028;
     padding: 25px;
-    border: 5px solid orange;
+    border: 5px solid black;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
 }
 
-#col1{
-    width: 250px;
-    margin-right: 10px;
+canvas {
+    padding: 0;
+    border: 5px solid black;
+    width: 300px;
+    height: 600px;
 }
 
+.scoreShow{
+    font-size: 22px;
+    color: white;
+}
+
+.text1{
+    color: white;
+    font-size: 20px;
+}
+
+#dialogMenu{
+    z-index: 3;
+    margin: auto;
+    width: 500px;
+    height: 500px;
+    background-color: orange;
+    border: 10px solid black;
+}
+
+.dialogDiv{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center; 
+}
 
 @media screen and (max-width: 500px) {
     
