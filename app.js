@@ -11,7 +11,7 @@ app.get('/index.html', (req, res) => {
 
 app.get('/', (req, res) => {
 
-  if (/mobile/i === true) {
+  if (req.headers['sec-ch-ua-mobile'] !== "?0") {
     res.sendFile(__dirname + "/html/inSoonMobile.html");
   }
   else{
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/play', (req, res) => {
-  if (/mobile/i === true) {
+  if (req.headers['sec-ch-ua-mobile'] !== "?0") {
     res.sendFile(__dirname + "/html/inSoonMobile.html");
   }
   else{
