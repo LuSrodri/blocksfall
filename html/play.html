@@ -15,8 +15,17 @@
     <dialog id="dialogMenu" style="text-align: center;">
         <div class="dialogDiv">
             <h1>Pause</h1>
-            <h2 class="scoreShow">SCORE: <span class="score">0</span> </h2>
+            <h2 class="scoreShow" style="color: black">SCORE: <span class="score">0</span> </h2>
             <a class="btn" onclick="setOpenAux(openDialog())">Resume</a>
+            <a class="btn" onclick="window.location.replace('/')">BACK TO MENU</a>
+        </div>
+    </dialog>
+
+    <dialog id="dialogGameOver" style="text-align: center;">
+        <div class="dialogDiv">
+            <h1 style="color: red">Game Over</h1>
+            <h2 class="scoreShow" style="color: black">YOU SCORED: <span class="score">0</span> </h2>
+            <a class="btn" onclick="window.location.replace('/play')">Restart</a>
             <a class="btn" onclick="window.location.replace('/')">BACK TO MENU</a>
         </div>
     </dialog>

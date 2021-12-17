@@ -11,7 +11,7 @@ document.getElementById("game").parentNode.replaceChild(canvas,document.getEleme
 
 let m = new Array();
 m = makeMatrix(10,20);
-console.log(m);
+//console.log(m);
 
 let openAux = true;
 
@@ -23,11 +23,16 @@ putPiece(block,0,3);
 printGame(letter);
 let xPosition = wherePiece('x');
 let yPosition = wherePiece('y');
+let scoreGame = 0;
 
-setInterval(()=>{
+let rodando = setInterval(()=>{
+    setRecord();
     let letters = ['T','Z','I','L','J','S','O'];
     let teste = testIfHavePiece();
-    
+    if(ifCatchTop()){
+        clearInterval(rodando);
+    }
+
     if(openAux){
 
         if(teste){
@@ -93,6 +98,40 @@ document.body.addEventListener('keydown', function (event) {
     }
 });
 
+function setRecord(){
+    if(localStorage.getItem('scoreRecord') === null){
+        localStorage.setItem('scoreRecord',scoreGame);
+    }
+    else{
+
+        if(Number(localStorage.getItem('scoreRecord')) < scoreGame){
+            localStorage.setItem('scoreRecord',scoreGame);
+        }
+    }
+}
+
+function ifCatchTop(){
+    for(let i=0 ; i<m[0].length; i++){
+        if(m[0][i] !== 0 && m[0][i] !== 1){
+            //console.log("gameover!!!");
+            gameOverPrint();
+            return true;
+        }
+    }
+    return false;
+}
+
+function gameOverPrint(){
+    if(document.getElementById("dialogGameOver").hasAttribute("open")){
+        document.getElementById("dialogGameOver").removeAttribute("open");
+        return true;
+    }
+    else{
+        document.getElementById("dialogGameOver").setAttribute("open",null);
+        return false;
+    }
+}
+
 function setOpenAux(op){
     openAux = op;
 }
@@ -104,6 +143,7 @@ function updateScore(){
         scoreAux = parseInt(scoreAux);
         scoreAux += 10;
         document.getElementsByClassName("score")[x].innerHTML = scoreAux;
+        scoreGame = scoreAux;
     }
 }
 
@@ -123,7 +163,7 @@ function clearLine(mCL,xaux){
 function verifyIfCompleteALine(){
     for(let x=(m.length-1) ; x>=0; x--){
         if(m[x].indexOf(0) === -1 && m[x].indexOf(1) !== 1){
-            console.log("uma linha completa")
+            //console.log("uma linha completa")
             return x;
         }
     }
@@ -251,8 +291,11 @@ function putPiece(blockpp, xAux, yAux){ //put the pieces in the matrix
                 count1++;
             }
         }
-        else{
+        else if(yAux>((m[0].length-1)-blockpp[0].length)){
             yAux--;
+        }
+        else{
+            right = false;
         }
     }
 }

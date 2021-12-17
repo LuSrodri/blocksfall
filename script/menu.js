@@ -1,4 +1,5 @@
 
+updateScore()
 
 function openDialog(){
 
@@ -9,5 +10,13 @@ function openDialog(){
     else{
         document.getElementById("dialogMenu").setAttribute("open",null);
         return false;
+    }
+}
+
+function updateScore(){
+    if(document.getElementById("scoreRecord") !== null){
+        let scoreAux = localStorage.getItem('scoreRecord');
+        scoreAux = parseInt(scoreAux);
+        document.getElementById("scoreRecord").innerHTML = scoreAux;
     }
 }
