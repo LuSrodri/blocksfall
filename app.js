@@ -55,6 +55,10 @@ app.get('/background-image-blocksfall.jpeg', (req, res) => {
   res.sendFile(__dirname + "/images/background-image-blocksfall.jpeg");
 });
 
+app.get('/blocksfall-logo.png', (req, res) => {
+  res.sendFile(__dirname + "/images/blocksfall-logo.png");
+});
+
 // app.get('/lobby', (req, res) =>{
 //   app.use(express.static(__dirname+"/css"));
 //   app.use(express.static(__dirname+"/images"));

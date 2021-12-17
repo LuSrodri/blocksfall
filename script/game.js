@@ -67,25 +67,25 @@ document.body.addEventListener('keydown', function (event) {
     const key = event.key;
     if(openAux){
 
-        if(key === "A" || key === "a"){
+        if(key === "A" || key === "a" || key === "ArrowLeft"){
             changeDirection('L');
             printGame(letter);
             xPosition = wherePiece('x');
             yPosition = wherePiece('y');
         }
-        if(key === "D" || key === "d"){
+        if(key === "D" || key === "d" || key === "ArrowRight"){
             changeDirection('R');
             printGame(letter);
             xPosition = wherePiece('x');
             yPosition = wherePiece('y');
         }
-        if(key === "S" || key === "s"){
+        if(key === "S" || key === "s" || key === "ArrowDown"){
             downPiece(letter);
             printGame(letter);
             xPosition = wherePiece('x');
             yPosition = wherePiece('y');
         }
-        if(key === "E" || key === "e"){
+        if(key === "E" || key === "e" || key === " "){
             block = rotatePiece('R',block)
             putPiece(block,xPosition,yPosition);
             printGame(letter);
@@ -95,6 +95,7 @@ document.body.addEventListener('keydown', function (event) {
             putPiece(block,xPosition,yPosition);
             printGame(letter);
         }
+        key = null;
     }
 });
 
