@@ -51,6 +51,10 @@ app.get('/control.jpeg', (req, res) => {
   res.sendFile(__dirname + "/images/control.jpeg");
 });
 
+app.get('/background-image-blocksfall.jpeg', (req, res) => {
+  res.sendFile(__dirname + "/images/background-image-blocksfall.jpeg");
+});
+
 // app.get('/lobby', (req, res) =>{
 //   app.use(express.static(__dirname+"/css"));
 //   app.use(express.static(__dirname+"/images"));

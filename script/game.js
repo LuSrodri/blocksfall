@@ -176,6 +176,8 @@ function printGame(letter){ //print the game with the colors of the pieces
             if(m[x][y] === 1){
                 ctx.fillStyle = colors(letter);
                 ctx.fillRect(y*80,x*80,(y+80),(x+80));
+                ctx.fillStyle = 'black';
+                ctx.strokeRect(y*80,x*80,(y+80),(x+80));
             }
             else if(m[x][y] === 0){
                 ctx.fillStyle = '#2a2a30';
@@ -184,6 +186,8 @@ function printGame(letter){ //print the game with the colors of the pieces
             else if(m[x][y] !== 1 && m[x][y] !== 0){
                 ctx.fillStyle = colors(m[x][y]);
                 ctx.fillRect(y*80,x*80,(y+80),(x+80));
+                ctx.fillStyle = 'black';
+                ctx.strokeRect(y*80,x*80,(y+80),(x+80));
             }
         }
     }
@@ -457,13 +461,13 @@ function createBlock(op){//create the pieces by the option
 
 function colors(op){ //change the colors of the pieces
     if(op === 'T'){
-        return 'red';
+        return '#FF69B4';
     }
     if(op === 'Z'){
-        return 'blue';
+        return '#00BFFF';
     }
     if(op === 'I'){
-        return 'green';
+        return '#98FB98';
     }
     if(op === 'L'){
         return 'yellow';
@@ -472,10 +476,10 @@ function colors(op){ //change the colors of the pieces
         return 'orange';
     }
     if(op === 'S'){
-        return 'purple';
+        return '#7B68EE';
     }
     if(op === 'O'){
-        return 'white';
+        return '#F5DEB3';
     }
 }
 

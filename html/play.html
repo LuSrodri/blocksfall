@@ -14,18 +14,22 @@
 <body>
     <dialog id="dialogMenu" style="text-align: center;">
         <div class="dialogDiv">
-            <h1>Pause</h1>
-            <h2 class="scoreShow" style="color: black">SCORE: <span class="score">0</span> </h2>
-            <a class="btn" onclick="setOpenAux(openDialog())">Resume</a>
+            <h1 style="font-size: 40px;">PAUSE</h1>
+            <div class="scoreAndMenu" style="width: 100%; padding: 0;">
+                <h2 class="scoreShow" style="font-size: 35px;">Score: <span class="score">0</span></h2>
+            </div>
+            <a class="btn" onclick="setOpenAux(openDialog())">RESUME</a>
             <a class="btn" onclick="window.location.replace('/')">BACK TO MENU</a>
         </div>
     </dialog>
 
     <dialog id="dialogGameOver" style="text-align: center;">
         <div class="dialogDiv">
-            <h1 style="color: red">Game Over</h1>
-            <h2 class="scoreShow" style="color: black">YOU SCORED: <span class="score">0</span> </h2>
-            <a class="btn" onclick="window.location.replace('/play')">Restart</a>
+            <h1 style="color: red; font-size: 50px;">GAME OVER</h1>
+            <div class="scoreAndMenu" style="width: 100%; padding: 0;">
+                <h2 class="scoreShow" style="font-size: 35px;">You Scored: <span class="score">0</span></h2>
+            </div>
+            <a class="btn" onclick="window.location.replace('/play')">RESTART</a>
             <a class="btn" onclick="window.location.replace('/')">BACK TO MENU</a>
         </div>
     </dialog>
