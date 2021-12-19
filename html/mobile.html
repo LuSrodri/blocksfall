@@ -10,11 +10,12 @@
     <meta name="application-name" content="Blocks Fall">
     <meta name="author" content="https://www.linkedin.com/in/lucas-santos-rodrigues-322371184/">
     <link rel="icon" type="image/x-icon" href="./blocksfall-logo.png">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style-mobile.css">
+    <link href="./icons.css" rel="stylesheet">
     <link href="./FORCED SQUARE.ttf" rel="stylesheet">
     <script src="./menu.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4463881368194285"
-     crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -41,29 +42,31 @@
     </dialog>
 
     <div class="container">
-        <div id="hud">
-            <div class="information">
-                <div class="scoreAndMenu"> 
-                    <a class="btn btnDialog" id="" onclick="setOpenAux(openDialog())">MENU</i></a>
-                    <div>
-                        <h2 class="scoreShow">SCORE: <span class="score">0</span> </h2>
-                    </div>
-                </div>
-
-                <div class="manual">
-                    <span class="text1"> - Press <span style="color: orange">A, S and D</span> or 
-                    <span style="color: orange">the arrows</span> to move the
-                        piece.</span><br>
-                    <span class="text1"> - Press <span style="color: orange">Q, and E</span> or 
-                    <span style="color: orange">Spacebar</span> to rotate the
-                        piece.</span><br>
-                    <span class="text1"> - You lose when the pieces catch up the top border.</span><br> <br>
-                    <img src="control.jpeg" style="width: 100%; height: 100%; border: solid 2px white; " alt="">
+        <div class="hud hudMobile">
+        
+            <div class="scoreAndMenu scoreAndMenuMobile"> 
+                <a class="btn btnDialog" id="" onclick="setOpenAux(openDialog())">MENU</i></a>
+                <div>
+                    <h2 class="scoreShow">SCORE: <span class="score">0</span> </h2>
                 </div>
             </div>
 
-            <canvas id="game"></canvas>
-            <script src="./game.js"></script>
+            <canvas id="game" class="canvasMobile"></canvas>
+            <script src="./game-mobile.js"></script>
+
+            <div class="controller">
+                <div class="rows"> 
+                    <a class="btn btnMobile"><i class="fas fa-undo"></i></a>
+                    <a class="btn btnMobile"><i class="fas fa-redo-alt"></i></a>
+                </div>
+                <div class="rows">
+                    <a class="btn btnMobile"><i class="fas fa-arrow-left"></i></a>
+                    <a class="btn btnMobile"><i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="rows rows1">
+                    <a class="btn btnMobile"><i class="fas fa-arrow-down"></i></a>
+                </div>
+            </div>
 
         </div>
     </div>
