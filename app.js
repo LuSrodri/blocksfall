@@ -45,6 +45,10 @@ app.get('/style-mobile.css', (req, res) => {
   res.sendFile(__dirname + "/css/style-mobile.css");
 });
 
+app.get('/buttons.css', (req, res) => {
+  res.sendFile(__dirname + "/css/buttons.css");
+});
+
 app.get('/FORCED-SQUARE.ttf', (req, res) => {
   res.sendFile(__dirname + "/fonts/FORCED-SQUARE.ttf");
 });

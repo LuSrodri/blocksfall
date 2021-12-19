@@ -61,7 +61,7 @@ let rodando = setInterval(()=>{
     // console.log("Posicao X = "+ xPosition);
     // console.log("Posicao y = "+ yPosition);
 
-},1000);
+},800);
 
 document.body.addEventListener('keydown', function (event) {
     const key = event.key;

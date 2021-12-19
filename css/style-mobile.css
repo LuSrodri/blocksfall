@@ -74,10 +74,11 @@ body {
 
 .btnMobile{
     border: solid black 3px;
+    border-radius: 5px;
     padding: 1px;
     font-size: 100%;
     width: 90%;
-    height: 60%;
+    height: 75%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -86,7 +87,8 @@ body {
 
 .btnMobile:hover {
     border: solid black 3px;
-    background-color: yellow;
+    border-radius: 5px;
+    background-color: orangered;
 }
 
 .btnDialog{
@@ -194,8 +196,8 @@ canvas.canvasMobile{
 #dialogMenu{
     z-index: 3;
     margin: auto;
-    width: 500px;
-    height: 500px;
+    width: 200px;
+    height: 200px;
     background-color: orange;
     border: 10px solid black;
 }
@@ -203,8 +205,8 @@ canvas.canvasMobile{
 #dialogGameOver{
     z-index: 3;
     margin: auto;
-    width: 500px;
-    height: 500px;
+    width: 200px;
+    height: 200px;
     background-color: orange;
     border: 10px solid black;
 }
@@ -232,6 +234,7 @@ canvas.canvasMobile{
 }
 
 .rows{
+    margin-top: 1px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -252,6 +255,26 @@ canvas.canvasMobile{
         height: 480px;
         max-width: none;
         max-height: none;
+    }
+    #dialogMenu{
+        z-index: 3;
+        margin: auto;
+        width: 300px;
+        height: 300px;
+        background-color: orange;
+        border: 10px solid black;
+    }
+    #dialogGameOver{
+        z-index: 3;
+        margin: auto;
+        width: 300px;
+        height: 300px;
+        background-color: orange;
+        border: 10px solid black;
+    }
+    .dialogDiv .btnMobile{
+        width: 90%;
+        height: 30px;
     }
 }
 
@@ -286,6 +309,26 @@ canvas.canvasMobile{
     }
     .controller{
         height: 70px;
+    }
+    #dialogMenu{
+        z-index: 3;
+        margin: auto;
+        width: 200px;
+        height: 200px;
+        background-color: orange;
+        border: 10px solid black;
+    }
+    #dialogGameOver{
+        z-index: 3;
+        margin: auto;
+        width: 200px;
+        height: 200px;
+        background-color: orange;
+        border: 10px solid black;
+    }
+    .dialogDiv .btnMobile{
+        width: 90%;
+        height: 30px;
     }
 }
 

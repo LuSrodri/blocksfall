@@ -20,7 +20,7 @@ let letters = ['T','Z','I','L','J','S','O'];
 let random = Math.floor(Math.random() * letters.length);
 let letter = letters[random];
 let block = createBlock(letter);
-putPiece(block,0,3);
+putPiece(block,0,5);
 printGame(letter);
 let xPosition = wherePiece('x');
 let yPosition = wherePiece('y');
@@ -53,7 +53,7 @@ let rodando = setInterval(()=>{
             let random = Math.floor(Math.random() * letters.length);
             letter = letters[random];
             block = createBlock(letter);
-            putPiece(block,0,3);
+            putPiece(block,0,5);
             printGame(letter);
             xPosition = wherePiece('x');
             yPosition = wherePiece('y');
@@ -62,7 +62,7 @@ let rodando = setInterval(()=>{
     // console.log("Posicao X = "+ xPosition);
     // console.log("Posicao y = "+ yPosition);
 
-},1000);
+},800);
 
 document.body.addEventListener('keydown', function (event) {
     const key = event.key;
@@ -99,6 +99,39 @@ document.body.addEventListener('keydown', function (event) {
         key = null;
     }
 });
+
+function leftMove(){
+    changeDirection('L');
+    printGame(letter);
+    xPosition = wherePiece('x');
+    yPosition = wherePiece('y');
+}
+
+function rightMove(){
+    changeDirection('R');
+    printGame(letter);
+    xPosition = wherePiece('x');
+    yPosition = wherePiece('y');
+}
+
+function downMove(){
+    downPiece(letter);
+    printGame(letter);
+    xPosition = wherePiece('x');
+    yPosition = wherePiece('y');
+}
+
+function rotateRight(){
+    block = rotatePiece('R',block)
+    putPiece(block,xPosition,yPosition);
+    printGame(letter);
+}
+
+function rotateLeft(){
+    block = rotatePiece('L',block);
+    putPiece(block,xPosition,yPosition);
+    printGame(letter);
+}
 
 function setRecord(){
     if(localStorage.getItem('scoreRecord') === null){
