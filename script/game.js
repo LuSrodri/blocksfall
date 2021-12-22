@@ -44,11 +44,9 @@ let rodando = setInterval(()=>{
         }
         else if(verifyIfCompleteALine() >= 0){
             while(verifyIfCompleteALine() >= 0){
-                updateScore();
-                console.log("foiiiiiiiiiii")
                 m = clearLine(m,verifyIfCompleteALine());
                 printGame();
-                console.log("como assim")
+                updateScored();
             }
         }
         else{
@@ -65,6 +63,17 @@ let rodando = setInterval(()=>{
     // console.log("Posicao y = "+ yPosition);
 
 },800);
+
+function updateScored(){
+    let score = document.getElementsByClassName("score");
+    for(let x = 0; x<score.length; x++){
+        let scoreAux = score[x].innerHTML;
+        scoreAux = parseInt(scoreAux);
+        scoreAux += 10;
+        document.getElementsByClassName("score")[x].innerHTML = scoreAux;
+        scoreGame = scoreAux;
+    }
+}
 
 document.body.addEventListener('keydown', function (event) {
     const key = event.key;
@@ -137,18 +146,6 @@ function gameOverPrint(){
 
 function setOpenAux(op){
     openAux = op;
-}
-
-function updateScore(){
-    console.log("------------------------------------------------------------------------");
-    let score = document.getElementsByClassName("score");
-    for(let x = 0; x<score.length; x++){
-        let scoreAux = score[x].innerHTML;
-        scoreAux = parseInt(scoreAux);
-        scoreAux += 10;
-        document.getElementsByClassName("score")[x].innerHTML = scoreAux;
-        scoreGame = scoreAux;
-    }
 }
 
 function clearLine(mCL,xaux){
