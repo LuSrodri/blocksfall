@@ -5,23 +5,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLOCKS' FALL</title>
-    <meta name="description" content="Blocks' Fall - The funnest game">
+    <title>BLOCKS' FALL - the funnest game for pc and mobile</title>
+    <meta name="description" content="BLOCKS' FALL - the funnest game for pc and mobile">
     <meta name="application-name" content="Blocks Fall">
     <meta name="author" content="https://www.linkedin.com/in/lucas-santos-rodrigues-322371184/">
     <link rel="icon" type="image/x-icon" href="./blocksfall-logo.png">
     <link rel="stylesheet" href="./style-mobile.css">
     <link href="./icons.css" rel="stylesheet">
-    <link href="./FORCED SQUARE.ttf" rel="stylesheet">
+    <link href="./FORCED-SQUARE.ttf" rel="stylesheet">
     <script src="./menu.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4463881368194285"
         crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body id="body">
     <dialog id="dialogMenu" style="text-align: center;">
         <div class="dialogDiv">
-            <h1 >PAUSE</h1>
+            <a  class="btn btnMobile" onclick="musicOnOff()">
+                <i id="button-music" class="fas fa-volume-mute"></i>
+            </a>
+            <h1 style="margin: 0">PAUSE</h1>
             <div class="scoreAndMenu scoreAndMenuMobile" style="width: 100%; padding: 0;">
                 <h2 class="scoreShow">Score: <span class="score">0</span></h2>
             </div>
@@ -52,24 +55,26 @@
             </div>
 
             <canvas id="game" class="canvasMobile"></canvas>
-            <script src="./game-mobile.js"></script>
 
             <div class="controller">
                 <div class="rows"> 
-                    <a class="btn btnMobile" onmousedown="rotateLeft()"><i class="fas fa-undo"></i></a>
-                    <a class="btn btnMobile" onmousedown="rotateLeft()"><i class="fas fa-redo-alt"></i></a>
+                    <a class="btn btnMobile" id="rotateLeft" ><i class="fas fa-undo"></i></a>
+                    <a class="btn btnMobile" id="rotateRight" ><i class="fas fa-redo-alt"></i></a>
                 </div>
                 <div class="rows">
-                    <a class="btn btnMobile" onmousedown="leftMove()"><i class="fas fa-arrow-left"></i></a>
-                    <a class="btn btnMobile" onmousedown="rightMove()"><i class="fas fa-arrow-right"></i></a>
+                    <a class="btn btnMobile" id="leftMove" ><i class="fas fa-arrow-left"></i></a>
+                    <a class="btn btnMobile" id="rightMove" ><i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="rows rows1">
-                    <a class="btn btnMobile" onmousedown="downMove()"><i class="fas fa-arrow-down"></i></a>
+                    <a class="btn btnMobile" id="downMove" ><i class="fas fa-arrow-down"></i></a>
                 </div>
             </div>
 
         </div>
     </div>
+
+    <script src="./menu.js"></script>
+    <script src="./game-mobile.js"></script>
 
 </body>
 

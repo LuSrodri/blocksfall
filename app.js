@@ -70,6 +70,10 @@ app.get('/icons.css', (req, res) => {
   res.sendFile(__dirname + "/fonts/all.css");
 });
 
+app.get('/music.mp3', (req, res) => {
+  res.sendFile(__dirname + "/music/music.mp3");
+});
+
 
 // app.get('/lobby', (req, res) =>{
 //   app.use(express.static(__dirname+"/css"));

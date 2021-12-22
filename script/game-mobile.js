@@ -27,6 +27,7 @@ let yPosition = wherePiece('y');
 let scoreGame = 0;
 
 let rodando = setInterval(()=>{
+    localStorage.setItem('lastScore',scoreGame);
     setRecord();
     let letters = ['T','Z','I','L','J','S','O'];
     let teste = testIfHavePiece();
@@ -96,10 +97,11 @@ document.body.addEventListener('keydown', function (event) {
             putPiece(block,xPosition,yPosition);
             printGame(letter);
         }
-        key = null;
     }
 });
 
+let leftMove1 = document.getElementById("leftMove");
+leftMove1.addEventListener("touchstart",leftMove,true);
 function leftMove(){
     changeDirection('L');
     printGame(letter);
@@ -107,6 +109,8 @@ function leftMove(){
     yPosition = wherePiece('y');
 }
 
+let rightMove1 = document.getElementById("rightMove");
+rightMove1.addEventListener("touchstart",rightMove,true);
 function rightMove(){
     changeDirection('R');
     printGame(letter);
@@ -114,6 +118,8 @@ function rightMove(){
     yPosition = wherePiece('y');
 }
 
+let downMove1 = document.getElementById("downMove");
+downMove1.addEventListener("touchstart",downMove,true);
 function downMove(){
     downPiece(letter);
     printGame(letter);
@@ -121,12 +127,16 @@ function downMove(){
     yPosition = wherePiece('y');
 }
 
+let rotateRight1 = document.getElementById("rotateRight");
+rotateRight1.addEventListener("touchstart",rotateRight,true);
 function rotateRight(){
     block = rotatePiece('R',block)
     putPiece(block,xPosition,yPosition);
     printGame(letter);
 }
 
+let rotateLeft1 = document.getElementById("rotateLeft");
+rotateLeft1.addEventListener("touchstart",rotateLeft,true);
 function rotateLeft(){
     block = rotatePiece('L',block);
     putPiece(block,xPosition,yPosition);

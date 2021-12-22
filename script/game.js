@@ -26,6 +26,7 @@ let yPosition = wherePiece('y');
 let scoreGame = 0;
 
 let rodando = setInterval(()=>{
+    localStorage.setItem('lastScore',scoreGame);
     setRecord();
     let letters = ['T','Z','I','L','J','S','O'];
     let teste = testIfHavePiece();
@@ -43,9 +44,11 @@ let rodando = setInterval(()=>{
         }
         else if(verifyIfCompleteALine() >= 0){
             while(verifyIfCompleteALine() >= 0){
+                updateScore();
+                console.log("foiiiiiiiiiii")
                 m = clearLine(m,verifyIfCompleteALine());
                 printGame();
-                updateScore();
+                console.log("como assim")
             }
         }
         else{
@@ -95,7 +98,6 @@ document.body.addEventListener('keydown', function (event) {
             putPiece(block,xPosition,yPosition);
             printGame(letter);
         }
-        key = null;
     }
 });
 
@@ -138,6 +140,7 @@ function setOpenAux(op){
 }
 
 function updateScore(){
+    console.log("------------------------------------------------------------------------");
     let score = document.getElementsByClassName("score");
     for(let x = 0; x<score.length; x++){
         let scoreAux = score[x].innerHTML;
