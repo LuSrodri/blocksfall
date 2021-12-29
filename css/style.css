@@ -166,7 +166,7 @@ canvas {
     border: 10px solid black;
 }
 
-.dialogDiv{
+div.dialogDiv{
     width: 100%;
     height: 100%;
     display: flex;

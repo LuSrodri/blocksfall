@@ -13,42 +13,17 @@
     <link rel="stylesheet" href="./style-mobile.css">
     <link href="./icons.css" rel="stylesheet">
     <link href="./FORCED-SQUARE.ttf" rel="stylesheet">
-    <script src="./menu.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4463881368194285"
         crossorigin="anonymous"></script>
 </head>
 
 <body id="body">
-    <dialog id="dialogMenu" style="text-align: center;">
-        <div class="dialogDiv">
-            <a  class="btn btnMobile" onclick="musicOnOff()">
-                <i id="button-music" class="fas fa-volume-mute"></i>
-            </a>
-            <h1 style="margin: 0">PAUSE</h1>
-            <div class="scoreAndMenu scoreAndMenuMobile" style="width: 100%; padding: 0;">
-                <h2 class="scoreShow">Score: <span class="score">0</span></h2>
-            </div>
-            <a class="btn btnMobile" onclick="setOpenAux(openDialog())">RESUME</a>
-            <a class="btn btnMobile" onclick="window.location.replace('/')">BACK TO MENU</a>
-        </div>
-    </dialog>
-
-    <dialog id="dialogGameOver" style="text-align: center;">
-        <div class="dialogDiv">
-            <h1 style="color: red;">GAME OVER</h1>
-            <div class="scoreAndMenu scoreAndMenuMobile" style="width: 100%; padding: 0;">
-                <h2 class="scoreShow" >You Scored: <span class="score">0</span></h2>
-            </div>
-            <a class="btn btnMobile" onclick="window.location.replace('/play')">RESTART</a>
-            <a class="btn btnMobile" onclick="window.location.replace('/')">BACK TO MENU</a>
-        </div>
-    </dialog>
-
+    
     <div class="container">
         <div class="hud hudMobile">
         
             <div class="scoreAndMenu scoreAndMenuMobile"> 
-                <a class="btn btnDialog" id="" onclick="setOpenAux(openDialog())">MENU</i></a>
+                <a class="btn btnDialog" id="" onclick="pause()">PAUSE</i></a>
                 <div>
                     <h2 class="scoreShow">SCORE: <span class="score">0</span> </h2>
                 </div>
@@ -58,15 +33,15 @@
 
             <div class="controller">
                 <div class="rows"> 
-                    <a class="btn btnMobile" id="rotateLeft" ><i class="fas fa-undo"></i></a>
-                    <a class="btn btnMobile" id="rotateRight" ><i class="fas fa-redo-alt"></i></a>
+                    <button class="btn btnMobile" id="rotateLeft" ><i class="fas fa-undo"></i></button>
+                    <button class="btn btnMobile" id="rotateRight" ><i class="fas fa-redo-alt"></i></button>
                 </div>
                 <div class="rows">
-                    <a class="btn btnMobile" id="leftMove" ><i class="fas fa-arrow-left"></i></a>
-                    <a class="btn btnMobile" id="rightMove" ><i class="fas fa-arrow-right"></i></a>
+                    <button class="btn btnMobile" id="leftMove" ><i class="fas fa-arrow-left"></i></button>
+                    <button class="btn btnMobile" id="rightMove" ><i class="fas fa-arrow-right"></i></button>
                 </div>
                 <div class="rows rows1">
-                    <a class="btn btnMobile" id="downMove" ><i class="fas fa-arrow-down"></i></a>
+                    <button class="btn btnMobile" id="downMove" ><i class="fas fa-arrow-down"></i></button>
                 </div>
             </div>
 

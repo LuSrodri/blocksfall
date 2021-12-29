@@ -15,9 +15,11 @@ app.get('/', (req, res) => {
 
 app.get('/play', (req, res) => {
   if (req.headers['user-agent'].indexOf("Mobile") !== -1) {
+    app.use(express.static('html/pause'));
     res.sendFile(__dirname + "/html/mobile.html");
   }
   else{
+    app.use(express.static('html/pause'));
     res.sendFile(__dirname + "/html/play.html");
   }
 });

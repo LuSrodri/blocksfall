@@ -1,16 +1,37 @@
 
+let gaming = document.getElementById('body');
+
 updateScore()
 
-function openDialog(){
+function pause(){
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.responseType = "document";
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+            pauseAux(xmlHttp.response);
+        }
+    }
+    xmlHttp.open("GET", './pause.html', true); // true for asynchronous 
+    xmlHttp.send(null);
+}
 
-    if(document.getElementById("dialogMenu").hasAttribute("open")){
-        document.getElementById("dialogMenu").removeAttribute("open");
-        return true;
+function pauseAux(res){
+    let body = res.getElementById('body paused');
+    document.getElementById('body').parentNode.replaceChild(body,document.getElementById('body'));
+    if(document.getElementById("score") !== null){
+        showScore();
+        showScore();
     }
-    else{
-        document.getElementById("dialogMenu").setAttribute("open",null);
-        return false;
-    }
+}
+
+function resume(){
+    document.getElementById('body paused').parentNode.replaceChild(gaming,document.getElementById('body paused'));
+}
+
+function showScore(){
+    let scoreAux = localStorage.getItem('lastScore');
+    scoreAux = parseInt(scoreAux);
+    document.getElementById("score").innerHTML = scoreAux;
 }
 
 function updateScore(){
@@ -41,7 +62,12 @@ function musicOnOff(firstTime){
     }
     if(localStorage.getItem('mute') === "true"){
         if(document.getElementById("music") !== null){
-            document.getElementById("body").removeChild(document.getElementById("music"));
+            if(document.getElementById("body") !== null){
+                document.getElementById("body").parentNode.removeChild(document.getElementById("music"));
+            }
+            else{
+                document.getElementById("body paused").parentNode.removeChild(document.getElementById("music"));
+            }
             document.getElementById("button-music").className = "fas fa-volume-mute";
             return true;
         }
@@ -53,7 +79,12 @@ function musicOnOff(firstTime){
             audio.autoplay = 'true';
             audio.loop = 'true';
             audio.id = "music";
-            document.getElementById("body").appendChild(audio);
+            if(document.getElementById("body") !== null){
+                document.getElementById("body").parentNode.appendChild(audio);
+            }
+            else{
+                document.getElementById("body paused").parentNode.appendChild(audio);
+            }
             document.getElementById("button-music").className = "fas fa-volume-up";
             return false;
         }

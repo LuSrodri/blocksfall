@@ -26,43 +26,51 @@ let yPosition = wherePiece('y');
 let scoreGame = 0;
 
 let rodando = setInterval(()=>{
-    localStorage.setItem('lastScore',scoreGame);
-    setRecord();
-    let letters = ['T','Z','I','L','J','S','O'];
-    let teste = testIfHavePiece();
-    if(ifCatchTop()){
-        clearInterval(rodando);
-    }
 
-    if(openAux){
-
-        if(teste){
-            downPiece(letter);
-            printGame(letter);
-            xPosition = wherePiece('x');
-            yPosition = wherePiece('y');
+    if(!paused()){
+        localStorage.setItem('lastScore',scoreGame);
+        setRecord();
+        let letters = ['T','Z','I','L','J','S','O'];
+        let teste = testIfHavePiece();
+        if(ifCatchTop()){
+            clearInterval(rodando);
         }
-        else if(verifyIfCompleteALine() >= 0){
-            while(verifyIfCompleteALine() >= 0){
-                m = clearLine(m,verifyIfCompleteALine());
-                printGame();
-                updateScored();
+
+        if(openAux){
+
+            if(teste){
+                downPiece(letter);
+                printGame(letter);
+                xPosition = wherePiece('x');
+                yPosition = wherePiece('y');
+            }
+            else if(verifyIfCompleteALine() >= 0){
+                while(verifyIfCompleteALine() >= 0){
+                    m = clearLine(m,verifyIfCompleteALine());
+                    printGame();
+                    updateScored();
+                }
+            }
+            else{
+                let random = Math.floor(Math.random() * letters.length);
+                letter = letters[random];
+                block = createBlock(letter);
+                putPiece(block,0,3);
+                printGame(letter);
+                xPosition = wherePiece('x');
+                yPosition = wherePiece('y');
             }
         }
-        else{
-            let random = Math.floor(Math.random() * letters.length);
-            letter = letters[random];
-            block = createBlock(letter);
-            putPiece(block,0,3);
-            printGame(letter);
-            xPosition = wherePiece('x');
-            yPosition = wherePiece('y');
-        }
-    }
-    // console.log("Posicao X = "+ xPosition);
-    // console.log("Posicao y = "+ yPosition);
-
+        // console.log("Posicao X = "+ xPosition);
+        // console.log("Posicao y = "+ yPosition);
+    }   
 },800);
+
+function paused(){
+    if(document.getElementById('body paused') !== null){
+        return true;
+    }
+}
 
 function updateScored(){
     let score = document.getElementsByClassName("score");
@@ -134,13 +142,24 @@ function ifCatchTop(){
 }
 
 function gameOverPrint(){
-    if(document.getElementById("dialogGameOver").hasAttribute("open")){
-        document.getElementById("dialogGameOver").removeAttribute("open");
-        return true;
+
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.responseType = "document";
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+            gameOverPrintAux(xmlHttp.response);
+        }
     }
-    else{
-        document.getElementById("dialogGameOver").setAttribute("open",null);
-        return false;
+    xmlHttp.open("GET", './gameover.html', true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+
+function gameOverPrintAux(res){
+    let body = res.getElementById('body paused');
+    document.getElementById('body').parentNode.replaceChild(body,document.getElementById('body'));
+    if(document.getElementById("score") !== null){
+        showScore();
+        showScore();
     }
 }
 
