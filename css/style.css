@@ -20,6 +20,10 @@ body {
     background-image: url('./background-image-blocksfall.jpeg');
 }
 
+button{
+    font-family: FORCED-SQUARE, cursive;
+}
+
 .container{
     width: 90%;
     height: 90%;
@@ -60,6 +64,11 @@ body {
     font-size: 40px;
     background-color: orange;
     user-select: none;
+}
+
+button.btn1{
+    height: 70px;
+    font-size: 30px;
 }
 
 .btn:hover {
