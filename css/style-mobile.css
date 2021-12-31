@@ -7,6 +7,8 @@
 html {
     height: 100%;
     width: 100%;
+    min-width: 200px;
+    min-height: 350px;
     overflow: hidden;
     font-family: FORCED-SQUARE, cursive;
 }
@@ -27,7 +29,7 @@ body {
     display: inline-flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 #main {
@@ -261,66 +263,67 @@ canvas.canvasMobile{
     justify-content: center;
 }
 
-@media all and (min-width: 400px) and (max-width: 600px) {
+@media all and (max-width: 251px) and (max-height: 401px){
+
+    div.hudMobile{
+        max-height: 330px;
+    }
+
     canvas.canvasMobile{
-        width: 360px;
-        height: 480px;
-        max-width: none;
-        max-height: none;
-    }
-    #dialogMenu{
-        z-index: 3;
-        margin: auto;
-        width: 300px;
+        width: 150px;
         height: 300px;
-        background-color: orange;
-        border: 10px solid black;
+        max-width: 150px;
+        max-height: 300px;
     }
-    #dialogGameOver{
-        z-index: 3;
-        margin: auto;
-        width: 300px;
-        height: 300px;
-        background-color: orange;
-        border: 10px solid black;
+
+    a.btn{
+        font-size: 10px;
+        padding: 2px 5px;
     }
-    .dialogDiv .btnMobile{
-        width: 90%;
-        height: 30px;
+
+    h2.scoreShow{
+        font-size: 10px;
     }
+
+    div.scoreAndMenuMobile{
+        max-height: 20px;
+    }
+
+    div.controller{
+        height: 70px;
+        width: 150px;
+    }
+
+    .rows{
+        margin-top: 0;
+    }
+
+    button.btn{
+        font-size: 12px;
+    }
+
 }
 
-@media all and (min-width: 300px) and (max-width: 350px) {
+@media all and (min-width: 252px) and (max-width: 350px) {
     canvas.canvasMobile{
-        margin: 5px 0;
         width: 240px;
         height: 320px;
         max-width: none;
         max-height: none;
     }
-    .btnDialog{
-        margin:  -10px 0;
-        padding: 5px 10px;
-        border: solid black 3px;
-        background-color: #fad02c;
-        font-size: 15px;
-    }
-    .controller{
-        height: 100px;
-    }
     #dialogMenu{
         z-index: 3;
         margin: auto;
-        width: 200px;
-        height: 200px;
+        width: 300px;
+        height: 300px;
         background-color: orange;
         border: 10px solid black;
     }
     #dialogGameOver{
         z-index: 3;
         margin: auto;
-        width: 200px;
-        height: 200px;
+        width: 300px;
+        height: 300px;
         background-color: orange;
         border: 10px solid black;
     }
@@ -328,9 +331,59 @@ canvas.canvasMobile{
         width: 90%;
         height: 30px;
     }
+    div.controller{
+        height: 100px;
+        width: 250px;
+    }
 }
 
-@media all and (min-width: 700px) and (max-width: 800px) {
+@media all and (min-width: 351px) and (max-width: 400px) {
+    canvas.canvasMobile{
+        width: 300px;
+        height: 400px;
+        max-width: none;
+        max-height: none;
+    }
+    #dialogMenu{
+        z-index: 3;
+        margin: auto;
+        width: 300px;
+        height: 300px;
+        background-color: orange;
+        border: 10px solid black;
+    }
+    #dialogGameOver{
+        z-index: 3;
+        margin: auto;
+        width: 300px;
+        height: 300px;
+        background-color: orange;
+        border: 10px solid black;
+    }
+    .dialogDiv .btnMobile{
+        width: 90%;
+        height: 30px;
+    }
+    div.controller{
+        height: 100px;
+        width: 250px;
+    }
+}
+
+@media all and (min-width: 401px) and (max-width: 649px) {
+    canvas.canvasMobile{
+        width: 300px;
+        height: 400px;
+        max-width: none;
+        max-height: none;
+    }
+    .controller{
+        height: 150px;
+        width: 300px ;
+    }
+}
+
+@media all and (min-width: 650px) and (max-width: 849px) {
     canvas.canvasMobile{
         width: 480px;
         height: 640px;
@@ -343,16 +396,16 @@ canvas.canvasMobile{
     }
 }
 
-@media all and (min-width: 800px)  {
+@media all and (min-width: 850px){
     canvas.canvasMobile{
-        width: 600px;
-        height: 800px;
+        width: 800px;
+        height: 1000px;
         max-width: none;
         max-height: none;
     }
     .controller{
-        height: 150px;
-        width:500px ;
+        height: 200px;
+        width:600px ;
     }
 }
 

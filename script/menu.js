@@ -47,46 +47,46 @@ function updateScore(){
     }
 }
 
-musicOnOff(true);
-function musicOnOff(firstTime){
-    if(localStorage.getItem('mute') === null){
-        localStorage.setItem('mute',true);
-    }
-    if(!firstTime){
-        if(localStorage.getItem('mute') === "false"){
-            localStorage.setItem('mute',true);
-        }
-        else{
-            localStorage.setItem('mute',false);
-        }
-    }
-    if(localStorage.getItem('mute') === "true"){
-        if(document.getElementById("music") !== null){
-            if(document.getElementById("body") !== null){
-                document.getElementById("body").parentNode.removeChild(document.getElementById("music"));
-            }
-            else{
-                document.getElementById("body paused").parentNode.removeChild(document.getElementById("music"));
-            }
-            document.getElementById("button-music").className = "fas fa-volume-mute";
-            return true;
-        }
-    }
-    else if(localStorage.getItem('mute') === "false"){
-        if(document.getElementById("music") === null){
-            let audio = document.createElement('audio');
-            audio.src = "./music.mp3";
-            audio.autoplay = 'true';
-            audio.loop = 'true';
-            audio.id = "music";
-            if(document.getElementById("body") !== null){
-                document.getElementById("body").parentNode.appendChild(audio);
-            }
-            else{
-                document.getElementById("body paused").parentNode.appendChild(audio);
-            }
-            document.getElementById("button-music").className = "fas fa-volume-up";
-            return false;
-        }
-    }
-}
+// musicOnOff(true);
+// function musicOnOff(firstTime){
+//     if(localStorage.getItem('mute') === null){
+//         localStorage.setItem('mute',true);
+//     }
+//     if(!firstTime){
+//         if(localStorage.getItem('mute') === "false"){
+//             localStorage.setItem('mute',true);
+//         }
+//         else{
+//             localStorage.setItem('mute',false);
+//         }
+//     }
+//     if(localStorage.getItem('mute') === "true"){
+//         if(document.getElementById("music") !== null){
+//             if(document.getElementById("body") !== null){
+//                 document.getElementById("body").parentNode.removeChild(document.getElementById("music"));
+//             }
+//             else{
+//                 document.getElementById("body paused").parentNode.removeChild(document.getElementById("music"));
+//             }
+//             document.getElementById("button-music").className = "fas fa-volume-mute";
+//             return true;
+//         }
+//     }
+//     else if(localStorage.getItem('mute') === "false"){
+//         if(document.getElementById("music") === null){
+//             let audio = document.createElement('audio');
+//             audio.src = "./music.mp3";
+//             audio.autoplay = 'true';
+//             audio.loop = 'true';
+//             audio.id = "music";
+//             if(document.getElementById("body") !== null){
+//                 document.getElementById("body").parentNode.appendChild(audio);
+//             }
+//             else{
+//                 document.getElementById("body paused").parentNode.appendChild(audio);
+//             }
+//             document.getElementById("button-music").className = "fas fa-volume-up";
+//             return false;
+//         }
+//     }
+// }
