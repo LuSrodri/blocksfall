@@ -22,6 +22,7 @@ let letter = letters[random];
 let block = createBlock(letter);
 putPiece(block,0,5);
 printGame(letter);
+setPieceGenerated();
 let xPosition = wherePiece('x');
 let yPosition = wherePiece('y');
 let scoreGame = 0;
@@ -30,7 +31,7 @@ let rodando = setInterval(()=>{
 
     if(!paused()){
         localStorage.setItem('lastScore',scoreGame);
-        setRecord();
+        setRecord(scoreGame);
         let letters = ['T','Z','I','L','J','S','O'];
         let teste = testIfHavePiece();
         if(ifCatchTop()){
@@ -50,6 +51,7 @@ let rodando = setInterval(()=>{
                     m = clearLine(m,verifyIfCompleteALine());
                     printGame();
                     updateScore();
+                    setLinesCompleted();
                 }
             }
             else{
@@ -58,6 +60,7 @@ let rodando = setInterval(()=>{
                 block = createBlock(letter);
                 putPiece(block,0,5);
                 printGame(letter);
+                setPieceGenerated();
                 xPosition = wherePiece('x');
                 yPosition = wherePiece('y');
             }
@@ -108,35 +111,46 @@ document.body.addEventListener('keydown', function (event) {
     }
 });
 
+let timer = null;
+
 let leftMove1 = document.getElementById("leftMove");
-leftMove1.addEventListener("touchstart",leftMove,true);
-function leftMove(){
-    changeDirection('L');
-    printGame(letter);
-    xPosition = wherePiece('x');
-    yPosition = wherePiece('y');
+leftMove1.addEventListener("mousedown",leftMoveOn,true);
+leftMove1.addEventListener("mouseup",timerOff,true);
+function leftMoveOn(){
+    timer = setInterval(function() {
+        changeDirection('L');
+        printGame(letter);
+        xPosition = wherePiece('x');
+        yPosition = wherePiece('y');
+    }, 50);
 }
 
 let rightMove1 = document.getElementById("rightMove");
-rightMove1.addEventListener("touchstart",rightMove,true);
-function rightMove(){
-    changeDirection('R');
-    printGame(letter);
-    xPosition = wherePiece('x');
-    yPosition = wherePiece('y');
+rightMove1.addEventListener("mousedown",rightMoveOn,true);
+rightMove1.addEventListener("mouseup",timerOff,true);
+function rightMoveOn(){
+    timer = setInterval(function() {
+        changeDirection('R');
+        printGame(letter);
+        xPosition = wherePiece('x');
+        yPosition = wherePiece('y');
+    }, 50);
 }
 
 let downMove1 = document.getElementById("downMove");
-downMove1.addEventListener("touchstart",downMove,true);
-function downMove(){
-    downPiece(letter);
-    printGame(letter);
-    xPosition = wherePiece('x');
-    yPosition = wherePiece('y');
+downMove1.addEventListener("mousedown",downMoveOn,true);
+downMove1.addEventListener("mouseup",timerOff,true);
+function downMoveOn(){
+    timer = setInterval(function() {
+        downPiece(letter);
+        printGame(letter);
+        xPosition = wherePiece('x');
+        yPosition = wherePiece('y');
+    }, 50);
 }
 
 let rotateRight1 = document.getElementById("rotateRight");
-rotateRight1.addEventListener("touchstart",rotateRight,true);
+rotateRight1.addEventListener("mousedown",rotateRight,true);
 function rotateRight(){
     block = rotatePiece('R',block)
     putPiece(block,xPosition,yPosition);
@@ -144,22 +158,59 @@ function rotateRight(){
 }
 
 let rotateLeft1 = document.getElementById("rotateLeft");
-rotateLeft1.addEventListener("touchstart",rotateLeft,true);
+rotateLeft1.addEventListener("mousedown",rotateLeft,true);
 function rotateLeft(){
     block = rotatePiece('L',block);
     putPiece(block,xPosition,yPosition);
     printGame(letter);
 }
 
-function setRecord(){
+function timerOff(){
+    clearInterval(timer); 
+}
+
+function setRecord(scoredAux){
     if(localStorage.getItem('scoreRecord') === null){
-        localStorage.setItem('scoreRecord',scoreGame);
+        localStorage.setItem('scoreRecord',scoredAux);
     }
     else{
 
-        if(Number(localStorage.getItem('scoreRecord')) < scoreGame){
-            localStorage.setItem('scoreRecord',scoreGame);
+        if(Number(localStorage.getItem('scoreRecord')) < scoredAux){
+            localStorage.setItem('scoreRecord',scoredAux);
         }
+    }
+}
+
+function setTotalScored(scoredAux){
+    if(localStorage.getItem('totalScored') === null){
+        localStorage.setItem('totalScored',scoredAux);
+    }
+    else{
+        let aux = Number(localStorage.getItem('totalScored'));
+        scoredAux += aux;
+        localStorage.setItem('totalScored',scoredAux);
+    }
+}
+
+function setPieceGenerated(){
+    if(localStorage.getItem('pieceGenerated') === null){
+        localStorage.setItem('pieceGenerated',1);
+    }
+    else{
+        let aux = Number(localStorage.getItem('pieceGenerated'));
+        aux += 1;
+        localStorage.setItem('pieceGenerated',aux);
+    }
+}
+
+function setLinesCompleted(){
+    if(localStorage.getItem('linesCompleted') === null){
+        localStorage.setItem('linesCompleted',1);
+    }
+    else{
+        let aux = Number(localStorage.getItem('linesCompleted'));
+        aux += 1;
+        localStorage.setItem('linesCompleted',aux);
     }
 }
 
@@ -188,6 +239,7 @@ function gameOverPrint(){
 }
 
 function gameOverPrintAux(res){
+    setTotalScored(scoreGame);
     let body = res.getElementById('body paused');
     document.getElementById('body').parentNode.replaceChild(body,document.getElementById('body'));
     if(document.getElementById("score") !== null){

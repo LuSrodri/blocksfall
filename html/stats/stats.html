@@ -20,34 +20,27 @@
     <link href="./FORCED-SQUARE.ttf" rel="stylesheet">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4463881368194285"
         crossorigin="anonymous"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E8VQL8KMYB"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-E8VQL8KMYB');
-    </script>
 </head>
 
 <body id="body">
     <div class="container">
         <div id="main">
-            <h1 class="title">Blocks' Fall</h1>
+
+            <h1 class="title">Stats</h1>
             <div class="scoreAndMenu" style="width: 100%; padding: 0; flex-direction: column;">
                 <h2 class="scoreShow">Record Score: <span id="scoreRecord">0</span></h2>
                 <h2 class="scoreShow">Last Score: <span id="lastScore">0</span></h2>
+                <h2 class="scoreShow">Total Scored: <span id="totalScored">0</span></h2>
+                <h2 class="scoreShow">Total pieces generated: <span id="pieceGenerated">0</span></h2>
+                <h2 class="scoreShow">Total lines completed: <span id="linesCompleted">0</span></h2>
             </div>
-            <a class="btn" onclick="window.location.replace('/play');">PLAY GAME</a>
-            <a class="btn" onclick="stats()">STATS</a>
-            <p>the funnest game for pc and mobile</p>
+            <button class="btn btnMobile btnMobile1" onclick="resumeMain()">RESUME</button>
+
         </div>
     </div>
 
     <script src="./menu.js"></script>
 
 </body>
-
 
 </html>

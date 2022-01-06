@@ -21,6 +21,7 @@ let letter = letters[random];
 let block = createBlock(letter);
 putPiece(block,0,3);
 printGame(letter);
+setPieceGenerated();
 let xPosition = wherePiece('x');
 let yPosition = wherePiece('y');
 let scoreGame = 0;
@@ -29,7 +30,7 @@ let rodando = setInterval(()=>{
 
     if(!paused()){
         localStorage.setItem('lastScore',scoreGame);
-        setRecord();
+        setRecord(scoreGame);
         let letters = ['T','Z','I','L','J','S','O'];
         let teste = testIfHavePiece();
         if(ifCatchTop()){
@@ -49,6 +50,7 @@ let rodando = setInterval(()=>{
                     m = clearLine(m,verifyIfCompleteALine());
                     printGame();
                     updateScored();
+                    setLinesCompleted();
                 }
             }
             else{
@@ -57,6 +59,7 @@ let rodando = setInterval(()=>{
                 block = createBlock(letter);
                 putPiece(block,0,3);
                 printGame(letter);
+                setPieceGenerated();
                 xPosition = wherePiece('x');
                 yPosition = wherePiece('y');
             }
@@ -80,6 +83,51 @@ function updateScored(){
         scoreAux += 10;
         document.getElementsByClassName("score")[x].innerHTML = scoreAux;
         scoreGame = scoreAux;
+    }
+}
+
+function setRecord(scoredAux){
+    if(localStorage.getItem('scoreRecord') === null){
+        localStorage.setItem('scoreRecord',scoredAux);
+    }
+    else{
+
+        if(Number(localStorage.getItem('scoreRecord')) < scoredAux){
+            localStorage.setItem('scoreRecord',scoredAux);
+        }
+    }
+}
+
+function setTotalScored(scoredAux){
+    if(localStorage.getItem('totalScored') === null){
+        localStorage.setItem('totalScored',scoredAux);
+    }
+    else{
+        let aux = Number(localStorage.getItem('totalScored'));
+        scoredAux += aux;
+        localStorage.setItem('totalScored',scoredAux);
+    }
+}
+
+function setPieceGenerated(){
+    if(localStorage.getItem('pieceGenerated') === null){
+        localStorage.setItem('pieceGenerated',1);
+    }
+    else{
+        let aux = Number(localStorage.getItem('pieceGenerated'));
+        aux += 1;
+        localStorage.setItem('pieceGenerated',aux);
+    }
+}
+
+function setLinesCompleted(){
+    if(localStorage.getItem('linesCompleted') === null){
+        localStorage.setItem('linesCompleted',1);
+    }
+    else{
+        let aux = Number(localStorage.getItem('linesCompleted'));
+        aux += 1;
+        localStorage.setItem('linesCompleted',aux);
     }
 }
 
@@ -118,18 +166,6 @@ document.body.addEventListener('keydown', function (event) {
     }
 });
 
-function setRecord(){
-    if(localStorage.getItem('scoreRecord') === null){
-        localStorage.setItem('scoreRecord',scoreGame);
-    }
-    else{
-
-        if(Number(localStorage.getItem('scoreRecord')) < scoreGame){
-            localStorage.setItem('scoreRecord',scoreGame);
-        }
-    }
-}
-
 function ifCatchTop(){
     for(let i=0 ; i<m[0].length; i++){
         if(m[0][i] !== 0 && m[0][i] !== 1){
@@ -155,6 +191,7 @@ function gameOverPrint(){
 }
 
 function gameOverPrintAux(res){
+    setTotalScored(scoreGame);
     let body = res.getElementById('body paused');
     document.getElementById('body').parentNode.replaceChild(body,document.getElementById('body'));
     if(document.getElementById("score") !== null){

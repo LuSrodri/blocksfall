@@ -10,6 +10,7 @@ app.get('/index.html', (req, res) => {
 });
 
 app.get('/', (req, res) => {
+  app.use(express.static('html/stats'));
   res.sendFile(__dirname + "/html/index.html");
 });
 
@@ -25,7 +26,9 @@ app.get('/play', (req, res) => {
 });
 
 
-
+app.get('/mobile', (req, res) => {
+  res.sendFile(__dirname + "/html/mobile.html");
+});
 
 app.get('/game.js', (req, res) => {
   res.sendFile(__dirname + "/script/game.js");
