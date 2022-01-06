@@ -115,7 +115,9 @@ let timer = null;
 
 let leftMove1 = document.getElementById("leftMove");
 leftMove1.addEventListener("mousedown",leftMoveOn,true);
+leftMove1.addEventListener("touchstart",leftMoveOn,true);
 leftMove1.addEventListener("mouseup",timerOff,true);
+leftMove1.addEventListener("touchend",timerOff,true);
 function leftMoveOn(){
     timer = setInterval(function() {
         changeDirection('L');
@@ -127,7 +129,9 @@ function leftMoveOn(){
 
 let rightMove1 = document.getElementById("rightMove");
 rightMove1.addEventListener("mousedown",rightMoveOn,true);
+rightMove1.addEventListener("touchstart",rightMoveOn,true);
 rightMove1.addEventListener("mouseup",timerOff,true);
+rightMove1.addEventListener("touchend",timerOff,true);
 function rightMoveOn(){
     timer = setInterval(function() {
         changeDirection('R');
@@ -139,7 +143,9 @@ function rightMoveOn(){
 
 let downMove1 = document.getElementById("downMove");
 downMove1.addEventListener("mousedown",downMoveOn,true);
+downMove1.addEventListener("touchstart",downMoveOn,true);
 downMove1.addEventListener("mouseup",timerOff,true);
+downMove1.addEventListener("touchend",timerOff,true);
 function downMoveOn(){
     timer = setInterval(function() {
         downPiece(letter);
