@@ -52,6 +52,7 @@ let rodando = setInterval(()=>{
                     printGame();
                     updateScore();
                     setLinesCompleted();
+                    setTotalScored();
                 }
             }
             else{
@@ -111,15 +112,15 @@ document.body.addEventListener('keydown', function (event) {
     }
 });
 
-let timer = null;
+let timer1 = null;
 
 let leftMove1 = document.getElementById("leftMove");
 leftMove1.addEventListener("mousedown",leftMoveOn,true);
 leftMove1.addEventListener("touchstart",leftMoveOn,true);
-leftMove1.addEventListener("mouseup",timerOff,true);
-leftMove1.addEventListener("touchend",timerOff,true);
+leftMove1.addEventListener("mouseup",timerOff1,true);
+leftMove1.addEventListener("touchend",timerOff1,true);
 function leftMoveOn(){
-    timer = setInterval(function() {
+    timer1 = setInterval(function() {
         changeDirection('L');
         printGame(letter);
         xPosition = wherePiece('x');
@@ -127,13 +128,19 @@ function leftMoveOn(){
     }, 50);
 }
 
+function timerOff1(){
+    clearInterval(timer1); 
+}
+
+let timer2 = null;
+
 let rightMove1 = document.getElementById("rightMove");
 rightMove1.addEventListener("mousedown",rightMoveOn,true);
 rightMove1.addEventListener("touchstart",rightMoveOn,true);
-rightMove1.addEventListener("mouseup",timerOff,true);
-rightMove1.addEventListener("touchend",timerOff,true);
+rightMove1.addEventListener("mouseup",timerOff2,true);
+rightMove1.addEventListener("touchend",timerOff2,true);
 function rightMoveOn(){
-    timer = setInterval(function() {
+    timer2 = setInterval(function() {
         changeDirection('R');
         printGame(letter);
         xPosition = wherePiece('x');
@@ -141,18 +148,28 @@ function rightMoveOn(){
     }, 50);
 }
 
+function timerOff2(){
+    clearInterval(timer2); 
+}
+
+let timer3 = null;
+
 let downMove1 = document.getElementById("downMove");
 downMove1.addEventListener("mousedown",downMoveOn,true);
 downMove1.addEventListener("touchstart",downMoveOn,true);
-downMove1.addEventListener("mouseup",timerOff,true);
-downMove1.addEventListener("touchend",timerOff,true);
+downMove1.addEventListener("mouseup",timerOff3,true);
+downMove1.addEventListener("touchend",timerOff3,true);
 function downMoveOn(){
-    timer = setInterval(function() {
+    timer3 = setInterval(function() {
         downPiece(letter);
         printGame(letter);
         xPosition = wherePiece('x');
         yPosition = wherePiece('y');
     }, 50);
+}
+
+function timerOff3(){
+    clearInterval(timer3); 
 }
 
 let rotateRight1 = document.getElementById("rotateRight");
@@ -171,9 +188,7 @@ function rotateLeft(){
     printGame(letter);
 }
 
-function timerOff(){
-    clearInterval(timer); 
-}
+
 
 function setRecord(scoredAux){
     if(localStorage.getItem('scoreRecord') === null){
@@ -187,14 +202,14 @@ function setRecord(scoredAux){
     }
 }
 
-function setTotalScored(scoredAux){
+function setTotalScored(){
     if(localStorage.getItem('totalScored') === null){
-        localStorage.setItem('totalScored',scoredAux);
+        localStorage.setItem('totalScored',10);
     }
     else{
         let aux = Number(localStorage.getItem('totalScored'));
-        scoredAux += aux;
-        localStorage.setItem('totalScored',scoredAux);
+        aux += 10;
+        localStorage.setItem('totalScored',aux);
     }
 }
 
@@ -245,7 +260,6 @@ function gameOverPrint(){
 }
 
 function gameOverPrintAux(res){
-    setTotalScored(scoreGame);
     let body = res.getElementById('body paused');
     document.getElementById('body').parentNode.replaceChild(body,document.getElementById('body'));
     if(document.getElementById("score") !== null){

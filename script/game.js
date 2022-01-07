@@ -51,6 +51,7 @@ let rodando = setInterval(()=>{
                     printGame();
                     updateScored();
                     setLinesCompleted();
+                    setTotalScored();
                 }
             }
             else{
@@ -98,14 +99,14 @@ function setRecord(scoredAux){
     }
 }
 
-function setTotalScored(scoredAux){
+function setTotalScored(){
     if(localStorage.getItem('totalScored') === null){
-        localStorage.setItem('totalScored',scoredAux);
+        localStorage.setItem('totalScored',10);
     }
     else{
         let aux = Number(localStorage.getItem('totalScored'));
-        scoredAux += aux;
-        localStorage.setItem('totalScored',scoredAux);
+        aux += 10;
+        localStorage.setItem('totalScored',aux);
     }
 }
 
@@ -191,7 +192,6 @@ function gameOverPrint(){
 }
 
 function gameOverPrintAux(res){
-    setTotalScored(scoreGame);
     let body = res.getElementById('body paused');
     document.getElementById('body').parentNode.replaceChild(body,document.getElementById('body'));
     if(document.getElementById("score") !== null){

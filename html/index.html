@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: unset;">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLOCKS' FALL - the funnest game for pc and mobile</title>
-    <meta name="description" content="BLOCKS' FALL - the funnest game for pc and mobile">
+    <title>BLOCKS' FALL - A Best Tetris' Style Game for played in PC and Mobile</title>
+    <meta name="description" content="BLOCKS' FALL - A Best Tetris' Style Game for played in PC and Mobile">
     <meta name="application-name" content="Blocks Fall">
     <meta name="author" content="https://www.linkedin.com/in/lucas-santos-rodrigues-322371184/">
-    <meta property="og:title" content="BLOCKS' FALL - the funnest game for pc and mobile">
+    <meta property="og:title" content="BLOCKS' FALL - A Best Tetris' Style Game for played in PC and Mobile">
     <meta property="og:type" content="game" />
     <meta property="og:image" content="./blocksfall-logo.png">
     <meta property="og:url" content="https://blocksfall.io/">
@@ -33,23 +33,34 @@
 
 <body id="body">
     <div class="container">
-        <div id="main">
+        <div id="main" style="min-height: 400px;">
             <h1 class="title">Blocks' Fall</h1>
-            <div class="scoreAndMenu" style="width: 100%; padding: 0; flex-direction: column;">
-                <h2 class="scoreShow">Record Score: <span id="scoreRecord">0</span></h2>
-                <h2 class="scoreShow">Last Score: <span id="lastScore">0</span></h2>
-            </div>
             <a class="btn" onclick="window.location.replace('/play');">PLAY GAME</a>
-            <a class="btn" onclick="stats()">STATS</a>
+
             <div style="height: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;">
-                <p style="padding: 0; margin: 0;">the funnest game for pc and mobile</p>
-                <p style="padding: 0; margin: 0;">Developed by <a href="https://www.linkedin.com/in/lucas-santos-rodrigues-322371184/">Lucas Santos</a>
+                <p style="padding: 0; margin: 0;">A Best Tetris' Style Game for played </p>
+                <p style="padding: 0; margin: 0;">in PC and Mobile</p>
+                <p style="padding: 0; margin: 0;">Developed by <a
+                        href="https://www.linkedin.com/in/lucas-santos-rodrigues-322371184/">Lucas Santos</a>
                 </p>
             </div>
+        </div>
+
+        <div id="main">
+            <h2>Stats:</h2>
+
+            <div class="scoreAndMenu" style="width: 100%; padding: 0; flex-direction: column;">
+                <p class="scoreShow">Record Score: <span id="scoreRecord">0</span></p>
+                <p class="scoreShow">Last Score: <span id="lastScore">0</span></p>
+                <p class="scoreShow">Total Scored: <span id="totalScored">0</span></p>
+                <p class="scoreShow">Total pieces generated: <span id="pieceGenerated">0</span></p>
+                <p class="scoreShow">Total lines completed: <span id="linesCompleted">0</span></p>
+            </div>
+
         </div>
     </div>
 

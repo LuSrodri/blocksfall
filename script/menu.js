@@ -17,7 +17,8 @@ function pause(){
 
 function pauseAux(res){
     let body = res.getElementById('body paused');
-    document.getElementById('body').parentNode.replaceChild(body,document.getElementById('body'));
+    if(document.getElementById('body') !== null)
+        document.getElementById('body').parentNode.replaceChild(body,document.getElementById('body'));
     if(document.getElementById("score") !== null){
         showScore();
         showScore();

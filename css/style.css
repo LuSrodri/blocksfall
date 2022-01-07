@@ -6,7 +6,6 @@
 html {
     height: 100%;
     width: 100%;
-    overflow: hidden;
     font-family: FORCED-SQUARE, cursive;
     min-height: 350px;
     min-width: 200px;
@@ -27,15 +26,17 @@ button{
 }
 
 .container{
+    margin: 50px 0;
     width: 90%;
-    height: 90%;
     display: inline-flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 #main {
+    margin: 25px 0;
+    padding: 10px 0;
     background-color: orange;
     border: 10px solid black;
     height: 80%;
