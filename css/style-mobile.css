@@ -21,6 +21,7 @@ body {
     justify-content: center;
     align-items: center;
     background-image: url('./background-image-blocksfall.jpeg');
+    background-attachment: fixed;
 }
 
 .container{
@@ -32,7 +33,7 @@ body {
     align-items: center;
 }
 
-#main {
+.main {
     background-color: orange;
     border: 10px solid black;
     height: 80%;
@@ -85,6 +86,7 @@ body {
     justify-content: center;
     align-items: center;
     font-family: FORCED-SQUARE, cursive;
+    background-color: rgb(255, 196, 0);
 }
 
 button.btnMobile1{
@@ -94,7 +96,12 @@ button.btnMobile1{
 .btnMobile:hover {
     border: solid black 3px;
     border-radius: 5px;
-    background-color: orangered;
+}
+
+.btnMobile:active {
+    border: solid black 3px;
+    border-radius: 5px;
+    background-color: orange;
 }
 
 .btnDialog{

@@ -19,6 +19,7 @@ body {
     justify-content: center;
     align-items: center;
     background-image: url('./background-image-blocksfall.jpeg');
+    background-attachment: fixed;
 }
 
 button{
@@ -34,7 +35,7 @@ button{
     align-items: center;
 }
 
-#main {
+.main {
     margin: 25px 0;
     padding: 10px 0;
     background-color: orange;
@@ -194,7 +195,7 @@ div.dialogDiv{
 }
 
 @media all and (max-width: 300px)  {
-    #main{
+    .main{
         min-width: unset;
         min-height: unset;
         width: 100%;
@@ -213,7 +214,7 @@ div.dialogDiv{
 }
 
 @media all and (max-width: 500px) and (min-width: 301px){
-    #main{
+    .main{
         min-width: unset;
         min-height: unset;
         width: 100%;
@@ -232,7 +233,7 @@ div.dialogDiv{
 
 
 @media all and (max-width: 950px) and (min-width: 501px) {
-    #main{
+    .main{
         min-width: unset;
         min-height: unset;
         width: 100%;

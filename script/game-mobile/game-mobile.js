@@ -113,46 +113,62 @@ document.body.addEventListener('keydown', function (event) {
 });
 
 let timer1 = null;
+let timerOut1 = null;
 
 let leftMove1 = document.getElementById("leftMove");
-leftMove1.addEventListener("mousedown",leftMoveOn,true);
 leftMove1.addEventListener("touchstart",leftMoveOn,true);
-leftMove1.addEventListener("mouseup",timerOff1,true);
 leftMove1.addEventListener("touchend",timerOff1,true);
 function leftMoveOn(){
+    changeDirection('L');
+    printGame(letter);
+    xPosition = wherePiece('x');
+    yPosition = wherePiece('y');
+    timerOut1 = setTimeout(
     timer1 = setInterval(function() {
         changeDirection('L');
         printGame(letter);
         xPosition = wherePiece('x');
         yPosition = wherePiece('y');
-    }, 50);
+    }, 50),1000);
 }
 
 function timerOff1(){
-    clearInterval(timer1); 
+    if(timer1 !== null || timerOut1 !== null){
+        clearInterval(timer1); 
+        clearTimeout(timerOut1);
+    }
 }
 
 let timer2 = null;
+let timerOut2 = null;
 
 let rightMove1 = document.getElementById("rightMove");
-rightMove1.addEventListener("mousedown",rightMoveOn,true);
 rightMove1.addEventListener("touchstart",rightMoveOn,true);
-rightMove1.addEventListener("mouseup",timerOff2,true);
 rightMove1.addEventListener("touchend",timerOff2,true);
 function rightMoveOn(){
+    changeDirection('R');
+    printGame(letter);
+    xPosition = wherePiece('x');
+    yPosition = wherePiece('y');
+
+    timerOut2 = setTimeout(
     timer2 = setInterval(function() {
         changeDirection('R');
         printGame(letter);
         xPosition = wherePiece('x');
         yPosition = wherePiece('y');
-    }, 50);
+    }, 50),1000);
 }
 
 function timerOff2(){
-    clearInterval(timer2); 
+    if(timer2 !== null || timerOut2 !== null){
+        clearInterval(timer2); 
+        clearTimeout(timerOut2);
+    }
 }
 
 let timer3 = null;
+let timerOut3 = null;
 
 let downMove1 = document.getElementById("downMove");
 downMove1.addEventListener("mousedown",downMoveOn,true);
@@ -160,16 +176,25 @@ downMove1.addEventListener("touchstart",downMoveOn,true);
 downMove1.addEventListener("mouseup",timerOff3,true);
 downMove1.addEventListener("touchend",timerOff3,true);
 function downMoveOn(){
+    downPiece(letter);
+    printGame(letter);
+    xPosition = wherePiece('x');
+    yPosition = wherePiece('y');
+
+    timerOut3 = setTimeout(
     timer3 = setInterval(function() {
         downPiece(letter);
         printGame(letter);
         xPosition = wherePiece('x');
         yPosition = wherePiece('y');
-    }, 50);
+    }, 50),1000);
 }
 
 function timerOff3(){
-    clearInterval(timer3); 
+    if(timer3 !== null || timerOut3 !== null){
+        clearInterval(timer3); 
+        clearTimeout(timerOut3);
+    }
 }
 
 let rotateRight1 = document.getElementById("rotateRight");

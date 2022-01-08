@@ -10,17 +10,21 @@ app.get('/index.html', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  app.use(express.static('html/stats'));
+  app.use(express.static('script/menu'));
   res.sendFile(__dirname + "/html/index.html");
 });
 
 app.get('/play', (req, res) => {
   if (req.headers['user-agent'].indexOf("Mobile") !== -1) {
     app.use(express.static('html/pause'));
+    app.use(express.static('script/game-mobile'));
+    app.use(express.static('script/menu'));
     res.sendFile(__dirname + "/html/mobile.html");
   }
   else{
     app.use(express.static('html/pause'));
+    app.use(express.static('script/game'));
+    app.use(express.static('script/menu'));
     res.sendFile(__dirname + "/html/play.html");
   }
 });
@@ -30,17 +34,17 @@ app.get('/mobile', (req, res) => {
   res.sendFile(__dirname + "/html/mobile.html");
 });
 
-app.get('/game.js', (req, res) => {
-  res.sendFile(__dirname + "/script/game.js");
-});
+// app.get('/game.js', (req, res) => {
+//   res.sendFile(__dirname + "/script/game.js");
+// });
 
-app.get('/game-mobile.js', (req, res) => {
-  res.sendFile(__dirname + "/script/game-mobile.js");
-});
+// app.get('/game-mobile.js', (req, res) => {
+//   res.sendFile(__dirname + "/script/game-mobile.js");
+// });
 
-app.get('/menu.js', (req, res) => {
-  res.sendFile(__dirname + "/script/menu.js");
-});
+// app.get('/menu.js', (req, res) => {
+//   res.sendFile(__dirname + "/script/menu.js");
+// });
 
 app.get('/style.css', (req, res) => {
   res.sendFile(__dirname + "/css/style.css");
