@@ -80,6 +80,27 @@ function showScore(){
 }
 
 function updateScore(){
+    if(document.getElementById("bronzeMedal") !== null){
+        let scoreAux = localStorage.getItem('bronzeMedal');
+        scoreAux = parseInt(scoreAux);
+        document.getElementById("bronzeMedal").innerHTML = scoreAux;
+    }
+    if(document.getElementById("silverMedal") !== null){
+        let scoreAux = localStorage.getItem('silverMedal');
+        scoreAux = parseInt(scoreAux);
+        document.getElementById("silverMedal").innerHTML = scoreAux;
+    }
+    if(document.getElementById("goldMedal") !== null){
+        let scoreAux = localStorage.getItem('goldMedal');
+        scoreAux = parseInt(scoreAux);
+        document.getElementById("goldMedal").innerHTML = scoreAux;
+    }
+
+    if(document.getElementById("totalPlayed") !== null){
+        let scoreAux = localStorage.getItem('totalPlayed');
+        scoreAux = parseInt(scoreAux);
+        document.getElementById("totalPlayed").innerHTML = scoreAux;
+    }
     if(document.getElementById("scoreRecord") !== null){
         let scoreAux = localStorage.getItem('scoreRecord');
         scoreAux = parseInt(scoreAux);

@@ -271,6 +271,12 @@ canvas.canvasMobile{
     justify-content: center;
 }
 
+.medals{
+    height: 75px;
+    border: 2px solid black;
+    margin-right: 5px;
+}
+
 @media all and (max-width: 251px) and (max-height: 401px){
 
     div.hudMobile{
@@ -308,6 +314,10 @@ canvas.canvasMobile{
 
     button.btn{
         font-size: 12px;
+    }
+
+    .medals{
+        height: 15px;
     }
 
 }
@@ -363,6 +373,10 @@ canvas.canvasMobile{
     div.rows{
         margin-top: 0;
     }
+
+    .medals{
+        height: 20px;
+    }
 }
 
 @media all and (min-width: 351px) and (max-width: 400px) {
@@ -396,6 +410,10 @@ canvas.canvasMobile{
         height: 100px;
         width: 250px;
     }
+
+    .medals{
+        height: 25px;
+    }
 }
 
 @media all and (min-width: 401px) and (max-width: 649px) {
@@ -409,6 +427,9 @@ canvas.canvasMobile{
         height: 125px;
         width: 300px ;
     }
+    .medals{
+        height: 30px;
+    }
 }
 
 @media all and (min-width: 650px) and (max-width: 849px) {
@@ -421,6 +442,9 @@ canvas.canvasMobile{
     .controller{
         height: 150px;
         width:500px ;
+    }
+    .medals{
+        height: 40px;
     }
 }
 

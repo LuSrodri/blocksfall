@@ -19,7 +19,7 @@
     <link href="./icons.css" rel="stylesheet">
     <link href="./FORCED-SQUARE.ttf" rel="stylesheet">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4463881368194285"
-        crossorigin="anonymous"></script>
+     crossorigin="anonymous"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E8VQL8KMYB"></script>
     <script>
@@ -48,11 +48,30 @@
             </div>
         </div>
 
+        <div class="main" style="height: auto;
+        min-height: unset;
+        padding: 25px 0;
+        flex-direction: row;">
+            <div class="showMedals">
+                <img class="medals" src="./bronze_medal.png" alt="bronze_medal">
+                <span class="scoreShow" style="color: black;"> X <span id="bronzeMedal">0</span> </span>
+            </div>
+            <div class="showMedals">
+                <img class="medals" src="./silver_medal.png" alt="silver_medal">
+                <span class="scoreShow" style="color: black;"> X <span id="silverMedal">0</span> </span>
+            </div>
+            <div class="showMedals">
+                <img class="medals" src="./gold_medal.png" alt="gold_medal">
+                <span class="scoreShow" style="color: black;"> X <span id="goldMedal">0</span> </span>
+            </div>
+        </div>
+
         <div class="main">
             <h2>Stats:</h2>
 
             <div class="scoreAndMenu" style="width: 100%; padding: 0; flex-direction: column;">
                 <p class="scoreShow" style="color: orange;">Score record: <span id="scoreRecord">0</span></p>
+                <p class="scoreShow">Total Played: <span id="totalPlayed">0</span></p>
                 <p class="scoreShow">Last Score: <span id="lastScore">0</span></p>
                 <p class="scoreShow">Total Scored: <span id="totalScored">0</span></p>
                 <p class="scoreShow">Total pieces generated: <span id="pieceGenerated">0</span></p>

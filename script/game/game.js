@@ -18,6 +18,7 @@ gameOverPrintAux();
 
 let openAux = true;
 
+setTotalPlayed();
 let letters = ['T','Z','I','L','J','S','O'];
 let random = Math.floor(Math.random() * letters.length);
 let letter = letters[random];
@@ -88,6 +89,59 @@ function updateScored(){
         scoreAux += 10;
         document.getElementsByClassName("score")[x].innerHTML = scoreAux;
         scoreGame = scoreAux;
+    }
+}
+
+function setMedals(){
+    if(scoreGame >= 200 && scoreGame < 500){
+        if(localStorage.getItem('bronzeMedal') === null){
+            localStorage.setItem('bronzeMedal',1);
+        }
+        else{
+            let aux = Number(localStorage.getItem('bronzeMedal'));
+            aux += 1;
+            localStorage.setItem('bronzeMedal',aux);
+        }
+        document.getElementById("medalOne").src = "./bronze_medal.png";
+        document.getElementById("medalOne").alt = "bronze_medal";
+    }
+    else if(scoreGame >= 500 && scoreGame < 1000){
+        if(localStorage.getItem('silverMedal') === null){
+            localStorage.setItem('silverMedal',1);
+        }
+        else{
+            let aux = Number(localStorage.getItem('silverMedal'));
+            aux += 1;
+            localStorage.setItem('silverMedal',aux);
+        }
+        document.getElementById("medalOne").src = "./silver_medal.png";
+        document.getElementById("medalOne").alt = "silver_medal";
+    }
+    else if(scoreGame >= 1000){
+        if(localStorage.getItem('goldMedal') === null){
+            localStorage.setItem('goldMedal',1);
+        }
+        else{
+            let aux = Number(localStorage.getItem('goldMedal'));
+            aux += 1;
+            localStorage.setItem('goldMedal',aux);
+        }
+        document.getElementById("medalOne").src = "./gold_medal.png";
+        document.getElementById("medalOne").alt = "gold_medal";
+    }
+    else{
+        document.getElementById("scoreGameOver").removeChild(document.getElementById("medalOne"));
+    }
+}
+
+function setTotalPlayed(){
+    if(localStorage.getItem('totalPlayed') === null){
+        localStorage.setItem('totalPlayed',1);
+    }
+    else{
+        let aux = Number(localStorage.getItem('totalPlayed'));
+        aux += 1;
+        localStorage.setItem('totalPlayed',aux);
     }
 }
 
@@ -176,6 +230,7 @@ function ifCatchTop(){
         if(m[0][i] !== 0 && m[0][i] !== 1){
             //console.log("gameover!!!");
             gameOverPrint(gameOverHtml);
+            setMedals();
             return true;
         }
     }
