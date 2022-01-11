@@ -19,14 +19,15 @@ body {
     background-color: orange;
     height: 100%;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     background-image: url('./background-image-blocksfall.jpeg');
     background-attachment: fixed;
 }
 
 .container{
+    margin-top: 15px;
     width: 90%;
-    height: 100%;
+    height: 90%;
     display: inline-flex;
     flex-direction: row;
     justify-content: center;
@@ -255,7 +256,7 @@ canvas.canvasMobile{
 }
 
 .rows{
-    margin-top: 2px;
+    margin-bottom: 7px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -318,6 +319,7 @@ canvas.canvasMobile{
         max-width: none;
         max-height: none;
     }
+    
     #dialogMenu{
         z-index: 3;
         margin: auto;
@@ -404,7 +406,7 @@ canvas.canvasMobile{
         max-height: none;
     }
     .controller{
-        height: 150px;
+        height: 125px;
         width: 300px ;
     }
 }
