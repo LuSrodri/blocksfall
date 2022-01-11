@@ -13,6 +13,9 @@ let m = new Array();
 m = makeMatrix(10,20);
 //console.log(m);
 
+let gameOverHtml = null;
+gameOverPrintAux();
+
 let openAux = true;
 
 let letters = ['T','Z','I','L','J','S','O'];
@@ -26,8 +29,9 @@ let xPosition = wherePiece('x');
 let yPosition = wherePiece('y');
 let scoreGame = 0;
 
+let countGameRun = 0;
 let rodando = setInterval(()=>{
-
+    countGameRun++;
     if(!paused()){
         localStorage.setItem('lastScore',scoreGame);
         setRecord(scoreGame);
@@ -171,27 +175,27 @@ function ifCatchTop(){
     for(let i=0 ; i<m[0].length; i++){
         if(m[0][i] !== 0 && m[0][i] !== 1){
             //console.log("gameover!!!");
-            gameOverPrint();
+            gameOverPrint(gameOverHtml);
             return true;
         }
     }
     return false;
 }
 
-function gameOverPrint(){
+function gameOverPrintAux(){
 
     let xmlHttp = new XMLHttpRequest();
     xmlHttp.responseType = "document";
     xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
-            gameOverPrintAux(xmlHttp.response);
+            gameOverHtml = xmlHttp.response;
         }
     }
     xmlHttp.open("GET", './gameover.html', true); // true for asynchronous 
     xmlHttp.send(null);
 }
 
-function gameOverPrintAux(res){
+function gameOverPrint(res){
     let body = res.getElementById('body paused');
     document.getElementById('body').parentNode.replaceChild(body,document.getElementById('body'));
     if(document.getElementById("score") !== null){

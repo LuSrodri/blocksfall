@@ -3,20 +3,40 @@ let gaming = document.getElementById('body');
 
 updateScore()
 
-function pause(){
+let pauseHtml = getPauseHtml();
+
+let countMenu = 0;
+setInterval(() => {
+    countMenu++;
+}, 1000);
+
+function getPauseHtml(){
     let xmlHttp = new XMLHttpRequest();
     xmlHttp.responseType = "document";
     xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
-            pauseAux(xmlHttp.response);
+            pauseHtml = xmlHttp.response.getElementById('body paused');;
         }
     }
     xmlHttp.open("GET", './pause.html', true); // true for asynchronous 
     xmlHttp.send(null);
 }
 
-function pauseAux(res){
-    let body = res.getElementById('body paused');
+function setPauseHtml(){
+    if(pauseHtml === null){
+        getPauseHtml();
+    }
+}
+
+function pause(){
+    setPauseHtml();
+    if(pauseHtml !== null){
+        pauseAux(pauseHtml);
+    }
+}
+
+function pauseAux(body){
+    
     if(document.getElementById('body') !== null)
         document.getElementById('body').parentNode.replaceChild(body,document.getElementById('body'));
     if(document.getElementById("score") !== null){
