@@ -40,6 +40,11 @@ app.get('/mobile', (req, res) => {
   res.sendFile(__dirname + "/html/mobile.html");
 });
 
+app.get('/manifest.json', (req, res) => {
+  res.sendFile(__dirname + "/manifest.json");
+});
+
+
 // app.get('/game.js', (req, res) => {
 //   res.sendFile(__dirname + "/script/game.js");
 // });
