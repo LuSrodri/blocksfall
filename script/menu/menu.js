@@ -80,48 +80,57 @@ function showScore(){
 }
 
 function updateScore(){
-    if(document.getElementById("bronzeMedal") !== null){
+    if(document.getElementById("bronzeMedal") !== null &&
+        localStorage.getItem('bronzeMedal') !== null){
         let scoreAux = localStorage.getItem('bronzeMedal');
         scoreAux = parseInt(scoreAux);
         document.getElementById("bronzeMedal").innerHTML = scoreAux;
     }
-    if(document.getElementById("silverMedal") !== null){
+    if(document.getElementById("silverMedal") !== null &&
+        localStorage.getItem('silverMedal') !== null){
         let scoreAux = localStorage.getItem('silverMedal');
         scoreAux = parseInt(scoreAux);
         document.getElementById("silverMedal").innerHTML = scoreAux;
     }
-    if(document.getElementById("goldMedal") !== null){
+    if(document.getElementById("goldMedal") !== null &&
+        localStorage.getItem('goldMedal') !== null){
         let scoreAux = localStorage.getItem('goldMedal');
         scoreAux = parseInt(scoreAux);
         document.getElementById("goldMedal").innerHTML = scoreAux;
     }
 
-    if(document.getElementById("totalPlayed") !== null){
+    if(document.getElementById("totalPlayed") !== null &&
+        localStorage.getItem('totalPlayed') !== null){
         let scoreAux = localStorage.getItem('totalPlayed');
         scoreAux = parseInt(scoreAux);
         document.getElementById("totalPlayed").innerHTML = scoreAux;
     }
-    if(document.getElementById("scoreRecord") !== null){
+    if(document.getElementById("scoreRecord") !== null &&
+        localStorage.getItem('scoreRecord') !== null){
         let scoreAux = localStorage.getItem('scoreRecord');
         scoreAux = parseInt(scoreAux);
         document.getElementById("scoreRecord").innerHTML = scoreAux;
     }
-    if(document.getElementById("lastScore") !== null){
+    if(document.getElementById("lastScore") !== null &&
+        localStorage.getItem('lastScore') !== null){
         let scoreAux = localStorage.getItem('lastScore');
         scoreAux = parseInt(scoreAux);
         document.getElementById("lastScore").innerHTML = scoreAux;
     }
-    if(document.getElementById("totalScored") !== null){
+    if(document.getElementById("totalScored") !== null &&
+        localStorage.getItem('totalScored') !== null){
         let scoreAux = localStorage.getItem('totalScored');
         scoreAux = parseInt(scoreAux);
         document.getElementById("totalScored").innerHTML = scoreAux;
     }
-    if(document.getElementById("pieceGenerated") !== null){
+    if(document.getElementById("pieceGenerated") !== null &&
+        localStorage.getItem('pieceGenerated') !== null){
         let scoreAux = localStorage.getItem('pieceGenerated');
         scoreAux = parseInt(scoreAux);
         document.getElementById("pieceGenerated").innerHTML = scoreAux;
     }
-    if(document.getElementById("linesCompleted") !== null){
+    if(document.getElementById("linesCompleted") !== null &&
+        localStorage.getItem('linesCompleted') !== null){
         let scoreAux = localStorage.getItem('linesCompleted');
         scoreAux = parseInt(scoreAux);
         document.getElementById("linesCompleted").innerHTML = scoreAux;

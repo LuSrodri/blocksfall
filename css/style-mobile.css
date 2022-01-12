@@ -244,7 +244,7 @@ canvas.canvasMobile{
 
 .controller{
     background-color: orange;
-    height: 140px;
+    height: 300px;
     width: 260px;
     border: 5px solid black;
     margin: 5px 0;
@@ -273,11 +273,13 @@ canvas.canvasMobile{
 
 .medals{
     height: 75px;
-    border: 2px solid black;
-    margin-right: 5px;
 }
 
 @media all and (max-width: 251px) and (max-height: 401px){
+
+    .container{
+        margin-top: 0;
+    }
 
     div.hudMobile{
         max-height: 330px;
@@ -285,7 +287,7 @@ canvas.canvasMobile{
 
     canvas.canvasMobile{
         width: 150px;
-        height: 300px;
+        height: 200px;
         max-width: 150px;
         max-height: 300px;
     }
@@ -317,15 +319,20 @@ canvas.canvasMobile{
     }
 
     .medals{
-        height: 15px;
+        height: 30px;
     }
 
 }
 
-@media all and (min-width: 252px) and (max-width: 350px) {
+@media all and (min-width: 252px) and (max-width: 350px) and (max-height: 600px) {
+    
+    .container{
+        margin-top: 0;
+    }
+
     canvas.canvasMobile{
-        width: 225px;
-        height: 300px;
+        width: 170px;
+        height: 230px;
         max-width: none;
         max-height: none;
     }
@@ -351,7 +358,7 @@ canvas.canvasMobile{
         height: 30px;
     }
     div.controller{
-        height: 85px;
+        height: 110px;
         width: 200px;
     }
     a.btn{
@@ -375,14 +382,14 @@ canvas.canvasMobile{
     }
 
     .medals{
-        height: 20px;
+        height: 45px;
     }
 }
 
 @media all and (min-width: 351px) and (max-width: 400px) {
     canvas.canvasMobile{
-        width: 300px;
-        height: 400px;
+        width: 266px;
+        height: 355px;
         max-width: none;
         max-height: none;
     }
@@ -407,12 +414,12 @@ canvas.canvasMobile{
         height: 30px;
     }
     div.controller{
-        height: 100px;
+        height: 130px;
         width: 250px;
     }
 
     .medals{
-        height: 25px;
+        height: 50px;
     }
 }
 
@@ -424,11 +431,11 @@ canvas.canvasMobile{
         max-height: none;
     }
     .controller{
-        height: 125px;
+        height: 145px;
         width: 300px ;
     }
     .medals{
-        height: 30px;
+        height: 65px;
     }
 }
 
@@ -440,24 +447,24 @@ canvas.canvasMobile{
         max-height: none;
     }
     .controller{
-        height: 150px;
+        height: 165px;
         width:500px ;
-    }
-    .medals{
-        height: 40px;
     }
 }
 
 @media all and (min-width: 850px){
     canvas.canvasMobile{
-        width: 800px;
-        height: 1000px;
+        width: 600px;
+        height: 800px;
         max-width: none;
         max-height: none;
     }
     .controller{
-        height: 200px;
+        height: 250px;
         width:600px ;
+    }
+    .btnMobile{
+        font-size: 25px;
     }
 }
 

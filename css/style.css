@@ -203,7 +203,6 @@ div.dialogDiv{
 
 .medals{
     height: 75px;
-    border: 4px solid black;
 }
 
 @media all and (max-width: 300px)  {
