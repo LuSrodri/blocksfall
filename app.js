@@ -12,7 +12,6 @@ app.get('/index.html', (req, res) => {
 app.get('/', (req, res) => {
   app.use(express.static('script/menu'));
   app.use(express.static('images/logo'));
-  app.use(express.static('images/medals'));
   res.sendFile(__dirname + "/html/index.html");
 });
 
@@ -22,7 +21,6 @@ app.get('/play', (req, res) => {
     app.use(express.static('script/game-mobile'));
     app.use(express.static('script/menu'));
     app.use(express.static('images/logo'));
-    app.use(express.static('images/medals'));
     res.sendFile(__dirname + "/html/mobile.html");
   }
   else{
@@ -30,7 +28,6 @@ app.get('/play', (req, res) => {
     app.use(express.static('script/game'));
     app.use(express.static('script/menu'));
     app.use(express.static('images/logo'));
-    app.use(express.static('images/medals'));
     res.sendFile(__dirname + "/html/play.html");
   }
 });
@@ -88,6 +85,18 @@ app.get('/background-image-blocksfall.jpeg', (req, res) => {
 app.get('/icons.css', (req, res) => {
   app.use(express.static('fonts'));
   res.sendFile(__dirname + "/fonts/all.css");
+});
+
+app.get('/bronze_medal.png', (req, res) => {
+  res.sendFile(__dirname + "/images/medals/bronze_medal.png");
+});
+
+app.get('/silver_medal.png', (req, res) => {
+  res.sendFile(__dirname + "/images/medals/silver_medal.png");
+});
+
+app.get('/gold_medal.png', (req, res) => {
+  res.sendFile(__dirname + "/images/medals/gold_medal.png");
 });
 
 // app.get('/music.mp3', (req, res) => {
