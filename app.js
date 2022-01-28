@@ -99,9 +99,9 @@ app.get('/gold_medal.png', (req, res) => {
   res.sendFile(__dirname + "/images/medals/gold_medal.png");
 });
 
-// app.get('/music.mp3', (req, res) => {
-//   res.sendFile(__dirname + "/music/music.mp3");
-// });
+app.get('/music.mpeg', (req, res) => {
+  res.sendFile(__dirname + "/music/music.mpeg");
+});
 
 
 // app.get('/lobby', (req, res) =>{

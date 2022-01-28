@@ -114,6 +114,22 @@ function getPlayAGameHtml() {
 //     }
 // }
 
+function musicControl(){
+    if(document.getElementById("music")){
+        document.getElementById('music').parentNode.removeChild(document.getElementById('music'))
+        document.getElementById('buttonMusic').className = 'fas fa-volume-mute'
+    }
+    else {
+        let music = document.createElement('audio')
+        music.src = "./music.mpeg"
+        music.id = "music"
+        music.autoplay = ' '
+        music.loop = ' '
+        document.getElementById('body').parentNode.appendChild(music)
+        document.getElementById('buttonMusic').className = 'fas fa-volume-up'
+    }
+}
+
 function showScore() {
     let scoreAux = localStorage.getItem('lastScore');
     scoreAux = parseInt(scoreAux);

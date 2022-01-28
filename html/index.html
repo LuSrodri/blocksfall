@@ -62,9 +62,11 @@
 
             </div>
 
-            <button class="btn" onclick="playAGame()">PLAY GAME</button>
-
-
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <button class="btn" style="margin-bottom: 4vmin;" onclick="playAGame()">PLAY GAME</button>
+                <button class="btn" onclick="musicControl()"><i id="buttonMusic" class="fas fa-volume-up"></i></button>
+            </div>
+            
         </div>
 
         <div class="main" style="height: auto;
@@ -117,5 +119,7 @@
 
 </body>
 
+<audio src="./music.mpeg" id="music" autoplay loop >
+  </audio>
 
 </html>
