@@ -23,7 +23,7 @@
     <link href="./icons.css" rel="stylesheet">
     <link href="./FORCED-SQUARE.ttf" rel="stylesheet">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4463881368194285"
-     crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E8VQL8KMYB"></script>
     <script>
@@ -48,43 +48,50 @@
 <body id="body">
     <div class="container">
         <div class="main" style="min-height: 400px;">
-            <h1 class="title">Blocks' Fall</h1>
-            <a class="btn" onclick="window.location.replace('/play');">PLAY GAME</a>
 
             <div style="height: auto;
+            width: 80%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;">
-                <p style="padding: 0; margin: 0;">A Best Tetris' Style Game </p>
-                <p style="padding: 0; margin: 0;">for played in PC and Mobile</p>
+                <h1 class="title">BLOCKS' FALL</h1>
+                <p style="padding: 0; margin: 0;">The fun puzzle game for PLAY anywhere.</p>
 
             </div>
+
+            <button class="btn" onclick="window.location.replace('/play');">PLAY GAME</button>
+
+
         </div>
 
         <div class="main" style="height: auto;
         min-height: unset;
-        padding: 25px 0;
-        flex-direction: row;">
-            <div class="showMedals">
-                <img class="medals" src="./bronze_medal.png" alt="bronze_medal">
-                <span class="scoreShow" style="color: black;"> X <span id="bronzeMedal">0</span> </span>
-            </div>
-            <div class="showMedals">
-                <img class="medals" src="./silver_medal.png" alt="silver_medal">
-                <span class="scoreShow" style="color: black;"> X <span id="silverMedal">0</span> </span>
-            </div>
-            <div class="showMedals">
-                <img class="medals" src="./gold_medal.png" alt="gold_medal">
-                <span class="scoreShow" style="color: black;"> X <span id="goldMedal">0</span> </span>
+        flex-direction: column;">
+            <h2 >Rewards:</h2>
+            <div class="scoreAndMenu" >
+
+
+                <div class="showMedals">
+                    <span class="scoreShow" style="font-size: 5vmin;"><span id="bronzeMedal">0</span> x</span>
+                    <img class="medals" src="./bronze_medal.png" alt="bronze_medal">
+                </div>
+                <div class="showMedals">
+                    <span class="scoreShow" style="font-size: 5vmin;"><span id="silverMedal">0</span> x</span>
+                    <img class="medals" src="./silver_medal.png" alt="silver_medal">
+                </div>
+                <div class="showMedals">
+                    <span class="scoreShow" style="font-size: 5vmin;"><span id="goldMedal">0</span> x</span>
+                    <img class="medals" src="./gold_medal.png" alt="gold_medal">
+                </div>
             </div>
         </div>
 
         <div class="main">
             <h2>Stats:</h2>
 
-            <div class="scoreAndMenu" style="width: 100%; padding: 0; flex-direction: column;">
-                <p class="scoreShow" style="color: orange;">Score record: <span id="scoreRecord">0</span></p>
+            <div class="scoreAndMenu" style="flex-direction: column;">
+                <p class="scoreShow" style="color: #FFCA03;">Score record: <span id="scoreRecord">0</span></p>
                 <p class="scoreShow">Total Played: <span id="totalPlayed">0</span></p>
                 <p class="scoreShow">Last Score: <span id="lastScore">0</span></p>
                 <p class="scoreShow">Total Scored: <span id="totalScored">0</span></p>

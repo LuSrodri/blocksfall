@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 const app = express();
 
@@ -58,16 +60,12 @@ app.get('/style.css', (req, res) => {
   res.sendFile(__dirname + "/css/style.css");
 });
 
-app.get('/style-mobile.css', (req, res) => {
-  res.sendFile(__dirname + "/css/style-mobile.css");
-});
+// app.get('/FORCED-SQUARE.ttf', (req, res) => {
+//   res.sendFile(__dirname + "/fonts/FORCED-SQUARE.ttf");
+// });
 
-app.get('/buttons.css', (req, res) => {
-  res.sendFile(__dirname + "/css/buttons.css");
-});
-
-app.get('/FORCED-SQUARE.ttf', (req, res) => {
-  res.sendFile(__dirname + "/fonts/FORCED-SQUARE.ttf");
+app.get('/oswald.ttf', (req, res) => {
+  res.sendFile(__dirname + "/fonts/Oswald-VariableFont_wght.ttf");
 });
 
 app.get('/control.jpeg', (req, res) => {
