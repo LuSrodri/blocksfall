@@ -3,7 +3,10 @@ let gaming = document.getElementById('body');
 
 updateScore()
 
-let pauseHtml = getPauseHtml();
+if(document.getElementsByClassName('hud').length > 0)
+{
+    let pauseHtml = getPauseHtml();
+}
 
 let countMenu = 0;
 setInterval(() => {
@@ -14,8 +17,11 @@ function getPauseHtml(){
     let xmlHttp = new XMLHttpRequest();
     xmlHttp.responseType = "document";
     xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
-            pauseHtml = xmlHttp.response.getElementById('body paused');;
+        if (xmlHttp.readyState !== 4 && xmlHttp.status !== 200){
+            return false
+        }
+        else if(xmlHttp.response) {
+            pauseHtml = xmlHttp.response.getElementById('body paused');
         }
     }
     xmlHttp.open("GET", './pause.html', true); // true for asynchronous 

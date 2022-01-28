@@ -44,19 +44,34 @@ button{
     align-items: center;
 }
 
+@keyframes initialAnimation {
+    0% {
+        box-shadow: -10px -10px 10px #00000080;
+    }
+  
+    100% {
+        box-shadow: 10px 10px 10px #00000080;
+    }
+}
+
 .main {
     margin: 25px 0;
     padding: 10px 0;
     background-color: #FF9A00;
     border: 1.5vmin solid #1E212D;
     border-radius: 15px;
-    box-shadow: 10px 10px 5px #00000080;
+    box-shadow: 10px 10px 10px #00000080;
     width: 85vw;
     max-width: 700px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+}
+
+#home .main{
+    animation-name: initialAnimation;
+    animation-duration: 3s;
 }
 
 .hud {
@@ -133,6 +148,10 @@ button.btnController:active {
     background-color: #FF9A00;
 }
 
+button.btnControlerOrange {
+    background-color: #ffd849;
+}
+
 .showMedals{
     display: flex;
     flex-direction: row;
@@ -148,21 +167,14 @@ button.btnController:active {
     letter-spacing: 5px;
 }
 
-button.btn1{
-    height: 70px;
-    font-size: 30px;
-}
-
 @keyframes buttonAnimation {
     0% {
     }
   
     100% {
-        top: 10px;
-        left: 10px;
         box-shadow: 10px 10px 5px #00000080;
     }
-  }
+}
 
 .btn {
     border: 1vmin solid #1E212D;
@@ -179,21 +191,6 @@ button.btn1{
     animation-name: buttonAnimation;
     animation-duration: 0.5s;
     animation-fill-mode: both;
-}
-
-.btnDialog{
-    margin-right: 5px;
-    padding: 5px 10px;
-    border: solid black 3px;
-    background-color: #fad02c;
-    font-size: 20px;
-}
-
-.btnDialog:hover {
-    padding: 5px 10px;
-    border: solid black 3px;
-    background-color: orange;
-    font-size: 20px;
 }
 
 .information{
@@ -245,24 +242,6 @@ button.btnPause {
     color: white;
     font-size: 2.5vmin;
     margin: 0;
-}
-
-#dialogMenu{
-    z-index: 3;
-    margin: auto;
-    width: 500px;
-    height: 500px;
-    background-color: orange;
-    border: 10px solid black;
-}
-
-#dialogGameOver{
-    z-index: 3;
-    margin: auto;
-    width: 500px;
-    height: 500px;
-    background-color: orange;
-    border: 10px solid black;
 }
 
 div.dialogDiv{
