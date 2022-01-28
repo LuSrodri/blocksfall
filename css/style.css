@@ -96,7 +96,7 @@ canvas.canvasMobile {
 .controller {
     background-color: #FF9A00;
     border: 0.85vmin solid #1E212D;
-    border-radius: 15px;
+    border-radius: 2.5vmin;
     width: 70vw;
     height: 18vh;
     padding: 5px;
@@ -108,7 +108,7 @@ canvas.canvasMobile {
 
 .rows {
     width: 100%;
-    margin: 1vmin;
+    margin: 0.7vmin 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -281,7 +281,7 @@ div.dialogDiv{
     margin-left: -3vmin;
 }
 
-@media screen and (min-aspect-ratio: 1/2){ 
+@media screen and (min-aspect-ratio: 2/3){ 
     canvas.canvasMobile {
         width: 54vw;
         height: 72vw;
