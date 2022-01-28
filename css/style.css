@@ -129,7 +129,7 @@ button.btnController {
     animation-iteration-count: 0;
 }
 
-button.btnController:hover {
+button.btnController:active {
     background-color: #FF9A00;
 }
 
