@@ -21,7 +21,9 @@
     <link rel="icon" type="image/x-icon" href="./blocksfall-logo.png">
     <link rel="stylesheet" href="./style.css">
     <link href="./icons.css" rel="stylesheet">
-    <link href="./FORCED-SQUARE.ttf" rel="stylesheet">
+    <link href="./oswald.ttf" rel="font/ttf">
+    <link href="./game.js" as="script">
+    <link href="./game-mobile.js" as="script">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4463881368194285"
         crossorigin="anonymous"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -110,19 +112,10 @@
 
         </div>
     </div>
+    
+    <script src="./menu.js"></script>
 
 </body>
 
-<script>
-
-    setScriptMenu()
-
-    function setScriptMenu() {
-        let scriptMenu = document.createElement('script')
-        scriptMenu.src = "./menu.js"
-        scriptMenu.className = "scriptMenu"
-        document.getElementById('body').parentNode.appendChild(scriptMenu)
-    }
-</script>
 
 </html>

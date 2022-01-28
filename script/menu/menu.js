@@ -6,7 +6,6 @@ setInterval(() => {
     countMenu++;
 }, 1000);
 
-
 function playAGame() {
     getPlayAGameHtml()
     if (playAGameHtml !== null) {
@@ -21,22 +20,21 @@ if (document.getElementsByClassName('main').length > 0) {
 }
 
 function playAGameAux(body) {
-
     if (document.getElementById('body') !== null) {
         document.getElementById('body').parentNode.replaceChild(body, document.getElementById('body'));
-        if (document.getElementById('hudMobile') === null) {
-            let scriptGame = document.createElement('script');
-            scriptGame.src = "./game.js"
-            scriptGame.className = "scriptGame"
-            document.getElementById('body').parentNode.appendChild(scriptGame)
+        if (document.getElementById('hudMobile')) {
+            let script = document.createElement('script')
+            script.src = './game-mobile.js'
+            script.id = 'scriptGame'
+            document.getElementById('body').appendChild(script)
+            
         }
         else {
-            let scriptGameMobile = document.createElement('script');
-            scriptGameMobile.src = "./game-mobile.js"
-            scriptGameMobile.className = "scriptGame"
-            document.getElementById('body').parentNode.appendChild(scriptGameMobile)
+            let script = document.createElement('script')
+            script.src = './game.js'
+            script.id = 'scriptGame'
+            document.getElementById('body').appendChild(script)
         }
-
     }
     if (document.getElementById("score") !== null) {
         showScore();
@@ -59,47 +57,42 @@ function getPlayAGameHtml() {
     xmlHttp.send(null);
 }
 
+
 ////////////////////////////////////////////
 
-function homePage() {
-    gethomePageHtml()
-    if (homePageHtml !== null) {
-        homePageAux(homePageHtml);
-    }
-}
+// function homePage() {
+//     gethomePageHtml()
+//     if (homePageHtml !== null) {
+//         homePageAux(homePageHtml);
+//     }
+// }
 
-let homePageHtml = null;
+// let homePageHtml = gethomePageHtml();
 
-if (document.getElementsByClassName('hud').length > 0) {
-    homePageHtml = gethomePageHtml();
-}
+// function homePageAux(body) {
+//     if (document.getElementById('body paused') !== null) {
+//         document.getElementById('body paused').parentNode.replaceChild(body, document.getElementById('body paused'));
+//     }
+//     if (document.getElementById("score") !== null) {
+//         showScore();
+//         showScore();
+//     }
+// }
 
-function homePageAux(body) {
-
-    if (document.getElementById('body') !== null) {
-        document.getElementById('body').parentNode.replaceChild(body, document.getElementById('body'));
-        document.removeChild(document.getElementsByClassName('scriptGame'))
-    }
-    if (document.getElementById("score") !== null) {
-        showScore();
-        showScore();
-    }
-}
-
-function gethomePageHtml() {
-    let xmlHttp = new XMLHttpRequest();
-    xmlHttp.responseType = "document";
-    xmlHttp.onreadystatechange = function () {
-        if (xmlHttp.readyState !== 4 && xmlHttp.status !== 200) {
-            return false
-        }
-        else if (xmlHttp.response) {
-            homePageHtml = xmlHttp.response.getElementById('body');
-        }
-    }
-    xmlHttp.open("GET", './', true); // true for asynchronous 
-    xmlHttp.send(null);
-}
+// function gethomePageHtml() {
+//     let xmlHttp = new XMLHttpRequest();
+//     xmlHttp.responseType = "document";
+//     xmlHttp.onreadystatechange = function () {
+//         if (xmlHttp.readyState !== 4 && xmlHttp.status !== 200) {
+//             return false
+//         }
+//         else if (xmlHttp.response) {
+//             homePageHtml = xmlHttp.response.getElementById('body');
+//         }
+//     }
+//     xmlHttp.open("GET", './', true); // true for asynchronous 
+//     xmlHttp.send(null);
+// }
 
 // function stats(){
 //     let xmlHttp = new XMLHttpRequest();

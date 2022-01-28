@@ -12,6 +12,8 @@ app.get('/index.html', (req, res) => {
 });
 
 app.get('/', (req, res) => {
+  app.use(express.static('script/game'));
+  app.use(express.static('script/game-mobile'));
   app.use(express.static('script/menu'));
   app.use(express.static('images/logo'));
   res.sendFile(__dirname + "/html/index.html");
