@@ -44,17 +44,17 @@ app.get('/manifest.json', (req, res) => {
 });
 
 
-// app.get('/game.js', (req, res) => {
-//   res.sendFile(__dirname + "/script/game.js");
-// });
+app.get('/game.js', (req, res) => {
+  res.sendFile(__dirname + "/script/game/game.js");
+});
 
-// app.get('/game-mobile.js', (req, res) => {
-//   res.sendFile(__dirname + "/script/game-mobile.js");
-// });
+app.get('/game-mobile.js', (req, res) => {
+  res.sendFile(__dirname + "/script/game-mobile/game-mobile.js");
+});
 
-// app.get('/menu.js', (req, res) => {
-//   res.sendFile(__dirname + "/script/menu.js");
-// });
+app.get('/menu.js', (req, res) => {
+  res.sendFile(__dirname + "/script/menu/menu.js");
+});
 
 app.get('/style.css', (req, res) => {
   res.sendFile(__dirname + "/css/style.css");

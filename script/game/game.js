@@ -75,10 +75,65 @@ let rodando = setInterval(()=>{
     }   
 },800);
 
+let gaming = document.getElementById('body');
+
+function getPauseHtml(){
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.responseType = "document";
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState !== 4 && xmlHttp.status !== 200){
+            return false
+        }
+        else if(xmlHttp.response) {
+            pauseHtml = xmlHttp.response.getElementById('body paused');
+        }
+    }
+    xmlHttp.open("GET", './pause.html', true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+
+function setPauseHtml(){
+    if(pauseHtml === null){
+        getPauseHtml();
+    }
+}
+
+function pause(){
+    setPauseHtml();
+    if(pauseHtml !== null){
+        pauseAux(pauseHtml);
+    }
+}
+
+function pauseAux(body){
+    
+    if(document.getElementById('body') !== null)
+        document.getElementById('body').parentNode.replaceChild(body,document.getElementById('body'));
+    if(document.getElementById("score") !== null){
+        showScore();
+        showScore();
+    }
+}
+
+function resume(){
+    document.getElementById('body paused').parentNode.replaceChild(gaming,document.getElementById('body paused'));
+}
+
+function resumeMain(){
+    document.getElementById('body').parentNode.replaceChild(gaming,document.getElementById('body'));
+}
+
 function paused(){
     if(document.getElementById('body paused') !== null){
         return true;
     }
+}
+
+let pauseHtml = null
+
+if(document.getElementsByClassName('hud').length > 0)
+{
+    pauseHtml = getPauseHtml();
 }
 
 function updateScored(){
