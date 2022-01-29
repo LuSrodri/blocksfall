@@ -114,8 +114,6 @@ function getPlayAGameHtml() {
 //     }
 // }
 
-musicControl()
-
 function musicControl(){
     if(document.getElementById("music")){
         document.getElementById('music').parentNode.removeChild(document.getElementById('music'))
