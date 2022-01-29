@@ -114,10 +114,14 @@ function getPlayAGameHtml() {
 //     }
 // }
 
+musicControl()
+
 function musicControl(){
     if(document.getElementById("music")){
         document.getElementById('music').parentNode.removeChild(document.getElementById('music'))
-        document.getElementById('buttonMusic').className = 'fas fa-volume-mute'
+        if(document.getElementById('buttonMusic')){
+            document.getElementById('buttonMusic').className = 'fas fa-volume-mute'
+        }
     }
     else {
         let music = document.createElement('audio')
@@ -125,8 +129,15 @@ function musicControl(){
         music.id = "music"
         music.autoplay = ' '
         music.loop = ' '
-        document.getElementById('body').parentNode.appendChild(music)
-        document.getElementById('buttonMusic').className = 'fas fa-volume-up'
+        if(document.getElementById('body')){
+            document.getElementById('body').parentNode.appendChild(music)
+        }
+        else if(document.getElementById('body paused')){
+            document.getElementById('body paused').parentNode.appendChild(music)
+        }
+        if(document.getElementById('buttonMusic')){
+            document.getElementById('buttonMusic').className = 'fas fa-volume-up'
+        }
     }
 }
 
@@ -191,5 +202,14 @@ function updateScore() {
         let scoreAux = localStorage.getItem('linesCompleted');
         scoreAux = parseInt(scoreAux);
         document.getElementById("linesCompleted").innerHTML = scoreAux;
+    }
+}
+
+function ifOnBlur(){
+    if((document.getElementsByClassName("hud").length > 0)){
+        pause()
+    }
+    if(document.getElementById("music")){
+        musicControl()
     }
 }
