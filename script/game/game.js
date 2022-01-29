@@ -109,6 +109,7 @@ function pauseAux(body){
     
     if(document.getElementById('body') !== null)
         document.getElementById('body').parentNode.replaceChild(body,document.getElementById('body'));
+        musicControl();
     if(document.getElementById("score") !== null){
         showScore();
         showScore();

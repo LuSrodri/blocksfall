@@ -27,7 +27,7 @@ function playAGameAux(body) {
             script.src = './game-mobile.js'
             script.id = 'scriptGame'
             document.getElementById('body').appendChild(script)
-            
+
         }
         else {
             let script = document.createElement('script')
@@ -114,28 +114,63 @@ function getPlayAGameHtml() {
 //     }
 // }
 
-function musicControl(){
-    if(document.getElementById("music")){
-        document.getElementById('music').parentNode.removeChild(document.getElementById('music'))
-        if(document.getElementById('buttonMusic')){
-            document.getElementById('buttonMusic').className = 'fas fa-volume-mute'
-        }
+function sesssionStorageMusic() {
+    if (sessionStorage.getItem('musicControl') === null) {
+        sessionStorage.setItem('musicControl', 'true')
+    }
+    if (sessionStorage.getItem('musicControl') === 'true') {
+        sessionStorage.setItem('musicControl', 'false')
     }
     else {
+        sessionStorage.setItem('musicControl', 'true')
+    }
+    musicControl()
+}
+
+function musicControl(firstTimeMusic = false) {
+    if (sessionStorage.getItem('musicControl') === null && firstTimeMusic === true) {
         let music = document.createElement('audio')
         music.src = "./music.mpeg"
         music.id = "music"
         music.autoplay = ' '
         music.loop = ' '
-        if(document.getElementById('body')){
+        if (document.getElementById('body')) {
             document.getElementById('body').parentNode.appendChild(music)
         }
-        else if(document.getElementById('body paused')){
+        else if (document.getElementById('body paused')) {
             document.getElementById('body paused').parentNode.appendChild(music)
         }
-        if(document.getElementById('buttonMusic')){
+    }
+
+
+    if (sessionStorage.getItem('musicControl') === 'false') {
+        if (document.getElementById('buttonMusic')) {
+            document.getElementById('buttonMusic').className = 'fas fa-volume-mute'
+        }
+        if (document.getElementById("music")) {
+            document.getElementById('music').parentNode.removeChild(document.getElementById('music'))
+        }
+    }
+    else if (sessionStorage.getItem('musicControl') === 'true') {
+
+        if (document.getElementById('buttonMusic')) {
             document.getElementById('buttonMusic').className = 'fas fa-volume-up'
         }
+
+        if (document.getElementById('music') === null) {
+            let music = document.createElement('audio')
+            music.src = "./music.mpeg"
+            music.id = "music"
+            music.autoplay = ' '
+            music.loop = ' '
+            if (document.getElementById('body')) {
+                document.getElementById('body').parentNode.appendChild(music)
+            }
+            else if (document.getElementById('body paused')) {
+                document.getElementById('body paused').parentNode.appendChild(music)
+            }
+        }
+
     }
 }
 
@@ -203,11 +238,33 @@ function updateScore() {
     }
 }
 
-function ifOnBlur(){
-    if((document.getElementsByClassName("hud").length > 0)){
+function ifOnBlur() {
+    if ((document.getElementsByClassName("hud").length > 0)) {
         pause()
     }
-    if(document.getElementById("music")){
-        musicControl()
+    if (sessionStorage.getItem('musicControl') === "true" || sessionStorage.getItem('musicControl') === null) {
+        if (document.getElementById("music")) {
+            document.getElementById('music').parentNode.removeChild(document.getElementById('music'))
+        }
     }
 }
+
+function ifOnClicked() {
+    if (sessionStorage.getItem('musicControl') === "true" || sessionStorage.getItem('musicControl') === null) {
+        if (document.getElementById("music") === null) {
+            let music = document.createElement('audio')
+            music.src = "./music.mpeg"
+            music.id = "music"
+            music.autoplay = ' '
+            music.loop = ' '
+            if (document.getElementById('body')) {
+                document.getElementById('body').parentNode.appendChild(music)
+            }
+            else if (document.getElementById('body paused')) {
+                document.getElementById('body paused').parentNode.appendChild(music)
+            }
+        }
+        
+    }
+}
+

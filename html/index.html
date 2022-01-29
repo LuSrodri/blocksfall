@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="height: unset;">
+<html lang="en" style="height: unset;" >
 
 <head>
     <meta charset="UTF-8">
@@ -47,7 +47,7 @@
     </script>
 </head>
 
-<body id="body" onblur="ifOnBlur()" onload="musicControl()">
+<body id="body" onblur="ifOnBlur()" onload="musicControl(true)" onclick="ifOnClicked()">
     <div class="container" id="home">
         <div class="main" style="min-height: 400px;">
 
@@ -64,7 +64,7 @@
 
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                 <button class="btn" style="margin-bottom: 4vmin;" onclick="playAGame()">PLAY GAME</button>
-                <button class="btn" onclick="musicControl()"><i id="buttonMusic" class="fas fa-volume-up"></i></button>
+                <button class="btn" onclick="sesssionStorageMusic()"><i id="buttonMusic" class="fas fa-volume-up"></i></button>
             </div>
             
         </div>
