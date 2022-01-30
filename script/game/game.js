@@ -369,7 +369,7 @@ function printGame(letter) { //print the game with the colors of the pieces
             }
 
             else if (m[x][y] === 2) {
-                ctx.fillStyle = '#6c6c70';
+                ctx.fillStyle = '#1E212D';
                 ctx.fillRect(y * 80, x * 80, (y + 80), (x + 80));
             }
 
