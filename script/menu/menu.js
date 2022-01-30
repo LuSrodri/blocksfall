@@ -129,19 +129,20 @@ function sesssionStorageMusic() {
 
 function musicControl(firstTimeMusic = false) {
     if (sessionStorage.getItem('musicControl') === null && firstTimeMusic === true) {
-        let music = document.createElement('audio')
-        music.src = "./music.mpeg"
-        music.id = "music"
-        music.autoplay = ' '
-        music.loop = ' '
-        if (document.getElementById('body')) {
-            document.getElementById('body').parentNode.appendChild(music)
-        }
-        else if (document.getElementById('body paused')) {
-            document.getElementById('body paused').parentNode.appendChild(music)
+        if (document.getElementById('music') === null) {
+            let music = document.createElement('audio')
+            music.src = "./music.mpeg"
+            music.id = "music"
+            music.autoplay = ' '
+            music.loop = ' '
+            if (document.getElementById('body')) {
+                document.getElementById('body').parentNode.appendChild(music)
+            }
+            else if (document.getElementById('body paused')) {
+                document.getElementById('body paused').parentNode.appendChild(music)
+            }
         }
     }
-
 
     if (sessionStorage.getItem('musicControl') === 'false') {
         if (document.getElementById('buttonMusic')) {
@@ -264,7 +265,7 @@ function ifOnClicked() {
                 document.getElementById('body paused').parentNode.appendChild(music)
             }
         }
-        
+
     }
 }
 
