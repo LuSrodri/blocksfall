@@ -21,14 +21,12 @@ app.get('/', (req, res) => {
 
 app.get('/play', (req, res) => {
   if (req.headers['user-agent'].indexOf("Mobile") !== -1) {
-    app.use(express.static('html/pause'));
     app.use(express.static('script/game-mobile'));
     app.use(express.static('script/menu'));
     app.use(express.static('images/logo'));
     res.sendFile(__dirname + "/html/mobile.html");
   }
   else{
-    app.use(express.static('html/pause'));
     app.use(express.static('script/game'));
     app.use(express.static('script/menu'));
     app.use(express.static('images/logo'));
@@ -52,6 +50,10 @@ app.get('/game.js', (req, res) => {
 
 app.get('/game-mobile.js', (req, res) => {
   res.sendFile(__dirname + "/script/game-mobile/game-mobile.js");
+});
+
+app.get('/canvasHome.js', (req, res) => {
+  res.sendFile(__dirname + "/script/canvasHome/canvasHome.js");
 });
 
 app.get('/menu.js', (req, res) => {
@@ -103,6 +105,15 @@ app.get('/music.mpeg', (req, res) => {
   res.sendFile(__dirname + "/music/music.mpeg");
 });
 
+
+
+app.get('/pause.html', (req, res) => {
+  res.sendFile(__dirname + "/html/pause/pause.html");
+});
+
+app.get('/gameover.html', (req, res) => {
+  res.sendFile(__dirname + "/html/pause/gameover.html");
+});
 
 // app.get('/lobby', (req, res) =>{
 //   app.use(express.static(__dirname+"/css"));

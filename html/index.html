@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="height: unset;" >
+<html lang="en" style="height: unset;">
 
 <head>
     <meta charset="UTF-8">
@@ -49,7 +49,7 @@
 
 <body id="body" onblur="ifOnBlur()" onload="musicControl(true)" onclick="ifOnClicked()">
     <div class="container" id="home">
-        <div class="main" style="min-height: 400px;">
+        <div class="main" style="min-height: 450px;">
 
             <div style="height: auto;
             width: 80%;
@@ -59,20 +59,22 @@
             align-items: center;">
                 <h1 class="title">BLOCKS' FALL</h1>
                 <p style="padding: 0; margin: 0;">THE FUN PUZZLE GAME FOR PLAY ANYWHERE.</p>
-
+                <p class="scoreShow" style="color: #1E212D;">RECORD: <span class="scoreRecord">0</span></p>
             </div>
 
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <button class="btn" style="margin-bottom: 4vmin;" onclick="playAGame()">PLAY GAME</button>
-                <button class="btn" onclick="sesssionStorageMusic()"><i id="buttonMusic" class="fas fa-volume-up"></i> MUSIC</button>
+                <button class="btn" style="margin-bottom: 4vmin;" onclick="playAGame()"><i class="fas fa-play"></i> PLAY
+                    GAME</button>
+                <button class="btn" onclick="sesssionStorageMusic()"><i id="buttonMusic" class="fas fa-volume-up"></i>
+                    MUSIC</button>
             </div>
-            
+
         </div>
 
         <div class="main" style="height: auto;
         min-height: unset;
         flex-direction: column;">
-            <h2>REWARDS:</h2>
+            <h2>REWARDS</h2>
             <div class="scoreAndMenu">
 
 
@@ -92,10 +94,10 @@
         </div>
 
         <div class="main">
-            <h2>STATS:</h2>
+            <h2>STATS</h2>
 
             <div class="scoreAndMenu" style="flex-direction: column;">
-                <p class="scoreShow" style="color: #FFCA03;">SCORE RECORD: <span id="scoreRecord">0</span></p>
+                <p class="scoreShow">SCORE RECORD: <span class="scoreRecord">0</span></p>
                 <p class="scoreShow">TOTAL PLAYED: <span id="totalPlayed">0</span></p>
                 <p class="scoreShow">LAST SCORE: <span id="lastScore">0</span></p>
                 <p class="scoreShow">TOTAL SCORED: <span id="totalScored">0</span></p>
@@ -105,17 +107,21 @@
 
         </div>
 
+        <canvas id="canvasHome"></canvas>
+
         <div class="main" style="height: auto; min-height: unset; padding: 25px 0;">
 
+            <h2 class="logoFooter"><a href="/">BLOCKSFALL.IO</a></h2>
+            <br>
             <p style="padding: 0; margin: 0;">DEVELOPED BY <a
-                    href="https://www.linkedin.com/in/lucas-santos-rodrigues-322371184/"
-                    style="  text-decoration: none;">LUCAS SANTOS</a>
+                    href="https://www.linkedin.com/in/lucas-santos-rodrigues-322371184/">LUCAS SANTOS</a>
             </p>
 
         </div>
     </div>
-    
+
     <script src="./menu.js"></script>
+    <script src="./canvasHome.js"></script>
 
 </body>
 

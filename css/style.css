@@ -74,6 +74,19 @@ button{
     animation-duration: 3s;
 }
 
+canvas#canvasHome {
+    height: 42.5vw;
+    width: 85vw;
+    max-width: 700px;
+    max-height: 350px;
+    background-color: #1E212D;
+    box-shadow: 10px 10px 10px #00000080;
+    border-radius: 15px;
+    border: 1.5vmin solid #1E212D;
+    animation-name: initialAnimation;
+    animation-duration: 3s;
+}
+
 .hud {
     background-color: #FF9A00;
     border: 1.5vmin solid #1E212D;
@@ -258,6 +271,32 @@ div.dialogDiv{
     max-height: 100px;
     margin: 2vmin 0;
     margin-left: -3vmin;
+}
+
+@keyframes textAnimation {
+    0% {
+    }
+  
+    100% {
+        text-shadow: 10px 10px 5px #00000080;
+    }
+}
+
+.logoFooter a {
+    text-decoration: none;
+    color: #1E212D;
+    margin: 0;
+}
+
+.logoFooter a:hover {
+    animation: textAnimation;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+.logoFooter {
+    font-size: 2rem;
+    margin: 0;
 }
 
 @media screen and (min-aspect-ratio: 2/3){ 

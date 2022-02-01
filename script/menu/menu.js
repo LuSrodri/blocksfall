@@ -207,11 +207,14 @@ function updateScore() {
         scoreAux = parseInt(scoreAux);
         document.getElementById("totalPlayed").innerHTML = scoreAux;
     }
-    if (document.getElementById("scoreRecord") !== null &&
+    if (document.getElementsByClassName("scoreRecord").length > 0 &&
         localStorage.getItem('scoreRecord') !== null) {
         let scoreAux = localStorage.getItem('scoreRecord');
         scoreAux = parseInt(scoreAux);
-        document.getElementById("scoreRecord").innerHTML = scoreAux;
+        for ( let x = 0; x < document.getElementsByClassName("scoreRecord").length; x++) {
+            document.getElementsByClassName("scoreRecord")[x].innerHTML = scoreAux;
+        }
+
     }
     if (document.getElementById("lastScore") !== null &&
         localStorage.getItem('lastScore') !== null) {
