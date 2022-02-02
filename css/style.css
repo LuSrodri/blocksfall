@@ -206,6 +206,17 @@ button.btnControlerOrange {
     animation-fill-mode: both;
 }
 
+.btnBlocked {
+    border: 1vmin solid #1E212D;
+    border-radius: 1vmin;
+    color: #1E212D;
+    cursor: unset;
+    text-decoration: none;
+    padding: 15px 40px;
+    font-size: 4vmin;
+    background-color: #686766;
+}
+
 .information{
     height: 100%;
     width: 35vmin;
@@ -273,25 +284,10 @@ div.dialogDiv{
     margin-left: -3vmin;
 }
 
-@keyframes textAnimation {
-    0% {
-    }
-  
-    100% {
-        text-shadow: 10px 10px 5px #00000080;
-    }
-}
-
 .logoFooter a {
     text-decoration: none;
     color: #1E212D;
     margin: 0;
-}
-
-.logoFooter a:hover {
-    animation: textAnimation;
-    animation-duration: 1s;
-    animation-fill-mode: both;
 }
 
 .logoFooter {

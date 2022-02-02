@@ -10,8 +10,18 @@ ctx.fillStyle = "#2a2a30";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 document.getElementById("game").parentNode.replaceChild(canvas, document.getElementById("game"));
 
-let m = new Array();
-m = makeMatrix(12, 16);
+let m = null
+let letter = null
+
+if (localStorage.getItem("canvasGameMobile") === null) {
+    m = new Array();
+    m = makeMatrix(12, 16);
+}
+else {
+    m = JSON.parse(localStorage.getItem("canvasGameMobile")).m
+    letter = JSON.parse(localStorage.getItem("canvasGameMobile")).letter
+}
+
 //console.log(m);
 
 let gameOverHtml = null;
@@ -19,23 +29,45 @@ gameOverPrintAux();
 
 let openAux = true;
 
+let random = null
+let block = null
+let xPosition = null
+let yPosition = null
+let scoreGame = 0
+
 setTotalPlayed();
 let letters = ['T', 'Z', 'I', 'L', 'J', 'S', 'O'];
-let random = Math.floor(Math.random() * letters.length);
-let letter = letters[random];
-let block = createBlock(letter);
-putPiece(block, 0, 5);
-sombraPiece()
-printGame(letter);
-setPieceGenerated();
-let xPosition = wherePiece('x');
-let yPosition = wherePiece('y');
-let scoreGame = 0;
+
+if (localStorage.getItem("canvasGameMobile") === null) {
+    random = Math.floor(Math.random() * letters.length);
+    letter = letters[random];
+    block = createBlock(letter);
+    putPiece(block, 0, 5);
+    sombraPiece()
+    printGame(letter);
+    setPieceGenerated();
+    xPosition = wherePiece('x');
+    yPosition = wherePiece('y');
+    scoreGame = 0;
+
+    let localStorageCanvasGame = { m, letter, scoreGame, xPosition, yPosition, block }
+    localStorage.setItem("canvasGameMobile", JSON.stringify(localStorageCanvasGame))
+}
+else {
+    scoreGame = JSON.parse(localStorage.getItem("canvasGameMobile")).scoreGame
+    updateScore()
+    xPosition = JSON.parse(localStorage.getItem("canvasGameMobile")).xPosition
+    yPosition = JSON.parse(localStorage.getItem("canvasGameMobile")).yPosition
+    block = JSON.parse(localStorage.getItem("canvasGameMobile")).block
+}
 
 let countGameRun = 0;
 let rodando = setInterval(() => {
     countGameRun++;
     if (!paused()) {
+        let localStorageCanvasGame = { m, letter, scoreGame, xPosition, yPosition, block }
+        localStorage.setItem("canvasGameMobile", JSON.stringify(localStorageCanvasGame))
+
         localStorage.setItem('lastScore', scoreGame);
         setRecord(scoreGame);
         let letters = ['T', 'Z', 'I', 'L', 'J', 'S', 'O'];
@@ -57,6 +89,7 @@ let rodando = setInterval(() => {
                 while (verifyIfCompleteALine() >= 0) {
                     m = clearLine(m, verifyIfCompleteALine());
                     printGame();
+                    scoreGame += 10
                     updateScore();
                     setLinesCompleted();
                     setTotalScored();
@@ -440,11 +473,7 @@ function setOpenAux(op) {
 function updateScore() {
     let score = document.getElementsByClassName("score");
     for (let x = 0; x < score.length; x++) {
-        let scoreAux = score[x].innerHTML;
-        scoreAux = parseInt(scoreAux);
-        scoreAux += 10;
-        document.getElementsByClassName("score")[x].innerHTML = scoreAux;
-        scoreGame = scoreAux;
+        document.getElementsByClassName("score")[x].innerHTML = scoreGame;
     }
 }
 

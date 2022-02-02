@@ -272,3 +272,17 @@ function ifOnClicked() {
     }
 }
 
+function playNewGame() {
+    if(localStorage.getItem("canvasGame") !== null){
+        localStorage.removeItem("canvasGame")
+    }
+    if(localStorage.getItem("canvasGameMobile") !== null){
+        localStorage.removeItem("canvasGameMobile")
+    }
+    playAGame()
+}
+
+if(localStorage.getItem("canvasGame") === null && localStorage.getItem("canvasGameMobile") === null) {
+    document.getElementById("playGame").className = "btnBlocked"
+    document.getElementById("playGame").onclick = ''
+}

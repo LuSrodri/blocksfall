@@ -9,32 +9,65 @@ ctx.fillStyle = "#2a2a30";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 document.getElementById("game").parentNode.replaceChild(canvas, document.getElementById("game"));
 
-let m = new Array();
-m = makeMatrix(10, 20);
-//console.log(m);
+let m = null
+let letter = null
+
+if (localStorage.getItem("canvasGame") === null) {
+    m = new Array();
+    m = makeMatrix(10, 20);
+    //console.log(m);
+}
+else {
+    m = JSON.parse(localStorage.getItem("canvasGame")).m
+    letter = JSON.parse(localStorage.getItem("canvasGame")).letter
+}
 
 let gameOverHtml = null;
 gameOverPrintAux();
 
 let openAux = true;
 
+let random = null
+let block = null
+let xPosition = null
+let yPosition = null
+let scoreGame = 0
+
 setTotalPlayed();
 let letters = ['T', 'Z', 'I', 'L', 'J', 'S', 'O'];
-let random = Math.floor(Math.random() * letters.length);
-let letter = letters[random];
-let block = createBlock(letter);
-putPiece(block, 0, 3);
-sombraPiece()
-printGame(letter);
-setPieceGenerated();
-let xPosition = wherePiece('x');
-let yPosition = wherePiece('y');
-let scoreGame = 0;
+
+if (localStorage.getItem("canvasGame") === null) {
+    random = Math.floor(Math.random() * letters.length);
+    letter = letters[random];
+    block = createBlock(letter);
+    putPiece(block, 0, 3);
+    sombraPiece()
+    printGame(letter);
+    setPieceGenerated();
+    xPosition = wherePiece('x');
+    yPosition = wherePiece('y');
+    scoreGame = 0;
+
+    let localStorageCanvasGame = { m, letter, scoreGame, xPosition, yPosition, block }
+    localStorage.setItem("canvasGame", JSON.stringify(localStorageCanvasGame))
+}
+else {
+    scoreGame = JSON.parse(localStorage.getItem("canvasGame")).scoreGame
+    updateScored()
+    xPosition = JSON.parse(localStorage.getItem("canvasGame")).xPosition
+    yPosition = JSON.parse(localStorage.getItem("canvasGame")).yPosition
+    block = JSON.parse(localStorage.getItem("canvasGame")).block
+}
+
+
 
 let countGameRun = 0;
 let rodando = setInterval(() => {
     countGameRun++;
     if (!paused()) {
+        let localStorageCanvasGame = { m, letter, scoreGame, xPosition, yPosition, block }
+        localStorage.setItem("canvasGame", JSON.stringify(localStorageCanvasGame))
+
         localStorage.setItem('lastScore', scoreGame);
         setRecord(scoreGame);
         let letters = ['T', 'Z', 'I', 'L', 'J', 'S', 'O'];
@@ -56,6 +89,7 @@ let rodando = setInterval(() => {
                 while (verifyIfCompleteALine() >= 0) {
                     m = clearLine(m, verifyIfCompleteALine());
                     printGame();
+                    scoreGame += 10
                     updateScored();
                     setLinesCompleted();
                     setTotalScored();
@@ -142,11 +176,7 @@ if (document.getElementsByClassName('hud').length > 0) {
 function updateScored() {
     let score = document.getElementsByClassName("score");
     for (let x = 0; x < score.length; x++) {
-        let scoreAux = score[x].innerHTML;
-        scoreAux = parseInt(scoreAux);
-        scoreAux += 10;
-        document.getElementsByClassName("score")[x].innerHTML = scoreAux;
-        scoreGame = scoreAux;
+        document.getElementsByClassName("score")[x].innerHTML = scoreGame;
     }
 }
 
@@ -292,6 +322,7 @@ function ifCatchTop() {
     for (let i = 0; i < m[0].length; i++) {
         if (m[0][i] !== 0 && m[0][i] !== 1) {
             //console.log("gameover!!!");
+            localStorage.removeItem("canvasGame")
             gameOverPrint(gameOverHtml);
             setMedals();
             return true;
@@ -389,15 +420,15 @@ function sombraPiece() {
     for (let x = 0; x < m.length; x++) {
         for (let y = 0; y < m[x].length; y++) {
             if (m[x][y] === 1) {
-                for(let z = (x+1); z <m.length; z++){
-                    if (m[z][y] === 0){
+                for (let z = (x + 1); z < m.length; z++) {
+                    if (m[z][y] === 0) {
                         m[z][y] = 2
                     }
                 }
             }
-            else if (m[x][y] !== 1 && m[x][y] !==2){
-                for(let z = (x+1); z <m.length; z++){
-                    if (m[z][y] === 2){
+            else if (m[x][y] !== 1 && m[x][y] !== 2) {
+                for (let z = (x + 1); z < m.length; z++) {
+                    if (m[z][y] === 2) {
                         m[z][y] = 0
                     }
                 }
@@ -407,7 +438,7 @@ function sombraPiece() {
 }
 
 function downPiece(letter) { //move the piece down
-    
+
     let length = (m.length - 1);
     let count = 0;
 
