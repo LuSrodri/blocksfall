@@ -453,6 +453,8 @@ function ifCatchTop() {
             localStorage.removeItem("canvasGameMobile")
             gameOverPrint(gameOverHtml);
             setMedals();
+            finalGameChange()
+            
             return true;
         }
     }
