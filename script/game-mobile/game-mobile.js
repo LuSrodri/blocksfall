@@ -60,8 +60,8 @@ else {
     xPosition = JSON.parse(localStorage.getItem("canvasGameMobile")).xPosition
     yPosition = JSON.parse(localStorage.getItem("canvasGameMobile")).yPosition
     block = JSON.parse(localStorage.getItem("canvasGameMobile")).block
-    if (JSON.parse(localStorage.getItem("canvasGame")).intervalTimeGame !== undefined) {
-        intervalTimeGame = JSON.parse(localStorage.getItem("canvasGame")).intervalTimeGame
+    if (JSON.parse(localStorage.getItem("canvasGameMobile")).intervalTimeGame !== undefined) {
+        intervalTimeGame = JSON.parse(localStorage.getItem("canvasGameMobile")).intervalTimeGame
     }
 }
 
