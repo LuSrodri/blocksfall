@@ -34,6 +34,7 @@ let block = null
 let xPosition = null
 let yPosition = null
 let scoreGame = 0
+let intervalTimeGame = 800
 
 setTotalPlayed();
 let letters = ['T', 'Z', 'I', 'L', 'J', 'S', 'O'];
@@ -59,10 +60,14 @@ else {
     xPosition = JSON.parse(localStorage.getItem("canvasGameMobile")).xPosition
     yPosition = JSON.parse(localStorage.getItem("canvasGameMobile")).yPosition
     block = JSON.parse(localStorage.getItem("canvasGameMobile")).block
+    if (JSON.parse(localStorage.getItem("canvasGame")).intervalTimeGame !== undefined) {
+        intervalTimeGame = JSON.parse(localStorage.getItem("canvasGame")).intervalTimeGame
+    }
 }
 
 let countGameRun = 0;
-let rodando = setInterval(() => {
+
+function isPlaying() {
     countGameRun++;
     if (!paused()) {
         let localStorageCanvasGame = { m, letter, scoreGame, xPosition, yPosition, block }
@@ -109,8 +114,17 @@ let rodando = setInterval(() => {
         }
         // console.log("Posicao X = "+ xPosition);
         // console.log("Posicao y = "+ yPosition);
+        if (intervalTimeGame > 250) {
+            intervalTimeGame -= 0.75
+            clearInterval(rodando)
+            rodando = setInterval(() => { isPlaying() }, intervalTimeGame)
+        }
     }
-}, 800);
+}
+
+let rodando = setInterval(() => {
+    isPlaying()
+}, intervalTimeGame);
 
 let gaming = document.getElementById('body');
 
@@ -436,12 +450,30 @@ function ifCatchTop() {
     for (let i = 0; i < m[0].length; i++) {
         if (m[0][i] !== 0 && m[0][i] !== 1) {
             //console.log("gameover!!!");
+            localStorage.removeItem("canvasGameMobile")
             gameOverPrint(gameOverHtml);
             setMedals();
             return true;
         }
     }
     return false;
+}
+
+function finalGameChange() {
+    if (scoreGame >= 200) {
+        let img = document.createElement("img")
+        img.id = "finalGame"
+        img.src = "/congratulations.gif"
+        img.style = "width: 80%; margin: 0;"
+        document.getElementById("finalGame").parentNode.replaceChild(img, document.getElementById("finalGame"))
+        if (sessionStorage.getItem("musicControl") !== "false" && sessionStorage.getItem("musicControl") !== null) {
+            let music = document.createElement("audio")
+            music.src = "/finalMusic.mp3"
+            music.id = "finalMusic"
+            music.setAttribute("autoplay", '')
+            document.getElementById("body paused").appendChild(music)
+        }
+    }
 }
 
 function gameOverPrintAux() {

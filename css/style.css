@@ -36,7 +36,7 @@ button{
 }
 
 .container{
-    margin: 50px 0;
+    margin: 2vmin 0;
     width: 100%;
     display: inline-flex;
     flex-direction: column;
@@ -55,7 +55,7 @@ button{
 }
 
 .main {
-    margin: 25px 0;
+    margin: 2vmin 0;
     padding: 10px 0;
     background-color: #FF9A00;
     border: 1.5vmin solid #1E212D;
@@ -75,6 +75,7 @@ button{
 }
 
 canvas#canvasHome {
+    margin: 2vmin 0;
     height: 42.5vw;
     width: 85vw;
     max-width: 700px;

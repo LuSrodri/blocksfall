@@ -80,6 +80,10 @@ app.get('/background-image-blocksfall.jpeg', (req, res) => {
   res.sendFile(__dirname + "/images/background-image-blocksfall.jpeg");
 });
 
+app.get('/congratulations.gif', (req, res) => {
+  res.sendFile(__dirname + "/images/congratulations.gif");
+});
+
 // app.get('/blocksfall-logo.png', (req, res) => {
 //   res.sendFile(__dirname + "/images/blocksfall-logo.png");
 // });
@@ -103,6 +107,10 @@ app.get('/gold_medal.png', (req, res) => {
 
 app.get('/music.mpeg', (req, res) => {
   res.sendFile(__dirname + "/music/music.mpeg");
+});
+
+app.get('/finalMusic.mp3', (req, res) => {
+  res.sendFile(__dirname + "/music/scoredSound.mp3");
 });
 
 
