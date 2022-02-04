@@ -51,7 +51,7 @@ if (localStorage.getItem("canvasGameMobile") === null) {
     yPosition = wherePiece('y');
     scoreGame = 0;
 
-    let localStorageCanvasGame = { m, letter, scoreGame, xPosition, yPosition, block }
+    let localStorageCanvasGame = { m, letter, scoreGame, xPosition, yPosition, block, intervalTimeGame }
     localStorage.setItem("canvasGameMobile", JSON.stringify(localStorageCanvasGame))
 }
 else {
@@ -70,7 +70,7 @@ let countGameRun = 0;
 function isPlaying() {
     countGameRun++;
     if (!paused()) {
-        let localStorageCanvasGame = { m, letter, scoreGame, xPosition, yPosition, block }
+        let localStorageCanvasGame = { m, letter, scoreGame, xPosition, yPosition, block, intervalTimeGame }
         localStorage.setItem("canvasGameMobile", JSON.stringify(localStorageCanvasGame))
 
         localStorage.setItem('lastScore', scoreGame);
@@ -454,7 +454,7 @@ function ifCatchTop() {
             gameOverPrint(gameOverHtml);
             setMedals();
             finalGameChange()
-            
+
             return true;
         }
     }
