@@ -24,8 +24,7 @@
     <link href="./oswald.ttf" rel="font/ttf">
     <link href="./game.js" as="script">
     <link href="./game-mobile.js" as="script">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4463881368194285"
-        crossorigin="anonymous"></script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E8VQL8KMYB"></script>
     <script>
@@ -63,11 +62,13 @@
             </div>
 
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <button class="btn" style="margin-bottom: 4vmin;" onclick="playNewGame()"><i class="fas fa-play"></i>
+                <button class="btn" style="margin-bottom: 2.5vmin;" onclick="playNewGame()"><i class="fas fa-play"></i>
                     NEW
                     GAME</button>
-                <button id="playGame" class="btn" style="margin-bottom: 4vmin;" onclick="playAGame()"><i
+                <button id="playGame" class="btn" style="margin-bottom: 2.5vmin;" onclick="playAGame()"><i
                         class="fas fa-save"></i> CONTINUE GAME</button>
+                <button class="btn" onclick="window.location.href='https://opensea.io/collection/blocksfall'" style="margin-bottom: 2.5vmin;"><i class="fas fa-coins"></i>
+                    BUY NFTs</button>
                 <button class="btn" onclick="sesssionStorageMusic()"><i id="buttonMusic" class="fas fa-volume-up"></i>
                     MUSIC</button>
             </div>
@@ -77,7 +78,8 @@
         <div class="main" style="height: auto;
         min-height: unset;
         flex-direction: column;">
-            <h2><i class="fas fa-medal"></i> REWARDS</h2>
+            <h2 style="margin-bottom: 0;"><i class="fas fa-medal"></i> REWARDS</h2>
+            <p style="margin: 0;">THE WINNED MEDALS IN THE GAMES</p>
             <div class="scoreAndMenu">
 
 
@@ -97,7 +99,8 @@
         </div>
 
         <div class="main">
-            <h2><i class="fas fa-table"></i> STATS</h2>
+            <h2 style="margin-bottom: 0;"><i class="fas fa-table"></i> STATS</h2>
+            <p style="margin: 0;">THE STATS ABOUT YOUR GAMES</p>
 
             <div class="scoreAndMenu" style="flex-direction: column;">
                 <p class="scoreShow">SCORE RECORD: <span class="scoreRecord">0</span></p>
@@ -116,7 +119,7 @@
 
             <h2 class="logoFooter"><a href="/">BLOCKSFALL.IO</a></h2>
             <br>
-            <p style="padding: 0; margin: 0;">DEVELOPED BY <a
+            <p style="padding: 0; margin: 0;">BY <a
                     href="https://www.linkedin.com/in/lucas-santos-rodrigues-322371184/">LUCAS SANTOS RODRIGUES</a>
             </p>
 
