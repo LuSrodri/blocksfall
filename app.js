@@ -39,9 +39,12 @@ app.get('/play', (req, res) => {
 });
 
 app.get('/playOnline.html', (req, res) => {
-
-  res.sendFile(__dirname + "/html/playOnline.html");
-
+  if (req.headers['user-agent'].indexOf("Mobile") !== -1) {
+    res.sendFile(__dirname + "/html/mobileOnline.html");
+  }
+  else {
+    res.sendFile(__dirname + "/html/playOnline.html");
+  }
 });
 
 app.get('/game-online.js', (req, res) => {
@@ -102,6 +105,10 @@ app.get('/control.jpeg', (req, res) => {
 app.get('/background-image-blocksfall.jpeg', (req, res) => {
   res.sendFile(__dirname + "/images/background-image-blocksfall.jpeg");
 });
+
+app.get('/blocksfall-logo.png', (req, res) => {
+  res.sendFile(__dirname + "/images/logo/blocksfall-logo.png");
+  });
 
 app.get('/congratulations.gif', (req, res) => {
   res.sendFile(__dirname + "/images/congratulations.gif");
@@ -198,6 +205,10 @@ let allGames = [];
 
 io.on('connection', (socket) => {
 
+  // setInterval(() => {
+  //   console.log("online games: " + allGames.length);
+  //   console.log("opened rooms: " + socket.rooms.size);
+  // }, 1000)
 
   //console.log('a user connected');
 
@@ -214,9 +225,9 @@ io.on('connection', (socket) => {
               allGames[i].users[j].score = 0
               io.to(allGames[i].id).emit("gameOver", allGames[i].users);
             }
-            else if (allGames[i].users[j].score >= 10) {
+            else if (allGames[i].users[j].score >= 150) {
               allGames[i].isRunning = false;
-              io.to(allGames[i].id).emit("playerWinner", {users : allGames[i].users, winnerId : allGames[i].users[j].id});
+              io.to(allGames[i].id).emit("playerWinner", { users: allGames[i].users, winnerId: allGames[i].users[j].id });
             }
             else {
               io.to(allGames[i].id).emit("updateServer", allGames[i].users);

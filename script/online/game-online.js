@@ -25,6 +25,15 @@ let m1 = null
 let letter = null
 
 function setMatrixOnline(users) {
+    if (document.getElementById('hudMobile')) {
+        canvas.className = "canvasMobile";
+        canvas1.className = "canvasMobile";
+        setControlLeftMove1()
+        setControlRightMove1()
+        setControlDownMove1()
+        setControlRotateLeft1()
+        setControlRotateRight1()
+    }
     document.getElementById("game").parentNode.replaceChild(canvas, document.getElementById("game"));
     document.getElementById("game1").parentNode.replaceChild(canvas1, document.getElementById("game1"));
     for (let i = 0; i < users.length; i++) {
@@ -80,7 +89,7 @@ let letters = ['T', 'Z', 'I', 'L', 'J', 'S', 'O'];
 
 
 function gameOnlineStart() {
-
+    socket.emit("updateClient", { m, gameId, scoreGame, letter })
 
 
     gameOverPrintAux();
@@ -226,6 +235,7 @@ document.body.addEventListener('keydown', function (event) {
             printGame(letter, m, ctx);
             xPosition = wherePiece('x');
             yPosition = wherePiece('y');
+            socket.emit("updateClient", { m, gameId, scoreGame, letter })
         }
         if (key === "D" || key === "d" || key === "ArrowRight") {
             changeDirection('R');
@@ -233,6 +243,7 @@ document.body.addEventListener('keydown', function (event) {
             printGame(letter, m, ctx);
             xPosition = wherePiece('x');
             yPosition = wherePiece('y');
+            socket.emit("updateClient", { m, gameId, scoreGame, letter })
         }
         if (key === "S" || key === "s" || key === "ArrowDown") {
             downPiece(letter);
@@ -240,142 +251,168 @@ document.body.addEventListener('keydown', function (event) {
             printGame(letter, m, ctx);
             xPosition = wherePiece('x');
             yPosition = wherePiece('y');
+            socket.emit("updateClient", { m, gameId, scoreGame, letter })
         }
         if (key === "E" || key === "e" || key === " ") {
             block = rotatePiece('R', block)
             putPiece(block, xPosition, yPosition);
             sombraPiece()
             printGame(letter, m, ctx);
+            socket.emit("updateClient", { m, gameId, scoreGame, letter })
         }
         if (key === "Q" || key === "q") {
             block = rotatePiece('L', block);
             putPiece(block, xPosition, yPosition);
             sombraPiece()
             printGame(letter, m, ctx, ctx);
+            socket.emit("updateClient", { m, gameId, scoreGame, letter })
         }
     }
 });
 
 
-// let timer1 = null;
-// let timerOut1 = null;
+let timer1 = null;
+let timerOut1 = null;
 
-// let leftMove1 = document.getElementById("leftMove");
-// leftMove1.addEventListener("touchstart", leftMoveOn, true);
-// leftMove1.addEventListener("touchend", timerOff1, true);
-// function leftMoveOn() {
-//     changeDirection('L');
-//     sombraPiece()
-//     printGame(letter,m,ctx);
-//     xPosition = wherePiece('x');
-//     yPosition = wherePiece('y');
-//     timerOut1 = setTimeout(
-//         setInterval1, 125);
-// }
+function setControlLeftMove1(){
+    let leftMove1 = document.getElementById("leftMove");
+    leftMove1.addEventListener("touchstart", leftMoveOn, true);
+    leftMove1.addEventListener("touchend", timerOff1, true);
+}
 
-// function setInterval1() {
-//     timer1 = setInterval(function () {
-//         changeDirection('L');
-//         sombraPiece()
-//         printGame(letter,m,ctx);
-//         xPosition = wherePiece('x');
-//         yPosition = wherePiece('y');
-//     }, 50)
-// }
+function leftMoveOn() {
+    changeDirection('L');
+    sombraPiece()
+    printGame(letter, m, ctx);
+    xPosition = wherePiece('x');
+    yPosition = wherePiece('y');
+    socket.emit("updateClient", { m, gameId, scoreGame, letter })
+    timerOut1 = setTimeout(
+        setInterval1, 125);
+}
 
-// function timerOff1() {
-//     if (timer1 !== null || timerOut1 !== null) {
-//         clearInterval(timer1);
-//         clearTimeout(timerOut1);
-//     }
-// }
+function setInterval1() {
+    timer1 = setInterval(function () {
+        changeDirection('L');
+        sombraPiece()
+        printGame(letter, m, ctx);
+        xPosition = wherePiece('x');
+        yPosition = wherePiece('y');
+        socket.emit("updateClient", { m, gameId, scoreGame, letter })
+    }, 50)
+}
 
-// let timer2 = null;
-// let timerOut2 = null;
+function timerOff1() {
+    if (timer1 !== null || timerOut1 !== null) {
+        clearInterval(timer1);
+        clearTimeout(timerOut1);
+    }
+}
 
-// let rightMove1 = document.getElementById("rightMove");
-// rightMove1.addEventListener("touchstart", rightMoveOn, true);
-// rightMove1.addEventListener("touchend", timerOff2, true);
-// function rightMoveOn() {
-//     changeDirection('R');
-//     sombraPiece()
-//     printGame(letter,m,ctx);
-//     xPosition = wherePiece('x');
-//     yPosition = wherePiece('y');
+let timer2 = null;
+let timerOut2 = null;
 
-//     timerOut2 = setTimeout(
-//         setInterval2, 125);
-// }
+function setControlRightMove1(){
+    let rightMove1 = document.getElementById("rightMove");
+    rightMove1.addEventListener("touchstart", rightMoveOn, true);
+    rightMove1.addEventListener("touchend", timerOff2, true);
+}
 
-// function setInterval2() {
-//     timer2 = setInterval(function () {
-//         changeDirection('R');
-//         sombraPiece()
-//         printGame(letter,m,ctx);
-//         xPosition = wherePiece('x');
-//         yPosition = wherePiece('y');
-//     }, 50)
-// }
+function rightMoveOn() {
+    changeDirection('R');
+    sombraPiece()
+    printGame(letter, m, ctx);
+    xPosition = wherePiece('x');
+    yPosition = wherePiece('y');
+    socket.emit("updateClient", { m, gameId, scoreGame, letter })
 
-// function timerOff2() {
-//     if (timer2 !== null || timerOut2 !== null) {
-//         clearInterval(timer2);
-//         clearTimeout(timerOut2);
-//     }
-// }
+    timerOut2 = setTimeout(
+        setInterval2, 125);
+}
 
-// let timer3 = null;
-// let timerOut3 = null;
+function setInterval2() {
+    timer2 = setInterval(function () {
+        changeDirection('R');
+        sombraPiece()
+        printGame(letter, m, ctx);
+        xPosition = wherePiece('x');
+        yPosition = wherePiece('y');
+        socket.emit("updateClient", { m, gameId, scoreGame, letter })
+    }, 50)
+}
 
-// let downMove1 = document.getElementById("downMove");
-// downMove1.addEventListener("touchstart", downMoveOn, true);
-// downMove1.addEventListener("touchend", timerOff3, true);
-// function downMoveOn() {
-//     downPiece(letter);
-//     sombraPiece()
-//     printGame(letter,m,ctx);
-//     xPosition = wherePiece('x');
-//     yPosition = wherePiece('y');
+function timerOff2() {
+    if (timer2 !== null || timerOut2 !== null) {
+        clearInterval(timer2);
+        clearTimeout(timerOut2);
+    }
+}
 
-//     timerOut3 = setTimeout(
-//         setInterval3, 125);
+let timer3 = null;
+let timerOut3 = null;
 
-// }
+function setControlDownMove1() {
+    let downMove1 = document.getElementById("downMove");
+    downMove1.addEventListener("touchstart", downMoveOn, true);
+    downMove1.addEventListener("touchend", timerOff3, true);
+}
 
-// function setInterval3() {
-//     timer3 = setInterval(function () {
-//         downPiece(letter);
-//         sombraPiece()
-//         printGame(letter,m,ctx);
-//         xPosition = wherePiece('x');
-//         yPosition = wherePiece('y');
-//     }, 50)
-// }
+function downMoveOn() {
+    downPiece(letter);
+    sombraPiece()
+    printGame(letter, m, ctx);
+    xPosition = wherePiece('x');
+    yPosition = wherePiece('y');
+    socket.emit("updateClient", { m, gameId, scoreGame, letter })
 
-// function timerOff3() {
-//     if (timer3 !== null || timerOut3 !== null) {
-//         clearInterval(timer3);
-//         clearTimeout(timerOut3);
-//     }
-// }
+    timerOut3 = setTimeout(
+        setInterval3, 125);
 
-// let rotateRight1 = document.getElementById("rotateRight");
-// rotateRight1.addEventListener("mousedown", rotateRight, true);
-// function rotateRight() {
-//     block = rotatePiece('R', block)
-//     putPiece(block, xPosition, yPosition);
-//     sombraPiece()
-//     printGame(letter,m,ctx);
-// }
+}
 
-// let rotateLeft1 = document.getElementById("rotateLeft");
-// rotateLeft1.addEventListener("mousedown", rotateLeft, true);
-// function rotateLeft() {
-//     block = rotatePiece('L', block);
-//     putPiece(block, xPosition, yPosition);
-//     sombraPiece()
-//     printGame(letter,m,ctx);
-// }
+function setInterval3() {
+    timer3 = setInterval(function () {
+        downPiece(letter);
+        sombraPiece()
+        printGame(letter, m, ctx);
+        xPosition = wherePiece('x');
+        yPosition = wherePiece('y');
+        socket.emit("updateClient", { m, gameId, scoreGame, letter })
+    }, 50)
+}
+
+function timerOff3() {
+    if (timer3 !== null || timerOut3 !== null) {
+        clearInterval(timer3);
+        clearTimeout(timerOut3);
+    }
+}
+
+function setControlRotateRight1() {
+    let rotateRight1 = document.getElementById("rotateRight");
+    rotateRight1.addEventListener("mousedown", rotateRight, true);
+}
+
+function rotateRight() {
+    block = rotatePiece('R', block)
+    putPiece(block, xPosition, yPosition);
+    sombraPiece()
+    printGame(letter, m, ctx);
+    socket.emit("updateClient", { m, gameId, scoreGame, letter })
+}
+
+function setControlRotateLeft1() {
+    let rotateLeft1 = document.getElementById("rotateLeft");
+    rotateLeft1.addEventListener("mousedown", rotateLeft, true);
+}
+
+function rotateLeft() {
+    block = rotatePiece('L', block);
+    putPiece(block, xPosition, yPosition);
+    sombraPiece()
+    printGame(letter, m, ctx);
+    socket.emit("updateClient", { m, gameId, scoreGame, letter })
+}
 
 
 function setMedals() {
@@ -490,7 +527,7 @@ function ifCatchTop() {
 }
 
 function finalGameChange() {
-    if (sessionStorage.getItem("musicControl") !== "false" ) {
+    if (sessionStorage.getItem("musicControl") !== "false") {
         let music = document.createElement("audio")
         music.src = "/finalMusic.mp3"
         music.id = "finalMusic"

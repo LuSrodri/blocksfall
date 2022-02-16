@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocks' Fall - The fun puzzle game for PLAY anywhere.</title>
+    <meta name="description" content="The fun puzzle game for PLAY anywhere.">
+    <meta name="application-name" content="Blocks Fall">
+    <meta name="author" content="https://www.linkedin.com/in/lucas-santos-rodrigues-322371184/">
+    <meta property="og:title" content="Blocks' Fall - The fun puzzle game for PLAY anywhere.">
+    <meta property="og:type" content="game" />
+    <meta property="og:image" content="blocksfall-logo.png">
+    <meta property="og:url" content="blocksfall.io">
+    <meta name="twitter:card" content="blocksfall-logo.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/x-icon" href="./blocksfall-logo.png">
+    <link rel="stylesheet" href="./style.css">
+    <link href="./icons.css" rel="stylesheet">
+    <link href="./oswald.ttf" rel="stylesheet">
+    <link rel="preload" href="./pause.html">
+    <link rel="preload" href="./gameover.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4463881368194285"
+        crossorigin="anonymous"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E8VQL8KMYB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-E8VQL8KMYB');
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-215656117-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-215656117-1');
+    </script>
+</head>
+
+<body id="body"  >
+
+    <div class="container">
+        <div id="hudMobile" class="hud" style="margin-bottom: 2vmin; padding-top: 0; height: auto;">
+
+            <div class="scoreAndMenu scoreAndMenuMobile" style="margin: 0; margin-top: 1vmin;">
+                <div>
+                    <h2 class="scoreShow scoreShowMobile" >YOUR SCORE: <span class="score">0</span> </h2>
+                </div>
+            </div>
+
+            <canvas id="game" class="canvasMobile" style="margin-top: 1vmin;"></canvas>
+
+            <div class="controller">
+                <div class="rows">
+                    <button class="btn btnController" id="rotateLeft"><i class="fas fa-undo"></i></button>
+                    <button class="btn btnController" id="rotateRight"><i class="fas fa-redo-alt"></i></button>
+                </div>
+                <div class="rows">
+                    <button class="btn btnController btnControlerOrange" id="leftMove"><i
+                            class="fas fa-arrow-left"></i></button>
+                    <button class="btn btnController btnControlerOrange" id="rightMove"><i
+                            class="fas fa-arrow-right"></i></button>
+                </div>
+                <div class="rows rows1">
+                    <button class="btn btnController" id="downMove"><i class="fas fa-arrow-down"></i></button>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="hudMobile" class="hud" style="margin-bottom: 2vmin; padding-top: 0; height: auto;">
+
+            <div class="scoreAndMenu scoreAndMenuMobile" style="margin: 0; margin-top: 1vmin;">
+                <div>
+                    <h2 class="scoreShow scoreShowMobile"><span id="game1UserName" >USERNAME_PLAYER</span>: <span id="scorePlayer2">0</span> </h2>
+                </div>
+            </div>
+
+            <canvas id="game1" class="canvasMobile"></canvas>
+
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>
