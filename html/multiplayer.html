@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocks' Fall - The fun puzzle game for PLAY anywhere.</title>
+    <meta name="description" content="The fun puzzle game for PLAY anywhere.">
+    <meta name="application-name" content="Blocks Fall">
+    <meta name="author" content="https://www.linkedin.com/in/lucas-santos-rodrigues-322371184/">
+    <meta property="og:title" content="Blocks' Fall - The fun puzzle game for PLAY anywhere.">
+    <meta property="og:type" content="game" />
+    <meta property="og:image" content="blocksfall-logo.png">
+    <meta property="og:url" content="blocksfall.io">
+    <meta name="twitter:card" content="blocksfall-logo.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/x-icon" href="./blocksfall-logo.png">
+    <link rel="stylesheet" href="./style.css">
+    <link href="./icons.css" rel="stylesheet">
+    <link href="./FORCED-SQUARE.ttf" rel="stylesheet">
+    <link rel="preload" href="./pause.html">
+    <link rel="preload" href="./gameover.html">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4463881368194285"
+        crossorigin="anonymous"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E8VQL8KMYB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-E8VQL8KMYB');
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-215656117-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-215656117-1');
+    </script>
+
+</head>
+
+<body id="body" onblur="" onclick="">
+
+    <div class="container" style="flex-direction: row; flex-wrap: wrap;">
+        <div class="main">
+
+            <h2><i class='fas fa-user-circle'></i> USERNAME</h2>
+            <h3 id="warning" style="margin: 0;"> </h3>
+            <input class="input" MAXLENGTH="10" id="userName" name="userName" type="text" style="width: 35vmin;">
+            <button class="btn" onclick="userConnected()"> <i class='fas fa-sign-in-alt'></i> JOIN </button>
+
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+        let socket = io();
+        function userConnected() {
+            let userName = document.getElementById("userName").value;
+            if (userName === '') {
+                document.getElementById("warning").innerHTML = "<i class='fas fa-exclamation-circle'></i> PLEASE ENTER A USERNAME.";
+            }
+            else {
+                if (window.location.href.includes("?id=")) {
+                    let gameId = window.location.href.split("?id=")[1];
+                    gameId = parseInt(gameId);
+                    socket.emit("userConnected", { userName, gameId })
+                }
+                else {
+                    socket.emit("userConnected", { userName, gameId: -1 })
+                }
+            }
+
+        }
+
+        let gameId = null;
+        let userId = null
+
+        let playOnlineHtml = null
+        getPlayOnlineHtml();
+
+        function getPlayOnlineHtml() {
+            let xmlHttp = new XMLHttpRequest();
+            xmlHttp.responseType = "document";
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState !== 4 && xmlHttp.status !== 200) {
+                    return false
+                }
+                else if (xmlHttp.response) {
+                    playOnlineHtml = xmlHttp.response.getElementById('body');
+                }
+            }
+            xmlHttp.open("GET", './playOnline.html', true); // true for asynchronous 
+            xmlHttp.send(null);
+        }
+
+        socket.on("startGame", (msg) => {
+            if (playOnlineHtml === null) {
+                getPlayOnlineHtml();
+            }
+            document.getElementsByClassName("container")[0].innerHTML = playOnlineHtml.getElementsByClassName("container")[0].innerHTML;
+            for (let x = 0; x < msg.users.length; x++) {
+                if (socket.id !== msg.users[x].id) {
+                    document.getElementById("game1UserName").innerHTML = msg.users[x].name;
+                }
+            }
+            setMatrixOnline(msg.users)
+        })
+
+        socket.on("roomIsFull", () => {
+            document.getElementById("warning").innerHTML = "<i class='fas fa-exclamation-circle'></i> ROOM IS FULL.";
+        })
+
+        socket.on("userList", msg => {
+
+            gameId = msg.id;
+
+            let divScoreAndMenu = document.createElement("div")
+            divScoreAndMenu.className = "scoreAndMenu"
+            divScoreAndMenu.style.flexDirection = "column"
+
+            let pWaiting = document.createElement("h3")
+            pWaiting.id = "pWaiting"
+
+            let buttonStart = document.createElement("button")
+            buttonStart.className = "btn"
+            buttonStart.innerHTML = "<i class='fas fa-play'></i> START"
+            buttonStart.setAttribute("onclick", "startGame()")
+
+            for (let x = 0; x < msg.users.length; x++) {
+                let p = document.createElement("p")
+                p.innerHTML = " PLAYER " + (x + 1) + " - "
+                p.className = "scoreShow player"
+                if (msg.users[x].host === true) {
+                    p.innerHTML += msg.users[x].name + " (HOST)"
+                }
+                else {
+                    p.innerHTML += msg.users[x].name
+                }
+                if (msg.users[x].id === socket.id) {
+                    p.style = "color: #FF9A00"
+                }
+                divScoreAndMenu.appendChild(p)
+            }
+
+            pWaiting.innerHTML = "<i class='fas fa-hourglass'></i> WAITING THE HOST..."
+
+
+            for (let x = 0; x < msg.users.length; x++) {
+
+                if (msg.users[x].id === socket.id && msg.users[x].host === true) {
+                    if (msg.users.length === 1) {
+                        pWaiting.innerHTML = "<i class='fas fa-hourglass'></i> WAITING FOR PLAYERS..."
+                    }
+                    if (msg.users.length > 1) {
+                        pWaiting = buttonStart
+                    }
+                }
+            }
+
+            let roomId = document.createElement("h2")
+            roomId.innerHTML = "<i class='fas fa-user-friends'></i>" + msg.users.length + "/2 - ROOM ID: " + msg.id
+
+            let buttonShare = document.createElement("button")
+            buttonShare.id = "share"
+            buttonShare.setAttribute("onclick", "shareGame()")
+            buttonShare.className = "btn"
+            buttonShare.innerHTML = "<i class='fas fa-share'></i> SHARE"
+
+            let divHeader = document.createElement("div")
+            divHeader.style.display = "flex"
+            divHeader.style.flexDirection = "row"
+            divHeader.style.justifyContent = "space-eveliny"
+            divHeader.style.alignItems = "center"
+
+            divHeader.appendChild(roomId)
+            divHeader.appendChild(buttonShare)
+
+            if (document.getElementsByClassName("main")[0] !== undefined) {
+                document.getElementsByClassName("main")[0].replaceChildren(divHeader)
+                document.getElementsByClassName("main")[0].appendChild(divScoreAndMenu)
+                document.getElementsByClassName("main")[0].appendChild(pWaiting)
+            }
+
+        }
+        )
+
+        function shareGame() {
+            if (navigator.share !== undefined) {
+                navigator.share({
+                    title: "Blocks' Fall",
+                    text: "You can play Blocks' Fall with me!",
+                    url: './multiplayer?id=' + gameId,
+                })
+                    .then(() => { })
+                    .catch((error) => { });
+            }
+            else {
+                let urlShare = window.location.origin + "/multiplayer?id=" + gameId;
+                navigator.clipboard.writeText(urlShare)
+                    .then(() => {
+                        document.getElementById("share").innerHTML = "<i class='fas fa-check'></i> COPIED"
+                    })
+                    .catch((err) => {
+
+                    });
+            }
+        }
+
+        function startGame() {
+            socket.emit("startClient", { gameId })
+        }
+
+    </script>
+    <script src="/game-online.js"></script>
+
+</body>
+
+
+</html>

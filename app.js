@@ -2,6 +2,10 @@
 
 const express = require('express');
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
 app.get('/index', (req, res) => {
   res.redirect('/');
@@ -26,13 +30,29 @@ app.get('/play', (req, res) => {
     app.use(express.static('images/logo'));
     res.sendFile(__dirname + "/html/mobile.html");
   }
-  else{
+  else {
     app.use(express.static('script/game'));
     app.use(express.static('script/menu'));
     app.use(express.static('images/logo'));
     res.sendFile(__dirname + "/html/play.html");
   }
 });
+
+app.get('/playOnline.html', (req, res) => {
+
+  res.sendFile(__dirname + "/html/playOnline.html");
+
+});
+
+app.get('/game-online.js', (req, res) => {
+  res.sendFile(__dirname + "/script/online/game-online.js");
+});
+
+app.get('/multiplayer', (req, res) => {
+  app.use(express.static('images/logo'));
+  res.sendFile(__dirname + "/html/multiplayer.html");
+});
+
 
 
 app.get('/mobile', (req, res) => {
@@ -131,7 +151,173 @@ app.get('/gameover.html', (req, res) => {
 //   res.sendFile(__dirname+"/html/pre_lobby.html");
 // });
 
+let user = class user {
+  constructor(id, name, host = false) {
+    this.id = id
+    this.name = name;
+    this.matrix = null;
+    this.score = 0;
+    this.host = host;
+    this.letter = null;
+  }
+};
+
+let gameMatch = class gameMatch {
+  constructor(id, users) {
+    this.id = id
+    this.users = users;
+    this.isRunning = false;
+  }
+}
+
+function makeMatrixOnline(width, height) { //make the matrix with the width and height for the game
+  let matrix = new Array();
+  for (let y = 0; y < height; y++) {
+    matrix[y] = new Array();
+    for (let x = 0; x < width; x++) {
+      matrix[y][x] = 0;
+    }
+  }
+  return matrix;
+}
+
+let allGames = [];
+
+io.on('connection', (socket) => {
 
 
-app.listen(process.env.PORT || 3000, function () {
+  //console.log('a user connected');
+
+  socket.on("updateClient", msg => {
+    for (let i = 0; i < allGames.length; i++) {
+      if (allGames[i].id === msg.gameId) {
+        for (let j = 0; j < allGames[i].users.length; j++) {
+          if (allGames[i].users[j].id === socket.id) {
+            allGames[i].users[j].matrix = msg.m;
+            allGames[i].users[j].score = msg.scoreGame;
+            allGames[i].users[j].letter = msg.letter;
+            socket.emit("updateServer", allGames[i].users);
+          }
+        }
+      }
+    }
+  })
+
+  socket.on("startClient", msg => {
+    for (let x = 0; x < allGames.length; x++) {
+      if (allGames[x].id === msg.gameId) {
+        if (allGames[x].isRunning === false) {
+          let mOnline = new Array();
+          mOnline = makeMatrixOnline(12, 16);
+          for (let i = 0; i < allGames[x].users.length; i++) {
+            allGames[x].users[i].matrix = mOnline;
+          }
+          allGames[x].isRunning = true;
+          io.to(allGames[x].id).emit("startGame", allGames[x]);
+        }
+      }
+    }
+
+  })
+
+  socket.on("userConnected", msg => {
+    let users = []
+
+    if (msg.gameId === -1 || msg.gameId === undefined || msg.gameId === null || !Number.isInteger(msg.gameId)) {
+      let randomId = Math.floor(Math.random() * 1000000);
+      while (isIdInUse(randomId)) {
+        randomId = Math.floor(Math.random() * 1000000);
+      }
+      if (!isIdInUse(randomId)) {
+        let gameMatch1 = new gameMatch(randomId, users);
+        let user1 = new user(socket.id, msg.userName, true)
+        gameMatch1.users.push(user1)
+        socket.join(randomId)
+        io.to(randomId).emit("userList", gameMatch1);
+        // socket.emit("userList", gameMatch1)
+        // socket.broadcast.emit("userList", gameMatch1)
+        allGames.push(gameMatch1);
+      }
+    }
+    else {
+      if (!isIdInUse(msg.gameId)) {
+        let gameMatch1 = new gameMatch(msg.gameId, users);
+        let user1 = new user(socket.id, msg.userName, true)
+        gameMatch1.users.push(user1)
+        socket.join(msg.gameId)
+        io.to(msg.gameId).emit("userList", gameMatch1);
+        // socket.emit("userList", gameMatch1)
+        // socket.broadcast.emit("userList", gameMatch1)
+        allGames.push(gameMatch1);
+      }
+      else {
+        for (let i = 0; i < allGames.length; i++) {
+          if (allGames[i].id === msg.gameId && allGames[i].users.length < 2) {
+            let user1 = new user(socket.id, msg.userName)
+            user1.matrix = makeMatrixOnline(12, 16);
+            allGames[i].users.push(user1)
+            socket.join(msg.gameId)
+            io.to(msg.gameId).emit("userList", allGames[i]);
+            if (allGames[i].isRunning === true) {
+              io.to(allGames[i].id).emit("startGame", allGames[i]);
+            }
+            // socket.emit("userList", allGames[i])
+            // socket.broadcast.emit("userList", allGames[i])
+          }
+          else {
+            io.to(socket.id).emit("roomIsFull");
+          }
+        }
+      }
+    }
+
+  })
+
+
+  socket.on('disconnect', () => {
+    let allGamesLength = allGames.length;
+    for (let i = 0; i < allGamesLength; i++) {
+      let usersLength = allGames[i].users.length;
+      for (let j = 0; j < usersLength; j++) {
+        if (allGames[i].users[j].id === socket.id) {
+          socket.leave(allGames[i].id);
+          allGames[i].users = allGames[i].users.filter((user1) => user1.id !== socket.id)
+          usersLength = allGames[i].users.length;
+          if (allGames[i].users[j] !== undefined) {
+            if (allGames[i].users.length === 1 && allGames[i].users[j].host === false) {
+              allGames[i].users[j].host = true;
+            }
+          }
+          if (allGames[i].users.length === 0) {
+            allGames.splice(i, 1);
+            allGamesLength = allGames.length;
+          }
+          else {
+            for (let x = 0; x < allGames[i].users.length; x++) {
+              io.to(allGames[i].users[x].id).emit("userList", allGames[i])
+            }
+          }
+        }
+
+      }
+
+
+    }
+    //console.log('user disconnected');
+  });
+});
+
+
+
+// verify if the randomId is already in use
+function isIdInUse(id) {
+  for (let i = 0; i < allGames.length; i++) {
+    if (allGames[i].id === id) {
+      return true;
+    }
+  }
+  return false;
+}
+
+server.listen(process.env.PORT || 3000, function () {
 });

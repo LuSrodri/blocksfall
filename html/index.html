@@ -61,15 +61,18 @@
                 <p class="scoreShow" style="color: #1E212D;">RECORD: <span class="scoreRecord">0</span></p>
             </div>
 
-            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <button class="btn" style="margin-bottom: 2.5vmin;" onclick="playNewGame()"><i class="fas fa-play"></i>
+            <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap; width: 100%;">
+                <button class="btn btnHome" onclick="playNewGame()"><i class="fas fa-play"></i>
                     NEW
                     GAME</button>
-                <button id="playGame" class="btn" style="margin-bottom: 2.5vmin;" onclick="playAGame()"><i
-                        class="fas fa-save"></i> CONTINUE GAME</button>
-                <button class="btn" onclick="window.location.href='https://opensea.io/collection/blocksfall'" style="margin-bottom: 2.5vmin;"><i class="fas fa-coins"></i>
+                <button id="playGame" class="btn btnHome" onclick="playAGame()"><i class="fas fa-save"></i> CONTINUE
+                    GAME</button>
+                <a class="btn btnHome" href="#multiplayer"><i class="fas fa-user-friends"></i>
+                    1v1 GAME</a>
+                <button class="btn btnHome" onclick="window.location.href='https://opensea.io/collection/blocksfall'"><i
+                        class="fas fa-coins"></i>
                     BUY NFTs</button>
-                <button class="btn" onclick="sesssionStorageMusic()"><i id="buttonMusic" class="fas fa-volume-up"></i>
+                <button class="btn btnHome" onclick="sesssionStorageMusic()"><i id="buttonMusic" class="fas fa-volume-up"></i>
                     MUSIC</button>
             </div>
 
@@ -79,7 +82,7 @@
         min-height: unset;
         flex-direction: column;">
             <h2 style="margin-bottom: 0;"><i class="fas fa-medal"></i> REWARDS</h2>
-            <p style="margin: 0;">THE WINNED MEDALS IN THE GAMES</p>
+            <h3 style="margin-top: 0;">THE WINNED MEDALS IN THE GAMES</h3>
             <div class="scoreAndMenu">
 
 
@@ -98,17 +101,36 @@
             </div>
         </div>
 
+        <div class="main" style="height: auto;
+        min-height: unset;
+        flex-direction: column;" id="multiplayer">
+            <h2 style="margin-bottom: 0;"><i class="fas fa-user-friends"></i> 1v1 GAME</h2>
+            <h3 style="margin-top: 0;">PLAY WITH YOUR FRIEND</h3>
+            <div class="scoreAndMenu" >
+                <button class="btn" onclick="window.location.href='/multiplayer'"><i class="fas fa-user-friends"></i>
+                    CREATE A GAME</button>
+            </div>
+            <div class="scoreAndMenu">
+                <p class="scoreShow" style="margin: 0; ">ROOM ID:</p>
+                <input type="number" id="roomId" class="input" value="">
+                <button class="btn"
+                    onclick="window.location.href='/multiplayer?id='+document.getElementById('roomId').value"><i
+                        class="fas fa-user-friends"></i>
+                    JOIN A GAME</button>
+            </div>
+        </div>
+
         <div class="main">
             <h2 style="margin-bottom: 0;"><i class="fas fa-table"></i> STATS</h2>
-            <p style="margin: 0;">THE STATS ABOUT YOUR GAMES</p>
+            <h3 style="margin-top: 0;">THE STATS ABOUT YOUR GAMES</h3>
 
-            <div class="scoreAndMenu" style="flex-direction: column;">
-                <p class="scoreShow">SCORE RECORD: <span class="scoreRecord">0</span></p>
-                <p class="scoreShow">TOTAL PLAYED: <span id="totalPlayed">0</span></p>
-                <p class="scoreShow">LAST SCORE: <span id="lastScore">0</span></p>
-                <p class="scoreShow">TOTAL SCORED: <span id="totalScored">0</span></p>
-                <p class="scoreShow">TOTAL PIECES GENERATED: <span id="pieceGenerated">0</span></p>
-                <p class="scoreShow">TOTAL LINES COMPLETED: <span id="linesCompleted">0</span></p>
+            <div class="scoreAndMenu" style="flex-direction: column; align-items: flex-start; ">
+                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;" class="fas fa-star"></i> SCORE RECORD: <span class="scoreRecord">0</span></p>
+                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;"  class="fas fa-star"></i> TOTAL PLAYED: <span id="totalPlayed">0</span></p>
+                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;"  class="fas fa-star"></i> LAST SCORE: <span id="lastScore">0</span></p>
+                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;"  class="fas fa-star"></i> TOTAL SCORED: <span id="totalScored">0</span></p>
+                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;"  class="fas fa-star"></i> TOTAL PIECES GENERATED: <span id="pieceGenerated">0</span></p>
+                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;"  class="fas fa-star"></i> TOTAL LINES COMPLETED: <span id="linesCompleted">0</span></p>
             </div>
 
         </div>
