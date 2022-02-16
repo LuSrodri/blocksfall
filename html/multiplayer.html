@@ -48,7 +48,7 @@
 
 </head>
 
-<body id="body" onblur="" onclick="">
+<body id="body" onblur="ifOnBlur()" onclick="ifOnClicked()">
 
     <div class="container" style="flex-direction: row; flex-wrap: wrap;">
         <div class="main">
@@ -219,6 +219,65 @@
 
         function startGame() {
             socket.emit("startClient", { gameId })
+        }
+
+        musicControl(true)
+
+        function musicControl(firstTimeMusic = false) {
+            if (sessionStorage.getItem('musicControl') === null && firstTimeMusic === true) {
+                if (document.getElementById('music') === null) {
+                    let music = document.createElement('audio')
+                    music.src = "./music.mpeg"
+                    music.id = "music"
+                    music.autoplay = ' '
+                    music.loop = ' '
+                    document.getElementsByClassName('container')[0].parentNode.appendChild(music)
+
+                }
+            }
+
+            if (sessionStorage.getItem('musicControl') === 'false') {
+
+                if (document.getElementById("music")) {
+                    document.getElementById('music').parentNode.removeChild(document.getElementById('music'))
+                }
+            }
+            else if (sessionStorage.getItem('musicControl') === 'true') {
+
+
+                if (document.getElementById('music') === null) {
+                    let music = document.createElement('audio')
+                    music.src = "./music.mpeg"
+                    music.id = "music"
+                    music.autoplay = ' '
+                    music.loop = ' '
+                    document.getElementsByClassName('container')[0].parentNode.appendChild(music)
+
+                }
+
+            }
+        }
+
+        function ifOnBlur() {
+            if (sessionStorage.getItem('musicControl') === "true" || sessionStorage.getItem('musicControl') === null) {
+                if (document.getElementById("music")) {
+                    document.getElementById('music').parentNode.removeChild(document.getElementById('music'))
+                }
+            }
+        }
+
+        function ifOnClicked() {
+            if (sessionStorage.getItem('musicControl') === "true" || sessionStorage.getItem('musicControl') === null) {
+                if (document.getElementById("music") === null) {
+                    let music = document.createElement('audio')
+                    music.src = "./music.mpeg"
+                    music.id = "music"
+                    music.autoplay = ' '
+                    music.loop = ' '
+                    document.getElementsByClassName('container')[0].parentNode.appendChild(music)
+                }
+
+            }
         }
 
     </script>

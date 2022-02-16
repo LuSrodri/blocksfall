@@ -53,6 +53,9 @@ app.get('/multiplayer', (req, res) => {
   res.sendFile(__dirname + "/html/multiplayer.html");
 });
 
+app.get('/gameoverOnline.html', (req, res) => {
+  res.sendFile(__dirname + "/html/pause/gameoverOnline.html");
+});
 
 
 app.get('/mobile', (req, res) => {
@@ -181,6 +184,16 @@ function makeMatrixOnline(width, height) { //make the matrix with the width and 
   return matrix;
 }
 
+function ifCatchTop(matrixTop) {
+  for (let i = 0; i < matrixTop[0].length; i++) {
+    if (matrixTop[0][i] !== 0 && matrixTop[0][i] !== 1) {
+
+      return true;
+    }
+  }
+  return false;
+}
+
 let allGames = [];
 
 io.on('connection', (socket) => {
@@ -196,7 +209,18 @@ io.on('connection', (socket) => {
             allGames[i].users[j].matrix = msg.m;
             allGames[i].users[j].score = msg.scoreGame;
             allGames[i].users[j].letter = msg.letter;
-            socket.emit("updateServer", allGames[i].users);
+            if (ifCatchTop(allGames[i].users[j].matrix)) {
+              allGames[i].users[j].matrix = makeMatrixOnline(12, 16)
+              allGames[i].users[j].score = 0
+              io.to(allGames[i].id).emit("gameOver", allGames[i].users);
+            }
+            else if (allGames[i].users[j].score >= 10) {
+              allGames[i].isRunning = false;
+              io.to(allGames[i].id).emit("playerWinner", {users : allGames[i].users, winnerId : allGames[i].users[j].id});
+            }
+            else {
+              io.to(allGames[i].id).emit("updateServer", allGames[i].users);
+            }
           }
         }
       }
@@ -211,6 +235,7 @@ io.on('connection', (socket) => {
           mOnline = makeMatrixOnline(12, 16);
           for (let i = 0; i < allGames[x].users.length; i++) {
             allGames[x].users[i].matrix = mOnline;
+            allGames[x].users[i].score = 0;
           }
           allGames[x].isRunning = true;
           io.to(allGames[x].id).emit("startGame", allGames[x]);
@@ -265,7 +290,7 @@ io.on('connection', (socket) => {
             // socket.broadcast.emit("userList", allGames[i])
           }
           else {
-            io.to(socket.id).emit("roomIsFull");
+            socket.emit("roomIsFull");
           }
         }
       }

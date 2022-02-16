@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLOCKS' FALL - the funnest game for pc and mobile</title>
+    <meta name="description" content="BLOCKS' FALL - the funnest game for pc and mobile">
+    <meta name="application-name" content="Blocks Fall">
+    <meta name="author" content="https://www.linkedin.com/in/lucas-santos-rodrigues-322371184/">
+    <meta property="og:title" content="BLOCKS' FALL - the funnest game for pc and mobile">
+    <meta property="og:type" content="game" />
+    <meta property="og:image" content="./blocksfall-logo.png">
+    <meta property="og:url" content="https://blocksfall.io/">
+    <meta name="twitter:card" content="./blocksfall-logo.png">
+    <link rel="icon" type="image/x-icon" href="./blocksfall-logo.png">
+    <link rel="stylesheet" href="./style.css">
+    <link href="./icons.css" rel="stylesheet">
+    <link href="./FORCED-SQUARE.ttf" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4463881368194285"
+        crossorigin="anonymous"></script>
+</head>
+
+<body id="body paused" style="height: 90vh;">
+    <div class="container" style="height: 90%;">
+        <div class="main" style="height: 100%; max-height: 500px;">
+            <div class="dialogDiv" style="height: 100%;">
+                <img src="/congratulations.gif" id="finalGame" style="width: 40%; margin: 0; margin-top: 5vmin;" alt="">
+                <div class="scoreAndMenu scoreAndMenu1" id="scoreGameOver" style="
+                justify-content: center;
+                align-items: center;">
+                    <img id="medalOne" style="border-color: orange;" class="medals" src="/gold_medal.png" alt="">
+                    <h2 class="scoreShow" id="player1" ><span id="user1">USERNAME_PLAYER1</span>: <span id="score">0</span></h2>
+                </div>
+                <div class="scoreAndMenu scoreAndMenu1" id="scoreGameOver" style="
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 0;">
+                    <h2 class="scoreShow" id="player2" style="font-size: 3vmin;"><span id="user2">USERNAME_PLAYER2</span>:  <span id="score1">0</span></h2>
+                </div>
+                <div id="hostButton">
+                    <button class="btn btnMobile btnMobile1" onclick="startGame()"><i
+                        class="fas fa-redo-alt"></i> RESTART</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./menu.js"></script>
+
+</body>
+
+</html>
