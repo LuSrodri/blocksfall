@@ -56,12 +56,13 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;">
-                <h1 class="title">BLOCKS' FALL</h1>
+                <h1 class="title" id="solo">BLOCKS' FALL</h1>
                 <p style="padding: 0; margin: 0;">THE FUN PUZZLE GAME FOR PLAY ANYWHERE.</p>
                 <p class="scoreShow" style="color: #1E212D;">RECORD: <span class="scoreRecord">0</span></p>
             </div>
 
-            <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap; width: 100%;">
+            <div
+                style="display: flex; flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap; width: 100%;">
                 <button class="btn btnHome" onclick="playNewGame()"><i class="fas fa-play"></i>
                     NEW
                     GAME</button>
@@ -70,9 +71,10 @@
                 <a class="btn btnHome" href="#multiplayer"><i class="fas fa-user-friends"></i>
                     1v1 GAME</a>
                 <button class="btn btnHome" onclick="window.location.href='https://opensea.io/collection/blocksfall'"><i
-                        class="fas fa-coins"></i>
+                        class="fas fa-coins" id="medals"></i>
                     BUY NFTs</button>
-                <button class="btn btnHome" onclick="sesssionStorageMusic()"><i id="buttonMusic" class="fas fa-volume-up"></i>
+                <button class="btn btnHome" onclick="sesssionStorageMusic()"><i id="buttonMusic"
+                        class="fas fa-volume-up"></i>
                     MUSIC</button>
             </div>
 
@@ -81,7 +83,7 @@
         <div class="main" style="height: auto;
         min-height: unset;
         flex-direction: column;">
-            <h2 style="margin-bottom: 0;"><i class="fas fa-medal"></i> REWARDS</h2>
+            <h2 style="margin-bottom: 0;" ><i class="fas fa-medal"></i> REWARDS</h2>
             <h3 style="margin-top: 0;">THE WINNED MEDALS IN THE GAMES</h3>
             <div class="scoreAndMenu">
 
@@ -106,7 +108,7 @@
         flex-direction: column;" id="multiplayer">
             <h2 style="margin-bottom: 0;"><i class="fas fa-user-friends"></i> 1v1 GAME</h2>
             <h3 style="margin-top: 0;">PLAY WITH YOUR FRIEND</h3>
-            <div class="scoreAndMenu" >
+            <div class="scoreAndMenu">
                 <button class="btn" onclick="window.location.href='/multiplayer'"><i class="fas fa-user-friends"></i>
                     CREATE A GAME</button>
             </div>
@@ -121,16 +123,22 @@
         </div>
 
         <div class="main">
-            <h2 style="margin-bottom: 0;"><i class="fas fa-table"></i> STATS</h2>
+            <h2 style="margin-bottom: 0;" id="stats"><i class="fas fa-table"></i> STATS</h2>
             <h3 style="margin-top: 0;">THE STATS ABOUT YOUR GAMES</h3>
 
             <div class="scoreAndMenu" style="flex-direction: column; align-items: flex-start; ">
-                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;" class="fas fa-star"></i> SCORE RECORD: <span class="scoreRecord">0</span></p>
-                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;"  class="fas fa-star"></i> TOTAL PLAYED: <span id="totalPlayed">0</span></p>
-                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;"  class="fas fa-star"></i> LAST SCORE: <span id="lastScore">0</span></p>
-                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;"  class="fas fa-star"></i> TOTAL SCORED: <span id="totalScored">0</span></p>
-                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;"  class="fas fa-star"></i> TOTAL PIECES GENERATED: <span id="pieceGenerated">0</span></p>
-                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;"  class="fas fa-star"></i> TOTAL LINES COMPLETED: <span id="linesCompleted">0</span></p>
+                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;" class="fas fa-star"></i>
+                    SCORE RECORD: <span class="scoreRecord">0</span></p>
+                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;" class="fas fa-star"></i>
+                    TOTAL PLAYED: <span id="totalPlayed">0</span></p>
+                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;" class="fas fa-star"></i> LAST
+                    SCORE: <span id="lastScore">0</span></p>
+                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;" class="fas fa-star"></i>
+                    TOTAL SCORED: <span id="totalScored">0</span></p>
+                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;" class="fas fa-star"></i>
+                    TOTAL PIECES GENERATED: <span id="pieceGenerated">0</span></p>
+                <p style="margin-left: 20vmin;" class="scoreShow"><i style="color: white;" class="fas fa-star"></i>
+                    TOTAL LINES COMPLETED: <span id="linesCompleted">0</span></p>
             </div>
 
         </div>
@@ -138,6 +146,9 @@
         <canvas id="canvasHome"></canvas>
 
         <div class="main" style="height: auto; min-height: unset; padding: 25px 0;">
+
+            <p style="text-align: center;">PLAY ANYWHERE AND ANYTIME, PLAY WITH <a href="#multiplayer">YOUR FRIEND</a>
+                OR <a href="#solo">SOLO</a>. SEE YOUR <a href="#stats">STATS</a> AND <a href="#medals">MEDALS</a> TOO.</p>
 
             <h2 class="logoFooter"><a href="/">BLOCKSFALL.IO</a></h2>
             <br>
