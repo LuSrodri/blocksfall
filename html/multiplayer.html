@@ -65,8 +65,15 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-
+        let isOffline = null
         let socket = io();
+
+        socket.on('connect', function() {
+            if(isOffline !== null){
+                clearTimeout(isOffline)
+            }
+        })
+
         function userConnected() {
             let userName = document.getElementById("userName").value;
             if (userName === '') {
@@ -283,7 +290,9 @@
         }
 
         socket.on("disconnect", () => {
-            document.getElementsByClassName("container")[0].innerHTML = "<div class='main'><h1><i class='fas fa-exclamation-circle'></i> DISCONNECTED</h1></div>"
+            isOffline = setTimeout( () => {
+                document.getElementsByClassName("container")[0].innerHTML = "<div class='main'><h1><i class='fas fa-exclamation-circle'></i> DISCONNECTED</h1></div>"
+            }, 2000)
         })
 
         let countOnlineSocket = 0

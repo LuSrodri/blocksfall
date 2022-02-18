@@ -7,6 +7,15 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
+const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
+const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+
+initializeApp({
+  credential: applicationDefault()
+});
+
+const db = getFirestore();
+
 app.get('/index', (req, res) => {
   res.redirect('/');
 });
@@ -108,7 +117,7 @@ app.get('/background-image-blocksfall.jpeg', (req, res) => {
 
 app.get('/blocksfall-logo.png', (req, res) => {
   res.sendFile(__dirname + "/images/logo/blocksfall-logo.png");
-  });
+});
 
 app.get('/congratulations.gif', (req, res) => {
   res.sendFile(__dirname + "/images/congratulations.gif");
@@ -201,9 +210,26 @@ function ifCatchTop(matrixTop) {
   return false;
 }
 
+const docRef = db.collection('blocksfall');
+
 let allGames = [];
 
+allGames = await db.collection('blocksfall').get();
+
 io.on('connection', (socket) => {
+  allGames = await db.collection('blocksfall').get();
+
+
+  for(let x=0; x<allGames.length; x++){
+    for(let y =0; y< allGames.users.length; y++){
+      if(allGames[x].users[y].id === socket.id){
+        if(allGames[x].isRunning === true){
+          socket.join(allGames[x].id);
+          io.to(allGames[i].id).emit("updateServer", allGames[i].users);
+        }
+      }
+    }
+  }
 
   // setInterval(() => {
   //   console.log("online games: " + allGames.length);
@@ -213,6 +239,7 @@ io.on('connection', (socket) => {
   //console.log('a user connected');
 
   socket.on("updateClient", msg => {
+    allGames = await db.collection('blocksfall').get();
     for (let i = 0; i < allGames.length; i++) {
       if (allGames[i].id === msg.gameId) {
         for (let j = 0; j < allGames[i].users.length; j++) {
@@ -236,9 +263,13 @@ io.on('connection', (socket) => {
         }
       }
     }
+    await docRef.set(
+      allGames
+    );
   })
 
   socket.on("startClient", msg => {
+    allGames = await db.collection('blocksfall').get();
     for (let x = 0; x < allGames.length; x++) {
       if (allGames[x].id === msg.gameId) {
         if (allGames[x].isRunning === false) {
@@ -253,10 +284,13 @@ io.on('connection', (socket) => {
         }
       }
     }
-
+    await docRef.set({
+      allGames
+    });
   })
 
   socket.on("userConnected", msg => {
+    allGames = await db.collection('blocksfall').get();
     let users = []
 
     if (msg.gameId === -1 || msg.gameId === undefined || msg.gameId === null || !Number.isInteger(msg.gameId)) {
@@ -306,11 +340,14 @@ io.on('connection', (socket) => {
         }
       }
     }
-
+    await docRef.set({
+      allGames
+    });
   })
 
 
   socket.on('disconnect', () => {
+    allGames = await db.collection('blocksfall').get();
     let allGamesLength = allGames.length;
     for (let i = 0; i < allGamesLength; i++) {
       let usersLength = allGames[i].users.length;
@@ -340,6 +377,9 @@ io.on('connection', (socket) => {
 
     }
     //console.log('user disconnected');
+    await docRef.set({
+      allGames
+    });
   });
 });
 
@@ -357,3 +397,4 @@ function isIdInUse(id) {
 
 server.listen(process.env.PORT || 3000, function () {
 });
+
