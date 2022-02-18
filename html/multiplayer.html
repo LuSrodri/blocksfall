@@ -68,8 +68,19 @@
         let isOffline = null
         let socket = io();
 
-        socket.on('connect', function() {
-            if(isOffline !== null){
+        let idClient = null
+
+        socket.on('connect', function () {
+
+            if (idClient !== null) {
+                socket.emit("reconnecting", idClient)
+                idClient = socket.id
+            }
+            else {
+                idClient = socket.id
+            }
+
+            if (isOffline !== null) {
                 clearTimeout(isOffline)
             }
         })
@@ -290,8 +301,11 @@
         }
 
         socket.on("disconnect", () => {
-            isOffline = setTimeout( () => {
+            isOffline = setTimeout(() => {
                 document.getElementsByClassName("container")[0].innerHTML = "<div class='main'><h1><i class='fas fa-exclamation-circle'></i> DISCONNECTED</h1></div>"
+                if (rodando) {
+                    clearInterval(rodando)
+                }
             }, 2000)
         })
 

@@ -5,6 +5,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = 1200;
 canvas.height = 1600;
 canvas.className = "canvasMobile1";
+canvas.id = "game";
 
 ctx.fillStyle = "#2a2a30";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -15,14 +16,35 @@ const ctx1 = canvas1.getContext('2d');
 canvas1.width = 1200;
 canvas1.height = 1600;
 canvas1.className = "canvasMobile1";
+canvas1.id = "game1";
 
 ctx1.fillStyle = "#2a2a30";
 ctx1.fillRect(0, 0, canvas1.width, canvas1.height);
 
 
 let m = null
+let mObj = null
 let m1 = null
 let letter = null
+
+function settingMatrix(matrixAux) {
+    let matrixA = []
+    for (let i = 0; i < Object.keys(matrixAux).length; i++) {
+        matrixA.push(matrixAux[i])
+    }
+    return matrixA;
+}
+
+function settingMatrixToObj(matrixAux) {
+    let matrixA = {}
+    for (let i = 0; i < matrixAux.length; i++) {
+        matrixA[i] = new Array()
+        for (let j = 0; j < matrixAux[i].length; j++) {
+            matrixA[i][j] = matrixAux[i][j]
+        }
+    }
+    return matrixA;
+}
 
 function setMatrixOnline(users) {
     if (document.getElementById('hudMobile')) {
@@ -38,12 +60,12 @@ function setMatrixOnline(users) {
     document.getElementById("game1").parentNode.replaceChild(canvas1, document.getElementById("game1"));
     for (let i = 0; i < users.length; i++) {
         if (users[i].id === socket.id) {
-            m = users[i].matrix;
+            m = settingMatrix(users[i].matrix.obj)
             scoreGame = users[i].score;
             document.getElementsByClassName("score")[0].innerHTML = users[i].score;
         }
         else {
-            m1 = users[i].matrix;
+            m1 = settingMatrix(users[i].matrix.obj)
             document.getElementById("scorePlayer2").innerHTML = users[i].score;
         }
     }
@@ -51,11 +73,25 @@ function setMatrixOnline(users) {
 }
 
 socket.on("updateServer", msg => {
-    for (let i = 0; i < msg.length; i++) {
-        if (msg[i].id !== socket.id) {
-            m1 = msg[i].matrix;
-            printGame(msg[i].letter, m1, ctx1);
-            document.getElementById("scorePlayer2").innerHTML = msg[i].score;
+    if (document.getElementById("game") === null) {
+        if (playOnlineHtml === null) {
+            getPlayOnlineHtml();
+        }
+        document.getElementsByClassName("container")[0].innerHTML = playOnlineHtml.getElementsByClassName("container")[0].innerHTML;
+        for (let x = 0; x < msg.length; x++) {
+            if (socket.id !== msg[x].id) {
+                document.getElementById("game1UserName").innerHTML = msg[x].name;
+            }
+        }
+        setMatrixOnline(msg)
+    }
+    else {
+        for (let i = 0; i < msg.length; i++) {
+            if (msg[i].id !== socket.id) {
+                m1 = settingMatrix(msg[i].matrix.obj);
+                printGame(msg[i].letter, m1, ctx1);
+                document.getElementById("scorePlayer2").innerHTML = msg[i].score;
+            }
         }
     }
 
@@ -64,7 +100,7 @@ socket.on("updateServer", msg => {
 socket.on("gameOver", msg => {
     for (let i = 0; i < msg.length; i++) {
         if (msg[i].id === socket.id) {
-            m = msg[i].matrix;
+            m = settingMatrix(msg[i].matrix.obj);
             scoreGame = msg[i].score;
             document.getElementsByClassName("score")[0].innerHTML = msg[i].score;
             clearInterval(rodando);
@@ -89,7 +125,8 @@ let letters = ['T', 'Z', 'I', 'L', 'J', 'S', 'O'];
 
 
 function gameOnlineStart() {
-    socket.emit("updateClient", { m, gameId, scoreGame, letter })
+    mObj = settingMatrixToObj(m);
+    socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
 
 
     gameOverPrintAux();
@@ -108,7 +145,8 @@ function gameOnlineStart() {
         countGameRun++;
         if (!paused()) {
 
-            socket.emit("updateClient", { m, gameId, scoreGame, letter })
+            mObj = settingMatrixToObj(m);
+            socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
 
 
             setRecord(scoreGame);
@@ -235,7 +273,8 @@ document.body.addEventListener('keydown', function (event) {
             printGame(letter, m, ctx);
             xPosition = wherePiece('x');
             yPosition = wherePiece('y');
-            socket.emit("updateClient", { m, gameId, scoreGame, letter })
+            mObj = settingMatrixToObj(m);
+            socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
         }
         if (key === "D" || key === "d" || key === "ArrowRight") {
             changeDirection('R');
@@ -243,7 +282,8 @@ document.body.addEventListener('keydown', function (event) {
             printGame(letter, m, ctx);
             xPosition = wherePiece('x');
             yPosition = wherePiece('y');
-            socket.emit("updateClient", { m, gameId, scoreGame, letter })
+            mObj = settingMatrixToObj(m);
+            socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
         }
         if (key === "S" || key === "s" || key === "ArrowDown") {
             downPiece(letter);
@@ -251,21 +291,24 @@ document.body.addEventListener('keydown', function (event) {
             printGame(letter, m, ctx);
             xPosition = wherePiece('x');
             yPosition = wherePiece('y');
-            socket.emit("updateClient", { m, gameId, scoreGame, letter })
+            mObj = settingMatrixToObj(m);
+            socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
         }
         if (key === "E" || key === "e" || key === " ") {
             block = rotatePiece('R', block)
             putPiece(block, xPosition, yPosition);
             sombraPiece()
             printGame(letter, m, ctx);
-            socket.emit("updateClient", { m, gameId, scoreGame, letter })
+            mObj = settingMatrixToObj(m);
+            socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
         }
         if (key === "Q" || key === "q") {
             block = rotatePiece('L', block);
             putPiece(block, xPosition, yPosition);
             sombraPiece()
             printGame(letter, m, ctx, ctx);
-            socket.emit("updateClient", { m, gameId, scoreGame, letter })
+            mObj = settingMatrixToObj(m);
+            socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
         }
     }
 });
@@ -274,7 +317,7 @@ document.body.addEventListener('keydown', function (event) {
 let timer1 = null;
 let timerOut1 = null;
 
-function setControlLeftMove1(){
+function setControlLeftMove1() {
     let leftMove1 = document.getElementById("leftMove");
     leftMove1.addEventListener("touchstart", leftMoveOn, true);
     leftMove1.addEventListener("touchend", timerOff1, true);
@@ -286,7 +329,8 @@ function leftMoveOn() {
     printGame(letter, m, ctx);
     xPosition = wherePiece('x');
     yPosition = wherePiece('y');
-    socket.emit("updateClient", { m, gameId, scoreGame, letter })
+    mObj = settingMatrixToObj(m);
+    socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
     timerOut1 = setTimeout(
         setInterval1, 125);
 }
@@ -298,7 +342,8 @@ function setInterval1() {
         printGame(letter, m, ctx);
         xPosition = wherePiece('x');
         yPosition = wherePiece('y');
-        socket.emit("updateClient", { m, gameId, scoreGame, letter })
+        mObj = settingMatrixToObj(m);
+        socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
     }, 50)
 }
 
@@ -312,7 +357,7 @@ function timerOff1() {
 let timer2 = null;
 let timerOut2 = null;
 
-function setControlRightMove1(){
+function setControlRightMove1() {
     let rightMove1 = document.getElementById("rightMove");
     rightMove1.addEventListener("touchstart", rightMoveOn, true);
     rightMove1.addEventListener("touchend", timerOff2, true);
@@ -324,7 +369,8 @@ function rightMoveOn() {
     printGame(letter, m, ctx);
     xPosition = wherePiece('x');
     yPosition = wherePiece('y');
-    socket.emit("updateClient", { m, gameId, scoreGame, letter })
+    mObj = settingMatrixToObj(m);
+    socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
 
     timerOut2 = setTimeout(
         setInterval2, 125);
@@ -337,7 +383,8 @@ function setInterval2() {
         printGame(letter, m, ctx);
         xPosition = wherePiece('x');
         yPosition = wherePiece('y');
-        socket.emit("updateClient", { m, gameId, scoreGame, letter })
+        mObj = settingMatrixToObj(m);
+        socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
     }, 50)
 }
 
@@ -363,7 +410,8 @@ function downMoveOn() {
     printGame(letter, m, ctx);
     xPosition = wherePiece('x');
     yPosition = wherePiece('y');
-    socket.emit("updateClient", { m, gameId, scoreGame, letter })
+    mObj = settingMatrixToObj(m);
+    socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
 
     timerOut3 = setTimeout(
         setInterval3, 125);
@@ -377,7 +425,8 @@ function setInterval3() {
         printGame(letter, m, ctx);
         xPosition = wherePiece('x');
         yPosition = wherePiece('y');
-        socket.emit("updateClient", { m, gameId, scoreGame, letter })
+        mObj = settingMatrixToObj(m);
+        socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
     }, 50)
 }
 
@@ -398,7 +447,8 @@ function rotateRight() {
     putPiece(block, xPosition, yPosition);
     sombraPiece()
     printGame(letter, m, ctx);
-    socket.emit("updateClient", { m, gameId, scoreGame, letter })
+    mObj = settingMatrixToObj(m);
+    socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
 }
 
 function setControlRotateLeft1() {
@@ -411,7 +461,8 @@ function rotateLeft() {
     putPiece(block, xPosition, yPosition);
     sombraPiece()
     printGame(letter, m, ctx);
-    socket.emit("updateClient", { m, gameId, scoreGame, letter })
+    mObj = settingMatrixToObj(m);
+    socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
 }
 
 
@@ -510,20 +561,20 @@ socket.on("playerWinner", msg => {
 })
 
 function ifCatchTop() {
-    for (let i = 0; i < m[0].length; i++) {
-        if (m[0][i] !== 0 && m[0][i] !== 1) {
-            //console.log("gameover!!!");
-            // localStorage.removeItem("canvasGameMobile")
-            // gameOverPrint(gameOverHtml);
-            // setMedals();
-            // finalGameChange()
+    // for (let i = 0; i < m[0].length; i++) {
+    //     if (m[0][i] !== 0 && m[0][i] !== 1) {
+    //         //console.log("gameover!!!");
+    //         // localStorage.removeItem("canvasGameMobile")
+    //         // gameOverPrint(gameOverHtml);
+    //         // setMedals();
+    //         // finalGameChange()
 
 
 
-            return true;
-        }
-    }
-    return false;
+    //         return true;
+    //     }
+    // }
+    // return false;
 }
 
 function finalGameChange() {
