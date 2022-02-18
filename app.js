@@ -214,10 +214,10 @@ const docRef = db.collection('blocksfall');
 
 let allGames = [];
 
-allGames = await db.collection('blocksfall').get();
+allGames = db.collection('blocksfall').get();
 
 io.on('connection', (socket) => {
-  allGames = await db.collection('blocksfall').get();
+  allGames = db.collection('blocksfall').get();
 
 
   for(let x=0; x<allGames.length; x++){
@@ -239,7 +239,7 @@ io.on('connection', (socket) => {
   //console.log('a user connected');
 
   socket.on("updateClient", msg => {
-    allGames = await db.collection('blocksfall').get();
+    allGames = db.collection('blocksfall').get();
     for (let i = 0; i < allGames.length; i++) {
       if (allGames[i].id === msg.gameId) {
         for (let j = 0; j < allGames[i].users.length; j++) {
@@ -263,13 +263,13 @@ io.on('connection', (socket) => {
         }
       }
     }
-    await docRef.set(
+    docRef.set(
       allGames
     );
   })
 
   socket.on("startClient", msg => {
-    allGames = await db.collection('blocksfall').get();
+    allGames = db.collection('blocksfall').get();
     for (let x = 0; x < allGames.length; x++) {
       if (allGames[x].id === msg.gameId) {
         if (allGames[x].isRunning === false) {
@@ -284,13 +284,13 @@ io.on('connection', (socket) => {
         }
       }
     }
-    await docRef.set({
+    docRef.set({
       allGames
     });
   })
 
   socket.on("userConnected", msg => {
-    allGames = await db.collection('blocksfall').get();
+    allGames = db.collection('blocksfall').get();
     let users = []
 
     if (msg.gameId === -1 || msg.gameId === undefined || msg.gameId === null || !Number.isInteger(msg.gameId)) {
@@ -340,14 +340,14 @@ io.on('connection', (socket) => {
         }
       }
     }
-    await docRef.set({
+    docRef.set({
       allGames
     });
   })
 
 
   socket.on('disconnect', () => {
-    allGames = await db.collection('blocksfall').get();
+    allGames = db.collection('blocksfall').get();
     let allGamesLength = allGames.length;
     for (let i = 0; i < allGamesLength; i++) {
       let usersLength = allGames[i].users.length;
@@ -377,7 +377,7 @@ io.on('connection', (socket) => {
 
     }
     //console.log('user disconnected');
-    await docRef.set({
+    docRef.set({
       allGames
     });
   });
