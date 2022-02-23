@@ -369,7 +369,7 @@ function getAllGamesFromDataBase() {
           let allGamesLength = allGames.length;
           for (let i = 0; i < allGamesLength; i++) {
             let usersLength = allGames[i].users.length;
-            if (allGames[i].isRunning === false) {
+            if (true){  //allGames[i].isRunning === false) {
               for (let j = 0; j < usersLength; j++) {
                 if (allGames[i].users[j].id === socket.id) {
                   socket.leave(allGames[i].id);
