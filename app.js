@@ -369,12 +369,17 @@ function getAllGamesFromDataBase() {
           let allGamesLength = allGames.length;
           for (let i = 0; i < allGamesLength; i++) {
             let usersLength = allGames[i].users.length;
-            if (true){  //allGames[i].isRunning === false) {
+            
+
+            if (true) {  //allGames[i].isRunning === false) {
               for (let j = 0; j < usersLength; j++) {
                 if (allGames[i].users[j].id === socket.id) {
                   socket.leave(allGames[i].id);
                   allGames[i].users = allGames[i].users.filter((user1) => user1.id !== socket.id)
                   usersLength = allGames[i].users.length;
+                  if (usersLength <= 1 && allGames[i].isRunning === true) {
+                    allGames[i].isRunning = false;
+                  }
                   if (allGames[i].users[j] !== undefined) {
                     if (allGames[i].users.length === 1 && allGames[i].users[j].host === false) {
                       allGames[i].users[j].host = true;

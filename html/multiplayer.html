@@ -211,6 +211,16 @@
                 document.getElementsByClassName("main")[0].appendChild(divScoreAndMenu)
                 document.getElementsByClassName("main")[0].appendChild(pWaiting)
             }
+            else if(document.getElementsByClassName("hud")[0] !== undefined){
+                clearInterval(rodando)
+                for(let x = 0; x < document.getElementsByClassName("hud")[0].parentNode.children.length; x++){
+                    document.getElementsByClassName("hud")[0].parentNode.children[x].remove()
+                }
+                document.getElementsByClassName("hud")[0].replaceChildren(divHeader)
+                document.getElementsByClassName("hud")[0].appendChild(divScoreAndMenu)
+                document.getElementsByClassName("hud")[0].appendChild(pWaiting)
+                document.getElementsByClassName("hud")[0].className = "main"
+            }
 
         }
         )
