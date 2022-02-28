@@ -369,7 +369,7 @@ function getAllGamesFromDataBase() {
           let allGamesLength = allGames.length;
           for (let i = 0; i < allGamesLength; i++) {
             let usersLength = allGames[i].users.length;
-            
+
 
             if (true) {  //allGames[i].isRunning === false) {
               for (let j = 0; j < usersLength; j++) {

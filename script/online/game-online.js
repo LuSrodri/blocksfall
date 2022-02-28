@@ -74,6 +74,9 @@ function setMatrixOnline(users) {
 
 socket.on("updateServer", msg => {
     if (document.getElementById("game") === null) {
+        if (rodando !== null) {
+            rodando = clearInterval(rodando)
+        }
         if (playOnlineHtml === null) {
             getPlayOnlineHtml();
         }
