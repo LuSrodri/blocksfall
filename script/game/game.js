@@ -353,7 +353,7 @@ function finalGameChange() {
         let img = document.createElement("img")
         img.id = "finalGame"
         img.src = "/congratulations.gif"
-        img.style = "width: 80%; margin: 0;"
+        img.style = "width: 45%; margin: 0; margin-top: 5vmin;"
         document.getElementById("finalGame").parentNode.replaceChild(img, document.getElementById("finalGame"))
         if (sessionStorage.getItem("musicControl") !== "false" && sessionStorage.getItem("musicControl") !== null) {
             let music = document.createElement("audio")

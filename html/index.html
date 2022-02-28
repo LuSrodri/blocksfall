@@ -70,8 +70,8 @@
                     GAME</button>
                 <button id="playGame" class="btn btnHome" onclick="playAGame()"><i class="fas fa-save"></i> CONTINUE
                     GAME</button>
-                <a class="btn btnHome" href="#multiplayer"><i class="fas fa-dice"></i>
-                    1v1 BATTLE</a>
+                <button class="btn btnHome" onclick="window.location.href='/#multiplayer'"><i class="fas fa-dice"></i>
+                    1v1 BATTLE</button>
                 <button class="btn btnHome" onclick="window.location.href='https://opensea.io/collection/blocksfall'"><i
                         class="fas fa-coins" id="medals"></i>
                     BUY NFTs</button>
@@ -117,7 +117,7 @@
             <div class="scoreAndMenu">
                 <p class="scoreShow" style="margin: 0; ">ROOM ID:</p>
                 <input type="number" id="roomId" class="input" value="">
-                <button class="btn"
+                <button class="btn" style="min-width: unset;"
                     onclick="window.location.href='/multiplayer?id='+document.getElementById('roomId').value"><i
                         class="fas fa-dice"></i>
                     JOIN A GAME</button>

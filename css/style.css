@@ -214,6 +214,7 @@ button.btnControlerOrange {
     font-size: 4vmin;
     background-color: #FFCA03;
     margin: 3vmin;
+    min-width: 200px;
 }
 
 
@@ -227,6 +228,7 @@ button.btnControlerOrange {
     font-size: 4vmin;
     margin: 3vmin;
     background-color: #686766;
+    min-width: 200px;
 }
 
 a.btnHome ,button.btnHome {
