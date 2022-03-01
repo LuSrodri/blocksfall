@@ -363,9 +363,7 @@ function getAllGamesFromDataBase() {
 
         })
 
-
-        socket.on('disconnect', () => {
-
+        function disconnect() {
           let allGamesLength = allGames.length;
           for (let i = 0; i < allGamesLength; i++) {
             let usersLength = allGames[i].users.length;
@@ -403,7 +401,22 @@ function getAllGamesFromDataBase() {
           }
           //console.log('user disconnected');
           setAllGames()
+        }
+
+
+        socket.on('disconnect', () => {
+          disconnect();
         });
+
+        socket.on("connect_error", () => {
+          disconnect();
+        });
+
+        socket.on("disconnecting", () => {
+          disconnect();
+        });
+
+
       });
 
 
