@@ -88,13 +88,17 @@
             }
         })
 
-        socket.on("disconnect", () => {
+        socket.on("disconnect", (reason) => {
             if (rodando !== null) {
                 rodando = clearInterval(rodando)
             }
             isOffline = setTimeout(() => {
                 document.getElementsByClassName("container")[0].innerHTML = "<div class='main'><h1><i class='fas fa-exclamation-circle'></i> DISCONNECTED</h1></div>"
             }, 2000)
+            if (reason === "io server disconnect") {
+                // the disconnection was initiated by the server, you need to reconnect manually
+                socket.connect();
+            }
         })
 
         function userConnected() {
@@ -322,7 +326,7 @@
             }
         }
 
-        
+
 
         let countOnlineSocket = 0
         let notDisconnected = setInterval(() => {

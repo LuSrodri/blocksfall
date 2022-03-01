@@ -408,13 +408,6 @@ function getAllGamesFromDataBase() {
           disconnect();
         });
 
-        socket.on("connect_error", () => {
-          disconnect();
-        });
-
-        socket.on("disconnecting", () => {
-          disconnect();
-        });
 
 
       });
