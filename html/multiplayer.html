@@ -75,9 +75,6 @@
             if (idClient !== null) {
                 socket.emit("reconnecting", idClient)
                 idClient = socket.id
-                if (rodando === undefined) {
-                    gameOnlineStart()
-                }
             }
             else {
                 idClient = socket.id
