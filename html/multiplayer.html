@@ -66,17 +66,28 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         let isOffline = null
-        let socket = io();
+        let socket = io('', {
+            transports: ['websocket'],
+        });
 
         let idClient = null
 
-        socket.on('connect', function () {
-
+        socket.on("reconnect", () => {
             if (idClient !== null) {
                 socket.emit("reconnecting", idClient)
                 idClient = socket.id
             }
-            else {
+            if (isOffline !== null) {
+                clearTimeout(isOffline)
+            }
+        })
+
+        socket.on('connect', function () {
+
+            idClient = socket.id
+
+            if (idClient !== null) {
+                socket.emit("reconnecting", idClient)
                 idClient = socket.id
             }
 

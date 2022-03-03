@@ -189,6 +189,7 @@ let gameMatch = class gameMatch {
     this.id = id
     this.users = users;
     this.isRunning = false;
+    this.event = {eventName: "", msg: {}};
   }
 }
 
@@ -215,31 +216,33 @@ function ifCatchTop(matrixTop) {
 
 const docRef = db.collection('blocksfall').doc('allGames');
 
-let allGames = null;
+let allGames = [];
 let firstTime = true;
 
 const { Server } = require("socket.io");
-let io = {};
 
-const observer = docRef.onSnapshot(docSnapshot => {
-  allGames = docSnapshot.data().allGames;
-  //console.log(allGames);
-  if (firstTime === true) {
+let io = new Server(server);;
+
+const redisAdapter = require('@socket.io/redis-adapter');
+// Replace in-memory adapter with Redis
+io.adapter(redisAdapter(redisClient, redisClient.duplicate()));
+
+// const observer = docRef.onSnapshot(docSnapshot => {
+//   allGames = docSnapshot.data().allGames;
+//   console.log(allGames);
+//   if (firstTime === true) {
     setOnConnection();
-    firstTime = false;
-  }
-}, err => {
-  //console.log(`Encountered error: ${err}`);
-});
+//     firstTime = false;
+//   }
+// }, err => {
+//   //console.log(`Encountered error: ${err}`);
+// });
 
 function setOnConnection() {
-  io = new Server(server);
 
   io.on('connection', (socket) => {
 
-
-    socket.on("reconnecting", (msg) => {
-      //console.log("reconnecting");
+    function onReconnecting(msg) {
       for (let x = 0; x < allGames.length; x++) {
         for (let y = 0; y < allGames[x].users.length; y++) {
           if (allGames[x].users[y].id === msg) {
@@ -251,11 +254,16 @@ function setOnConnection() {
           }
         }
       }
-      setAllGames();
+    }
+
+
+    socket.on("reconnecting", (msg) => {
+      //console.log("reconnecting");
+      onReconnecting(msg)
+      // setAllGames();
     })
 
-    socket.on("updateClient", msg => {
-
+    function onUpdateClient(msg) {
       for (let i = 0; i < allGames.length; i++) {
         if (allGames[i].id === msg.gameId) {
           for (let j = 0; j < allGames[i].users.length; j++) {
@@ -280,11 +288,14 @@ function setOnConnection() {
         }
 
       }
-      setAllGames();
+    }
+
+    socket.on("updateClient", msg => {
+      onUpdateClient(msg)
+      // setAllGames();
     })
 
-    socket.on("startClient", msg => {
-
+    function onStartClient(msg) {
       for (let x = 0; x < allGames.length; x++) {
         if (allGames[x].id === msg.gameId) {
           if (allGames[x].isRunning === false) {
@@ -299,10 +310,14 @@ function setOnConnection() {
           }
         }
       }
-      setAllGames();
+    }
+
+    socket.on("startClient", msg => {
+      onStartClient(msg)
+      // setAllGames();
     })
 
-    socket.on("userConnected", msg => {
+    function onUserConnected(msg) {
 
       let users = []
 
@@ -353,10 +368,14 @@ function setOnConnection() {
           }
         }
       }
-      setAllGames();
+    }
+
+    socket.on("userConnected", msg => {
+      onUserConnected(msg)
+      // setAllGames();
     })
 
-    socket.on('disconnect', () => {
+    function onDisconnect() {
       let allGamesLength = allGames.length;
       for (let i = 0; i < allGamesLength; i++) {
         let usersLength = allGames[i].users.length;
@@ -390,7 +409,11 @@ function setOnConnection() {
           }
         }
       }
-      setAllGames()
+    }
+
+    socket.on('disconnect', () => {
+      onDisconnect()
+      // setAllGames()
     });
   })
 }
