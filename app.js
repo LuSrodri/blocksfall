@@ -189,7 +189,7 @@ let gameMatch = class gameMatch {
     this.id = id
     this.users = users;
     this.isRunning = false;
-    this.event = {eventName: "", msg: {}};
+    this.event = { eventName: "", msg: {} };
   }
 }
 
@@ -216,29 +216,29 @@ function ifCatchTop(matrixTop) {
 
 const docRef = db.collection('blocksfall').doc('allGames');
 
-let allGames = [];
-let firstTime = true;
-
 const { Server } = require("socket.io");
 
-let io = new Server(server);;
+let allGames = null;
+let firstTime = true;
 
-const redisAdapter = require('@socket.io/redis-adapter');
-// Replace in-memory adapter with Redis
-io.adapter(redisAdapter(redisClient, redisClient.duplicate()));
+let io = null
 
-// const observer = docRef.onSnapshot(docSnapshot => {
-//   allGames = docSnapshot.data().allGames;
-//   console.log(allGames);
-//   if (firstTime === true) {
+
+const observer = docRef.onSnapshot(docSnapshot => {
+  allGames = docSnapshot.data().allGames;
+  //console.log(allGames);
+  if (firstTime === true) {
     setOnConnection();
-//     firstTime = false;
-//   }
-// }, err => {
-//   //console.log(`Encountered error: ${err}`);
-// });
+    firstTime = false;
+  }
+}, err => {
+  //console.log(`Encountered error: ${err}`);
+});
 
 function setOnConnection() {
+
+  io = new Server(server);;
+
 
   io.on('connection', (socket) => {
 
@@ -256,11 +256,10 @@ function setOnConnection() {
       }
     }
 
-
     socket.on("reconnecting", (msg) => {
       //console.log("reconnecting");
       onReconnecting(msg)
-      // setAllGames();
+      setAllGames();
     })
 
     function onUpdateClient(msg) {
@@ -292,7 +291,7 @@ function setOnConnection() {
 
     socket.on("updateClient", msg => {
       onUpdateClient(msg)
-      // setAllGames();
+      setAllGames();
     })
 
     function onStartClient(msg) {
@@ -314,7 +313,7 @@ function setOnConnection() {
 
     socket.on("startClient", msg => {
       onStartClient(msg)
-      // setAllGames();
+      setAllGames();
     })
 
     function onUserConnected(msg) {
@@ -372,7 +371,7 @@ function setOnConnection() {
 
     socket.on("userConnected", msg => {
       onUserConnected(msg)
-      // setAllGames();
+      setAllGames();
     })
 
     function onDisconnect() {
@@ -413,7 +412,7 @@ function setOnConnection() {
 
     socket.on('disconnect', () => {
       onDisconnect()
-      // setAllGames()
+      setAllGames()
     });
   })
 }
