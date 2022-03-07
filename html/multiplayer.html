@@ -134,6 +134,7 @@
             else {
                 if (msg.isRunning === false) {
                     clearInterval(rodando)
+                    rodando = null
                     if (msg.winnerId === null) {
                         onUserList(msg)
                     }
