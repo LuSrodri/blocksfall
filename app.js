@@ -189,7 +189,7 @@ let gameMatch = class gameMatch {
     this.id = id
     this.users = users;
     this.isRunning = false;
-    this.event = { eventName: "", msg: {} };
+    this.winnerId = null;
   }
 }
 
@@ -231,6 +231,9 @@ const observer = docRef.onSnapshot(docSnapshot => {
     setOnConnection();
     firstTime = false;
   }
+  for (let i = 0; i < allGames.length; i++) {
+    io.to(allGames[i].id).emit('updateServer', allGames[i]);
+  }
 }, err => {
   //console.log(`Encountered error: ${err}`);
 });
@@ -242,50 +245,25 @@ function setOnConnection() {
 
   io.on('connection', (socket) => {
 
-    function onReconnecting(msg) {
-      for (let x = 0; x < allGames.length; x++) {
-        for (let y = 0; y < allGames[x].users.length; y++) {
-          if (allGames[x].users[y].id === msg) {
-            allGames[x].users[y].id = socket.id
-            socket.join(allGames[x].id);
-            if (allGames[x].isRunning === true) {
-              io.to(allGames[x].id).emit("updateServer", allGames[x].users);
-            }
-          }
-        }
-      }
-    }
-
-    socket.on("reconnecting", (msg) => {
-      //console.log("reconnecting");
-      onReconnecting(msg)
-      setAllGames();
-    })
-
     function onUpdateClient(msg) {
       for (let i = 0; i < allGames.length; i++) {
-        if (allGames[i].id === msg.gameId) {
-          for (let j = 0; j < allGames[i].users.length; j++) {
-            if (allGames[i].users[j].id === socket.id) {
-              allGames[i].users[j].matrix.obj = msg.m;
-              allGames[i].users[j].score = msg.scoreGame;
-              allGames[i].users[j].letter = msg.letter;
-              if (ifCatchTop(allGames[i].users[j].matrix.obj)) {
-                allGames[i].users[j].matrix.obj = makeMatrixOnline(12, 16)
-                allGames[i].users[j].score = 0
-                io.to(allGames[i].id).emit("gameOver", allGames[i].users);
-              }
-              else if (allGames[i].users[j].score >= 150) {
-                allGames[i].isRunning = false;
-                io.to(allGames[i].id).emit("playerWinner", { users: allGames[i].users, winnerId: allGames[i].users[j].id });
-              }
-              else {
-                io.to(allGames[i].id).emit("updateServer", allGames[i].users);
-              }
+        for (let j = 0; j < allGames[i].users.length; j++) {
+          if (allGames[i].users[j].id === socket.id && allGames[i].isRunning === true) {
+            allGames[i].users[j].matrix.obj = msg.m;
+            allGames[i].users[j].score = msg.scoreGame;
+            allGames[i].users[j].letter = msg.letter;
+            if (ifCatchTop(allGames[i].users[j].matrix.obj)) {
+              allGames[i].users[j].matrix.obj = makeMatrixOnline(12, 16)
+              allGames[i].users[j].score = 0
+              socket.emit('gameOver', allGames[i]);
             }
+            else if (allGames[i].users[j].score >= 150) {
+              allGames[i].isRunning = false;
+              allGames[i].winnerId = allGames[i].users[j].id;
+            }
+            io.to(allGames[i].id).emit("updateServer", allGames[i]);
           }
         }
-
       }
     }
 
@@ -297,7 +275,7 @@ function setOnConnection() {
     function onStartClient(msg) {
       for (let x = 0; x < allGames.length; x++) {
         if (allGames[x].id === msg.gameId) {
-          if (allGames[x].isRunning === false) {
+          if (allGames[x].isRunning === false && allGames[x].users.length > 1) {
             let mOnline = new Array();
             mOnline = makeMatrixOnline(12, 16);
             for (let i = 0; i < allGames[x].users.length; i++) {
@@ -305,7 +283,7 @@ function setOnConnection() {
               allGames[x].users[i].score = 0;
             }
             allGames[x].isRunning = true;
-            io.to(allGames[x].id).emit("startGame", allGames[x]);
+            io.to(allGames[x].id).emit("updateServer", allGames[x]);
           }
         }
       }
@@ -325,41 +303,29 @@ function setOnConnection() {
         while (isIdInUse(randomId)) {
           randomId = Math.floor(Math.random() * 1000000);
         }
-        if (!isIdInUse(randomId)) {
-          let gameMatch1 = new gameMatch(randomId, users);
-          let user1 = new user(socket.id, msg.userName, true)
-          gameMatch1.users.push(user1)
-          socket.join(randomId)
-          io.to(randomId).emit("userList", gameMatch1);
-          // socket.emit("userList", gameMatch1)
-          // socket.broadcast.emit("userList", gameMatch1)
-          allGames.push(gameMatch1);
-        }
+        let gameMatch1 = new gameMatch(randomId, users);
+        let user1 = new user(socket.id, msg.userName, true)
+        gameMatch1.users.push(user1)
+        allGames.push(gameMatch1);
+        socket.join(gameMatch1.id)
+        io.to(gameMatch1.id).emit("updateServer", gameMatch1);
       }
       else {
         if (!isIdInUse(msg.gameId)) {
           let gameMatch1 = new gameMatch(msg.gameId, users);
           let user1 = new user(socket.id, msg.userName, true)
           gameMatch1.users.push(user1)
-          socket.join(msg.gameId)
-          io.to(msg.gameId).emit("userList", gameMatch1);
-          // socket.emit("userList", gameMatch1)
-          // socket.broadcast.emit("userList", gameMatch1)
           allGames.push(gameMatch1);
+          socket.join(gameMatch1.id)
+          io.to(gameMatch1.id).emit("updateServer", gameMatch1);
         }
         else {
           for (let i = 0; i < allGames.length; i++) {
             if (allGames[i].id === msg.gameId && allGames[i].users.length < 2) {
               let user1 = new user(socket.id, msg.userName)
-              user1.matrix.obj = makeMatrixOnline(12, 16);
               allGames[i].users.push(user1)
-              socket.join(msg.gameId)
-              io.to(msg.gameId).emit("userList", allGames[i]);
-              if (allGames[i].isRunning === true) {
-                io.to(allGames[i].id).emit("startGame", allGames[i]);
-              }
-              // socket.emit("userList", allGames[i])
-              // socket.broadcast.emit("userList", allGames[i])
+              socket.join(allGames[i].id)
+              io.to(allGames[i].id).emit("updateServer", allGames[i]);
             }
             else {
               socket.emit("roomIsFull");
@@ -379,32 +345,33 @@ function setOnConnection() {
       for (let i = 0; i < allGamesLength; i++) {
         let usersLength = allGames[i].users.length;
 
+        for (let j = 0; j < usersLength; j++) {
+          if (allGames[i].users[j].id === socket.id) {
+            socket.leave(allGames[i].id);
+            allGames[i].users = allGames[i].users.filter((user1) => user1.id !== socket.id)
+            usersLength = allGames[i].users.length;
+            io.to(allGames[i].id).emit("updateServer", allGames[i])
 
-        if (true) {  //allGames[i].isRunning === false) {
-          for (let j = 0; j < usersLength; j++) {
-            if (allGames[i].users[j].id === socket.id) {
-              socket.leave(allGames[i].id);
-              allGames[i].users = allGames[i].users.filter((user1) => user1.id !== socket.id)
-              usersLength = allGames[i].users.length;
-              if (usersLength <= 1 && allGames[i].isRunning === true) {
-                allGames[i].isRunning = false;
-              }
-              if (allGames[i].users[j] !== undefined) {
-                if (allGames[i].users.length === 1 && allGames[i].users[j].host === false) {
-                  allGames[i].users[j].host = true;
-                }
-              }
-              if (allGames[i].users.length === 0) {
-                allGames.splice(i, 1);
-                allGamesLength = allGames.length;
-              }
-              else {
-                for (let x = 0; x < allGames[i].users.length; x++) {
-                  io.to(allGames[i].users[x].id).emit("userList", allGames[i])
-                }
-              }
+            if (allGames[i].users.length === 1) {
+              allGames[i].isRunning = false;
+              allGames[i].winnerId = null;
+              io.to(allGames[i].id).emit("updateServer", allGames[i])
+            }
+            else if (allGames[i].users.length === 0) {
+              allGames.splice(i, 1);
+              allGamesLength = allGames.length;
             }
 
+
+          }
+        }
+      }
+
+      for (let i = 0; i < allGames.length; i++) {
+        for (let j = 0; j < allGames[i].users.length; j++) {
+          if (allGames[i].users.length === 1 && allGames[i].users[j].host === false) {
+            allGames[i].users[j].host = true;
+            io.to(allGames[i].id).emit("updateServer", allGames[i])
           }
         }
       }

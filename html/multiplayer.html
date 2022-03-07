@@ -72,41 +72,15 @@
 
         let idClient = null
 
-        socket.on("reconnect", () => {
-            if (idClient !== null) {
-                socket.emit("reconnecting", idClient)
-                idClient = socket.id
-            }
-            if (isOffline !== null) {
-                clearTimeout(isOffline)
-            }
-        })
-
         socket.on('connect', function () {
-
-            idClient = socket.id
-
-            if (idClient !== null) {
-                socket.emit("reconnecting", idClient)
-                idClient = socket.id
-            }
-
-            if (isOffline !== null) {
-                clearTimeout(isOffline)
-            }
+            idClient = socket.id;
         })
 
-        socket.on("disconnect", (reason) => {
+        socket.on("disconnect", () => {
             if (rodando !== null) {
-                rodando = clearInterval(rodando)
+                clearInterval(rodando)
             }
-            isOffline = setTimeout(() => {
-                document.getElementsByClassName("container")[0].innerHTML = "<div class='main'><h1><i class='fas fa-exclamation-circle'></i> DISCONNECTED</h1></div>"
-            }, 2000)
-            if (reason === "io server disconnect") {
-                // the disconnection was initiated by the server, you need to reconnect manually
-                socket.connect();
-            }
+            document.getElementsByClassName("container")[0].innerHTML = "<div class='main'><h1><i class='fas fa-exclamation-circle'></i> DISCONNECTED</h1></div>"
         })
 
         function userConnected() {
@@ -148,7 +122,33 @@
             xmlHttp.send(null);
         }
 
-        socket.on("startGame", (msg) => {
+        socket.on("updateServer", msg => {
+            if (rodando === null) {
+                if (msg.isRunning === false) {
+                    onUserList(msg)
+                }
+                else {
+                    onStartGame(msg)
+                }
+            }
+            else {
+                if (msg.isRunning === false) {
+                    clearInterval(rodando)
+                    if (msg.winnerId === null) {
+                        onUserList(msg)
+                    }
+                    else {
+                        onPlayerWinner(msg)
+                    }
+                }
+                else {
+                    onUpdateServer(msg)
+                }
+            }
+        })
+
+
+        function onStartGame(msg) {
             if (playOnlineHtml === null) {
                 getPlayOnlineHtml();
             }
@@ -159,14 +159,14 @@
                 }
             }
             setMatrixOnline(msg.users)
-        })
+        }
 
         socket.on("roomIsFull", () => {
             document.getElementById("warning").innerHTML = "<i class='fas fa-exclamation-circle'></i> ROOM IS FULL.";
         })
 
-        socket.on("userList", msg => {
 
+        function onUserList(msg) {
             gameId = msg.id;
 
             let divScoreAndMenu = document.createElement("div")
@@ -247,13 +247,14 @@
             }
 
         }
-        )
+
+
 
         function shareGame() {
             if (navigator.share !== undefined) {
                 navigator.share({
                     title: "Blocks' Fall",
-                    text: "You can play Blocks' Fall with me!",
+                    text: "Can you play Blocks' Fall with me!?",
                     url: './multiplayer?id=' + gameId,
                 })
                     .then(() => { })

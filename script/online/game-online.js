@@ -29,8 +29,8 @@ let letter = null
 
 function settingMatrix(matrixAux) {
     let matrixA = []
-    for (let i = 0; i < Object.keys(matrixAux).length; i++) {
-        matrixA.push(matrixAux[i])
+    for (let mat in matrixAux) {
+        matrixA.push(matrixAux[mat])
     }
     return matrixA;
 }
@@ -72,46 +72,27 @@ function setMatrixOnline(users) {
     gameOnlineStart()
 }
 
-socket.on("updateServer", msg => {
-    if (document.getElementById("game") === null) {
-        if (rodando !== null) {
-            rodando = clearInterval(rodando)
+function onUpdateServer(msg) {
+    for (let i = 0; i < msg.users.length; i++) {
+        if (msg.users[i].id !== socket.id) {
+            m1 = settingMatrix(msg.users[i].matrix.obj)
+            printGame(msg.users[i].letter, m1, ctx1);
+            document.getElementById("scorePlayer2").innerHTML = msg.users[i].score;
         }
-        if (playOnlineHtml === null) {
-            getPlayOnlineHtml();
-        }
-        document.getElementsByClassName("container")[0].innerHTML = playOnlineHtml.getElementsByClassName("container")[0].innerHTML;
-        for (let x = 0; x < msg.length; x++) {
-            if (socket.id !== msg[x].id) {
-                document.getElementById("game1UserName").innerHTML = msg[x].name;
-            }
-        }
-        setMatrixOnline(msg)
+        
     }
-    else {
-        for (let i = 0; i < msg.length; i++) {
-            if (msg[i].id !== socket.id) {
-                m1 = settingMatrix(msg[i].matrix.obj);
-                printGame(msg[i].letter, m1, ctx1);
-                document.getElementById("scorePlayer2").innerHTML = msg[i].score;
-            }
-        }
-    }
-
-})
+}
 
 socket.on("gameOver", msg => {
-    for (let i = 0; i < msg.length; i++) {
-        if (msg[i].id === socket.id) {
-            m = settingMatrix(msg[i].matrix.obj);
-            scoreGame = msg[i].score;
-            document.getElementsByClassName("score")[0].innerHTML = msg[i].score;
-            clearInterval(rodando);
-            gameOnlineStart()
+    for (let i = 0; i < msg.users.length; i++) {
+        if (msg.users[i].id === socket.id) {
+            m = settingMatrix(msg.users[i].matrix.obj);
+            printGame(msg.users[i].letter, m, ctx);
+            scoreGame = msg.users[i].score;
+            document.getElementsByClassName("score")[0].innerHTML = msg.users[i].score;
         }
     }
 })
-
 
 //console.log(m);
 
@@ -128,8 +109,7 @@ let letters = ['T', 'Z', 'I', 'L', 'J', 'S', 'O'];
 
 
 function gameOnlineStart() {
-    mObj = settingMatrixToObj(m);
-    socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
+    
 
 
     gameOverPrintAux();
@@ -148,8 +128,7 @@ function gameOnlineStart() {
         countGameRun++;
         if (!paused()) {
 
-            mObj = settingMatrixToObj(m);
-            socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
+            
 
 
             setRecord(scoreGame);
@@ -192,6 +171,10 @@ function gameOnlineStart() {
             }
             // console.log("Posicao X = "+ xPosition);
             // console.log("Posicao y = "+ yPosition);
+
+
+            mObj = settingMatrixToObj(m);
+            socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
 
         }
     }
@@ -536,8 +519,8 @@ function setLinesCompleted() {
     }
 }
 
-socket.on("playerWinner", msg => {
-    clearInterval(rodando)
+
+function onPlayerWinner(msg) {
     gameOverPrint(gameOverHtml);
     for (let i = 0; i < msg.users.length; i++) {
         if (msg.users[i].id === msg.winnerId) {
@@ -561,7 +544,7 @@ socket.on("playerWinner", msg => {
 
     setMedals();
     finalGameChange()
-})
+}
 
 function ifCatchTop() {
     // for (let i = 0; i < m[0].length; i++) {
