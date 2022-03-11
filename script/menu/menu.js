@@ -7,10 +7,12 @@ setInterval(() => {
 }, 1000);
 
 function playAGame() {
-    getPlayAGameHtml()
-    if (playAGameHtml !== null) {
-        playAGameAux(playAGameHtml);
-    }
+    window.location.href = '/play'
+
+    // getPlayAGameHtml()
+    // if (playAGameHtml !== null) {
+    //     playAGameAux(playAGameHtml);
+    // }
 }
 
 let playAGameHtml = null;
@@ -211,7 +213,7 @@ function updateScore() {
         localStorage.getItem('scoreRecord') !== null) {
         let scoreAux = localStorage.getItem('scoreRecord');
         scoreAux = parseInt(scoreAux);
-        for ( let x = 0; x < document.getElementsByClassName("scoreRecord").length; x++) {
+        for (let x = 0; x < document.getElementsByClassName("scoreRecord").length; x++) {
             document.getElementsByClassName("scoreRecord")[x].innerHTML = scoreAux;
         }
 
@@ -273,16 +275,26 @@ function ifOnClicked() {
 }
 
 function playNewGame() {
-    if(localStorage.getItem("canvasGame") !== null){
+    if (localStorage.getItem("canvasGame") !== null) {
         localStorage.removeItem("canvasGame")
     }
-    if(localStorage.getItem("canvasGameMobile") !== null){
+    if (localStorage.getItem("canvasGameMobile") !== null) {
         localStorage.removeItem("canvasGameMobile")
     }
-    playAGame()
+    window.location.href = '/play'
 }
 
-if(localStorage.getItem("canvasGame") === null && localStorage.getItem("canvasGameMobile") === null) {
+if (localStorage.getItem("canvasGame") === null && localStorage.getItem("canvasGameMobile") === null) {
     document.getElementById("playGame").className = "btnBlocked"
     document.getElementById("playGame").onclick = ''
+}
+
+function newTabNft() {
+    if(window.open){
+        let win = window.open("https://opensea.io/collection/blocksfall", '_blank');
+        win.focus();
+    }
+    else {
+        window.location.href = 'https://opensea.io/collection/blocksfall'
+    }
 }

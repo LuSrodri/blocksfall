@@ -56,7 +56,7 @@ if (localStorage.getItem("canvasGameMobile") === null) {
 }
 else {
     scoreGame = JSON.parse(localStorage.getItem("canvasGameMobile")).scoreGame
-    updateScore()
+    updateScored()
     xPosition = JSON.parse(localStorage.getItem("canvasGameMobile")).xPosition
     yPosition = JSON.parse(localStorage.getItem("canvasGameMobile")).yPosition
     block = JSON.parse(localStorage.getItem("canvasGameMobile")).block
@@ -95,7 +95,7 @@ function isPlaying() {
                     m = clearLine(m, verifyIfCompleteALine());
                     printGame();
                     scoreGame += 10
-                    updateScore();
+                    updateScored();
                     setLinesCompleted();
                     setTotalScored();
                 }
@@ -504,7 +504,7 @@ function setOpenAux(op) {
     openAux = op;
 }
 
-function updateScore() {
+function updateScored() {
     let score = document.getElementsByClassName("score");
     for (let x = 0; x < score.length; x++) {
         document.getElementsByClassName("score")[x].innerHTML = scoreGame;

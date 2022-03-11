@@ -26,24 +26,14 @@ app.get('/index.html', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  app.use(express.static('script/game'));
-  app.use(express.static('script/game-mobile'));
-  app.use(express.static('script/menu'));
-  app.use(express.static('images/logo'));
   res.sendFile(__dirname + "/html/index.html");
 });
 
 app.get('/play', (req, res) => {
   if (req.headers['user-agent'].indexOf("Mobile") !== -1) {
-    app.use(express.static('script/game-mobile'));
-    app.use(express.static('script/menu'));
-    app.use(express.static('images/logo'));
     res.sendFile(__dirname + "/html/mobile.html");
   }
   else {
-    app.use(express.static('script/game'));
-    app.use(express.static('script/menu'));
-    app.use(express.static('images/logo'));
     res.sendFile(__dirname + "/html/play.html");
   }
 });
@@ -118,6 +108,14 @@ app.get('/background-image-blocksfall.jpeg', (req, res) => {
 
 app.get('/blocksfall-logo.png', (req, res) => {
   res.sendFile(__dirname + "/images/logo/blocksfall-logo.png");
+});
+
+app.get('/blocksfall-logo2.png', (req, res) => {
+  res.sendFile(__dirname + "/images/logo/blocksfall-logo2.png");
+});
+
+app.get('/1v1BattleLogo.png', (req, res) => {
+  res.sendFile(__dirname + "/images/logo/1v1BattleLogo.png");
 });
 
 app.get('/congratulations.gif', (req, res) => {
