@@ -259,7 +259,7 @@ function setOnConnection() {
               allGames[i].isRunning = false;
               allGames[i].winnerId = allGames[i].users[j].id;
             }
-            io.to(allGames[i].id).emit("updateServer", allGames[i]);
+            //io.to(allGames[i].id).emit("updateServer", allGames[i]);
           }
         }
       }
@@ -281,7 +281,7 @@ function setOnConnection() {
               allGames[x].users[i].score = 0;
             }
             allGames[x].isRunning = true;
-            io.to(allGames[x].id).emit("updateServer", allGames[x]);
+            //io.to(allGames[x].id).emit("updateServer", allGames[x]);
           }
         }
       }
@@ -296,6 +296,14 @@ function setOnConnection() {
 
       let users = []
 
+      for (let i = 0; i < allGames.length; i++) {
+        for (let j = 0; j < allGames[i].users.length; j++) {
+          if (allGames[i].users[j].id === socket.id) {
+            return 0;
+          }
+        }
+      }
+
       if (msg.gameId === -1 || msg.gameId === undefined || msg.gameId === null || !Number.isInteger(msg.gameId)) {
         let randomId = Math.floor(Math.random() * 1000000);
         while (isIdInUse(randomId)) {
@@ -306,7 +314,7 @@ function setOnConnection() {
         gameMatch1.users.push(user1)
         allGames.push(gameMatch1);
         socket.join(gameMatch1.id)
-        io.to(gameMatch1.id).emit("updateServer", gameMatch1);
+        //io.to(gameMatch1.id).emit("updateServer", gameMatch1);
       }
       else {
         if (!isIdInUse(msg.gameId)) {
@@ -315,7 +323,7 @@ function setOnConnection() {
           gameMatch1.users.push(user1)
           allGames.push(gameMatch1);
           socket.join(gameMatch1.id)
-          io.to(gameMatch1.id).emit("updateServer", gameMatch1);
+          //io.to(gameMatch1.id).emit("updateServer", gameMatch1);
         }
         else {
           for (let i = 0; i < allGames.length; i++) {
@@ -323,9 +331,9 @@ function setOnConnection() {
               let user1 = new user(socket.id, msg.userName)
               allGames[i].users.push(user1)
               socket.join(allGames[i].id)
-              io.to(allGames[i].id).emit("updateServer", allGames[i]);
+              //io.to(allGames[i].id).emit("updateServer", allGames[i]);
             }
-            else {
+            else if (allGames[i].id === msg.gameId && allGames[i].users.length === 2) {
               socket.emit("roomIsFull");
             }
           }
@@ -348,12 +356,12 @@ function setOnConnection() {
             socket.leave(allGames[i].id);
             allGames[i].users = allGames[i].users.filter((user1) => user1.id !== socket.id)
             usersLength = allGames[i].users.length;
-            io.to(allGames[i].id).emit("updateServer", allGames[i])
+            //io.to(allGames[i].id).emit("updateServer", allGames[i])
 
             if (allGames[i].users.length === 1) {
               allGames[i].isRunning = false;
               allGames[i].winnerId = null;
-              io.to(allGames[i].id).emit("updateServer", allGames[i])
+              //io.to(allGames[i].id).emit("updateServer", allGames[i])
             }
             else if (allGames[i].users.length === 0) {
               allGames.splice(i, 1);
@@ -369,7 +377,7 @@ function setOnConnection() {
         for (let j = 0; j < allGames[i].users.length; j++) {
           if (allGames[i].users.length === 1 && allGames[i].users[j].host === false) {
             allGames[i].users[j].host = true;
-            io.to(allGames[i].id).emit("updateServer", allGames[i])
+            //io.to(allGames[i].id).emit("updateServer", allGames[i])
           }
         }
       }
