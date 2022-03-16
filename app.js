@@ -188,6 +188,7 @@ let gameMatch = class gameMatch {
     this.users = users;
     this.isRunning = false;
     this.winnerId = null;
+    this.userEmitterId = null;
   }
 }
 
@@ -260,6 +261,7 @@ function setOnConnection() {
               allGames[i].winnerId = allGames[i].users[j].id;
             }
             //io.to(allGames[i].id).emit("updateServer", allGames[i]);
+            allGames[i].userEmitterId = allGames[i].users[j].id;
           }
         }
       }

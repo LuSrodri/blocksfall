@@ -74,12 +74,12 @@ function setMatrixOnline(users) {
 
 function onUpdateServer(msg) {
     for (let i = 0; i < msg.users.length; i++) {
-        if (msg.users[i].id !== socket.id) {
-            m1 = settingMatrix(msg.users[i].matrix.obj)
+        if (msg.users[i].id !== socket.id && msg.userEmitterId !== socket.id) {
+            m1 = settingMatrix(msg.users[i].matrix.obj);
             printGame(msg.users[i].letter, m1, ctx1);
             document.getElementById("scorePlayer2").innerHTML = msg.users[i].score;
         }
-        
+
     }
 }
 
