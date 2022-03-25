@@ -222,7 +222,6 @@ let firstTime = true;
 
 let io = null
 
-
 const observer = docRef.onSnapshot(docSnapshot => {
   allGames = docSnapshot.data().allGames;
   //console.log(allGames);
@@ -260,8 +259,8 @@ function setOnConnection() {
               allGames[i].isRunning = false;
               allGames[i].winnerId = allGames[i].users[j].id;
             }
-            //io.to(allGames[i].id).emit("updateServer", allGames[i]);
             allGames[i].userEmitterId = allGames[i].users[j].id;
+            //io.to(allGames[i].id).emit("updateServer", allGames[i]);
           }
         }
       }

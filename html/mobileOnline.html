@@ -47,14 +47,16 @@
     </script>
 </head>
 
-<body id="body"  >
+<body id="body">
 
     <div class="container">
-        <div id="hudMobile" class="hud" style="margin-bottom: 2vmin; padding-top: 0; height: auto;">
+        <div id="hudMobile" class="hud"
+            style="margin-bottom: 4vmin; padding-top: 0; height: auto; padding-bottom: 1vmin;"
+            onclick="scrollToElement('top')">
 
             <div class="scoreAndMenu scoreAndMenuMobile" style="margin: 0; margin-top: 1vmin;">
                 <div>
-                    <h2 class="scoreShow scoreShowMobile" >YOUR SCORE: <span class="score">0</span> </h2>
+                    <h2 class="scoreShow scoreShowMobile">YOUR SCORE: <span class="score">0</span>/150 </h2>
                 </div>
             </div>
 
@@ -62,8 +64,10 @@
 
             <div class="controller">
                 <div class="rows">
-                    <button style="min-width: unset;" class="btn btnController" id="rotateLeft"><i class="fas fa-undo"></i></button>
-                    <button style="min-width: unset;" class="btn btnController" id="rotateRight"><i class="fas fa-redo-alt"></i></button>
+                    <button style="min-width: unset;" class="btn btnController" id="rotateLeft"><i
+                            class="fas fa-undo"></i></button>
+                    <button style="min-width: unset;" class="btn btnController" id="rotateRight"><i
+                            class="fas fa-redo-alt"></i></button>
                 </div>
                 <div class="rows">
                     <button style="min-width: unset;" class="btn btnController btnControlerOrange" id="leftMove"><i
@@ -72,17 +76,19 @@
                             class="fas fa-arrow-right"></i></button>
                 </div>
                 <div class="rows rows1">
-                    <button style="min-width: unset;" class="btn btnController" id="downMove"><i class="fas fa-arrow-down"></i></button>
+                    <button style="min-width: unset;" class="btn btnController" id="downMove"><i
+                            class="fas fa-arrow-down"></i></button>
                 </div>
             </div>
 
         </div>
 
-        <div id="hudMobile" class="hud" style="margin-bottom: 2vmin; padding-top: 0; height: auto;">
+        <div id="hudMobile" class="hud" style="margin-bottom: 2vmin; padding-top: 0; height: auto;" onclick="scrollToElement('bottom')"> 
 
             <div class="scoreAndMenu scoreAndMenuMobile" style="margin: 0; margin-top: 1vmin;">
                 <div>
-                    <h2 class="scoreShow scoreShowMobile"><span id="game1UserName" >USERNAME_PLAYER</span>: <span id="scorePlayer2">0</span> </h2>
+                    <h2 class="scoreShow scoreShowMobile"><span id="game1UserName">USERNAME_PLAYER</span>: <span
+                            id="scorePlayer2">0</span> </h2>
                 </div>
             </div>
 

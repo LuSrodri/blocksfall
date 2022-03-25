@@ -58,7 +58,7 @@
 
 </head>
 
-<body id="body" onblur="ifOnBlur()" onclick="ifOnClicked()">
+<body id="body" style="overflow: hidden;" onblur="ifOnBlur()" onclick="ifOnClicked()">
 
     <div class="container" style="flex-direction: row; flex-wrap: wrap;">
         <div class="main">
@@ -73,6 +73,20 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        function scrollToElement(d) {
+            if (d === "top") {
+                window.scrollBy({
+                    top: -1000,
+                    behavior: 'smooth'
+                });
+            } else if (d === "bottom") {
+                window.scrollBy({
+                    top: 1000,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
         let isOffline = null
         let socket = io('', {
             transports: ['websocket'],
@@ -80,9 +94,9 @@
 
         let idClient = null
 
-        socket.on('connect', function () {
-            idClient = socket.id;
-        })
+        // socket.on('connect', function () {
+        //     idClient = socket.id;
+        // })
 
         socket.on("disconnect", () => {
             if (rodando !== null) {
@@ -139,7 +153,7 @@
                     onStartGame(msg)
                 }
             }
-            else if(rodando !== null){
+            else if (rodando !== null) {
                 if (msg.isRunning === false) {
                     clearInterval(rodando)
                     rodando = null
@@ -229,6 +243,7 @@
             buttonShare.setAttribute("onclick", "shareGame()")
             buttonShare.className = "btn"
             buttonShare.innerHTML = "<i class='fas fa-share'></i> SHARE"
+            buttonShare.style.minWidth = "0"
 
             let divHeader = document.createElement("div")
             divHeader.style.display = "flex"

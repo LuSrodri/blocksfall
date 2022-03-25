@@ -76,10 +76,10 @@ function onUpdateServer(msg) {
     for (let i = 0; i < msg.users.length; i++) {
         if (msg.users[i].id !== socket.id && msg.userEmitterId !== socket.id) {
             m1 = settingMatrix(msg.users[i].matrix.obj);
-            printGame(msg.users[i].letter, m1, ctx1);
+            printGame(msg.users[i].letter, m1, ctx1)
             document.getElementById("scorePlayer2").innerHTML = msg.users[i].score;
+            return 0;
         }
-
     }
 }
 
@@ -107,9 +107,8 @@ let scoreGame = 0
 let intervalTimeGame = 800
 let letters = ['T', 'Z', 'I', 'L', 'J', 'S', 'O'];
 
-
 function gameOnlineStart() {
-    
+
 
 
     gameOverPrintAux();
@@ -128,7 +127,7 @@ function gameOnlineStart() {
         countGameRun++;
         if (!paused()) {
 
-            
+
 
 
             setRecord(scoreGame);
@@ -175,13 +174,14 @@ function gameOnlineStart() {
 
             mObj = settingMatrixToObj(m);
             socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
-
         }
     }
 
     rodando = setInterval(() => {
         isPlaying()
     }, intervalTimeGame);
+
+
 
     gaming = document.getElementById('body');
 
