@@ -27,7 +27,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
-    <link rel="manifest" href="./manifest.json">
     <link rel="icon" type="image/x-icon" href="./blocksfall-logo.png">
     <link rel="stylesheet" href="./style.css">
     <link href="./icons.css" rel="stylesheet">
@@ -124,8 +123,7 @@
                     CREATE A GAME</button>
             </div>
             <div class="scoreAndMenu">
-                <p class="scoreShow" style="margin: 0; ">ROOM ID:</p>
-                <input type="number" id="roomId" class="input" value="">
+                <input type="number" id="roomId" class="input" value="" placeholder="ROOM ID" style="width: 50%;">
                 <button class="btn" style="min-width: unset;"
                     onclick="window.location.href='/multiplayer?id='+document.getElementById('roomId').value"><i
                         class="fas fa-dice"></i>
