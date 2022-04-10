@@ -17,7 +17,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
-    <link rel="manifest" href="./manifest.json">
     <link rel="icon" type="image/x-icon" href="./blocksfall-logo.png">
     <link rel="stylesheet" href="./style.css">
     <link href="./icons.css" rel="stylesheet">
@@ -47,46 +46,32 @@
     </script>
 </head>
 
-<body id="body" >
+<body id="body" style="overflow: hidden;">
 
     <div class="container" style="flex-direction: row; flex-wrap: wrap;">
-        <div class="hud" style="margin: 0 2vmin;">
-            <div class="information">
-                <div class="manual">
-                    <span class="text1"> - GET 150 POINTS <span style="color: orange">TO WIN.</span></span> <br>
-                    <span class="text1"> - PRESS <span style="color: orange">A, S AND D</span> OR
-                        <span style="color: orange">THE ARROWS</span> TO MOVE THE
-                        PIECE.</span><br>
-                    <span class="text1"> - PRESS <span style="color: orange">Q, AND E</span> OR
-                        <span style="color: orange">SPACEBAR</span> TO ROTATE THE
-                        PIECE.</span><br>
-
-                    <span class="text1"> - YOUR SCORE WILL TO ZERO IF THE PIECE CATCH UP THE TOP BORDER.</span><br> <br>
-                    <img src="control.jpeg" style="width: 100%; border: solid 2px white; " alt="control">
-                </div>
-            </div>
+        <div class="hud" style="margin: 2vmin 3vmin; padding: 1.5vmin;" onclick="scrollToElement('top')">
 
             <div style="display: flex; flex-direction: column; align-items: center; margin: 0 5px;">
                 <div class="scoreAndMenu" style="padding: 0; width: 100%; ">
                     <div>
-                        <h4 class="scoreShow" style="margin: 0;">YOUR SCORE: <span class="score">0</span> </h4>
+                        <h4 class="scoreShow" style="margin: 0;">YOUR SCORE: <span class="score">0</span> / 150</h4>
                     </div>
                 </div>
-                <canvas id="game" class="canvasMobile1" ></canvas>
+                <canvas id="game" class="canvasMobile"></canvas>
             </div>
-            
 
         </div>
 
-        <div class="hud" style="margin: 2vmin;">
-            
+        <div class="hud" style="margin: 2vmin 3vmin; padding: 1.5vmin;" onclick="scrollToElement('bottom')">
+
             <div style="display: flex; flex-direction: column; align-items: center; margin: 0 5px;">
                 <div class="scoreAndMenu" style="padding: 0; width: 100%; ">
                     <div>
-                        <h4 class="scoreShow" style="margin: 0;"> <span id="game1UserName" >USERNAME_PLAYER</span>: <span id="scorePlayer2">0</span> </h4>
+                        <h4 class="scoreShow" style="margin: 0;"> <span id="game1UserName">USERNAME_PLAYER</span>: <span
+                                id="scorePlayer2">0</span> / 150</h4>
                     </div>
                 </div>
-                <canvas id="game1" class="canvasMobile1" ></canvas>
+                <canvas id="game1" class="canvasMobile"></canvas>
             </div>
 
         </div>
@@ -95,6 +80,5 @@
 
 
 </body>
-
 
 </html>

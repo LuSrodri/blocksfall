@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" style="height: unset;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enjoy this best puzzle game with your friend or solo! - Blocks' Fall</title>
+    <meta name="description"
+        content="The Online Game for played Anyplace and Anytime. Enjoy this best puzzle game with your friend or solo. You will love it!">
+    <meta name="application-name" content="Blocks' Fall">
+
+    <meta property="og:title" content="Play the Online Game - Blocks' Fall.">
+    <meta property="og:type" content="game" />
+    <meta property="og:image" content="https://blocksfall.io/blocksfall-logo.png">
+    <meta property="og:url" content="https://blocksfall.io">
+    <meta property="og:description"
+        content="The Online Game for played Anyplace and Anytime. Enjoy this best puzzle game with your friend or solo. You will love it!">
+
+    <meta name=”twitter:card” content=”summary” />
+    <meta name="twitter:title" content="Play the Online Game - Blocks' Fall.">
+    <meta name="twitter:description"
+        content="The Online Game for played Anyplace and Anytime. Enjoy this best puzzle game with your friend or solo. You will love it!">
+    <meta name="twitter:image" content="https://blocksfall.io/blocksfall-logo.png">
+    <meta name="twitter:url" content="https://blocksfall.io">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="./blocksfall-logo.png">
+    <link rel="stylesheet" href="./style.css">
+    <link href="./icons.css" rel="stylesheet">
+    <link href="./oswald.ttf" rel="font/ttf">
+
+</head>
+
+<body id="body" onload="musicControl(true)" onclick="ifOnClicked()" style="width: 95vw; height: 95vh; margin: 2vmin;">
+    <div class="container" style="margin: 0; padding: 0;">
+        <div class="hud" style="margin: 0; padding: 2vmin; flex-direction: column; align-items: center;">
+
+            <h2 style="margin: 0;">YOU ARE OFFLINE. <a onclick="window.location.reload(true)"
+                    style="text-decoration: underline;">REFRESH</a>.</h2>
+
+            <canvas id="game" class="canvasMobile"></canvas>
+
+        </div>
+    </div>
+
+    <script src="./game-offline.js"></script>
+    <script src="./menu.js"></script>
+
+    <script>
+        //registrando service-worker.js
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/serviceWorker.js");
+        }
+    </script>
+
+</body>
+
+<audio id="music" src="./music.mpeg" autoplay loop></audio>
+
+</html>

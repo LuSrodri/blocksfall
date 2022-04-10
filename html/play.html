@@ -27,7 +27,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
-    <link rel="manifest" href="./manifest.json">
     <link rel="icon" type="image/x-icon" href="./blocksfall-logo.png">
     <link rel="stylesheet" href="./style.css">
     <link href="./icons.css" rel="stylesheet">
@@ -58,38 +57,25 @@
     </script>
 </head>
 
-<body id="body" onblur="ifOnBlur()" onclick="ifOnClicked()">
+<body id="body" onblur="//ifOnBlur()" onclick="ifOnClicked()" style="width: 95vw; height: 95vh; margin: 2vmin;">
 
-    <div class="container" style="margin: 0;">
-        <div class="hud">
-            <div class="information">
-                <div class="scoreAndMenu" style="padding: 0 25px;">
-                    <button class="btn" id=""
-                        style="margin: 0; font-size: 1rem; padding: 0.75vmin 2.5vmin; border: none; min-width: unset;"
-                        onclick="pause()"><i class="fas fa-pause"></i> PAUSE</button>
-                    <div>
-                        <h2 class="scoreShow">SCORE: <span class="score">0</span> </h2>
-                    </div>
-                </div>
-
-                <div class="manual">
-                    <span class="text1"> - PRESS <span style="color: orange">A, S AND D</span> OR
-                        <span style="color: orange">THE ARROWS</span> TO MOVE THE
-                        PIECE.</span><br>
-                    <span class="text1"> - PRESS <span style="color: orange">Q, AND E</span> OR
-                        <span style="color: orange">SPACEBAR</span> TO ROTATE THE
-                        PIECE.</span><br>
-                    <span class="text1"> - YOU LOSE WHEN THE PIECES CATCH UP THE TOP BORDER.</span><br> <br>
-                    <img src="control.jpeg" style="width: 100%; border: solid 2px white; " alt="control">
+    <div class="container" style="margin: 0; padding: 0;">
+        <div class="hud" style="margin: 0; padding: 2vmin; flex-direction: column; align-items: center;">
+            <div class="scoreAndMenu" style="width: 100%; margin: 0 0.5vmin;">
+                <button class="btn" id=""
+                    style="margin: 0; font-size: 1rem; padding: 0.75vmin 2.5vmin; border: none; min-width: unset;"
+                    onclick="pause()"><i class="fas fa-pause"></i> PAUSE</button>
+                <div>
+                    <h2 class="scoreShow">SCORE: <span class="score">0</span> </h2>
                 </div>
             </div>
 
-            <canvas id="game"></canvas>
+            <canvas id="game" class="canvasMobile"></canvas>
 
         </div>
     </div>
 
-    <script src="./game.js"></script>
+    <script src="./game-mobile.js"></script>
     <script src="./menu.js"></script>
 
 </body>

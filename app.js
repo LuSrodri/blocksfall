@@ -29,22 +29,16 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + "/html/index.html");
 });
 
+app.get('/pwa', (req, res) => {
+  res.sendFile(__dirname + "/html/pwa.html");
+});
+
 app.get('/play', (req, res) => {
-  if (req.headers['user-agent'].indexOf("Mobile") !== -1) {
-    res.sendFile(__dirname + "/html/mobile.html");
-  }
-  else {
-    res.sendFile(__dirname + "/html/play.html");
-  }
+  res.sendFile(__dirname + "/html/play.html");
 });
 
 app.get('/playOnline.html', (req, res) => {
-  if (req.headers['user-agent'].indexOf("Mobile") !== -1) {
-    res.sendFile(__dirname + "/html/mobileOnline.html");
-  }
-  else {
-    res.sendFile(__dirname + "/html/playOnline.html");
-  }
+  res.sendFile(__dirname + "/html/playOnline.html");
 });
 
 app.get('/game-online.js', (req, res) => {
@@ -65,9 +59,21 @@ app.get('/mobile', (req, res) => {
   res.sendFile(__dirname + "/html/mobile.html");
 });
 
-app.get('/manifest.json', (req, res) => {
-  res.sendFile(__dirname + "/manifest.json");
+app.get('/manifest.webmanifest', (req, res) => {
+  res.sendFile(__dirname + "/manifest.webmanifest");
 });
+
+app.get('/serviceWorker.js', (req, res) => {
+  res.sendFile(__dirname + "/serviceWorker.js");
+});
+
+
+
+app.get('/offline', (req, res) => {
+  res.sendFile(__dirname + "/html/offline.html");
+});
+
+
 
 
 app.get('/game.js', (req, res) => {
@@ -76,6 +82,10 @@ app.get('/game.js', (req, res) => {
 
 app.get('/game-mobile.js', (req, res) => {
   res.sendFile(__dirname + "/script/game-mobile/game-mobile.js");
+});
+
+app.get('/game-offline.js', (req, res) => {
+  res.sendFile(__dirname + "/script/game-offline/game-offline.js");
 });
 
 app.get('/canvasHome.js', (req, res) => {
@@ -102,6 +112,11 @@ app.get('/control.jpeg', (req, res) => {
   res.sendFile(__dirname + "/images/control.jpeg");
 });
 
+app.get('/control_mobile.png', (req, res) => {
+  res.sendFile(__dirname + "/images/control_mobile.png");
+});
+
+
 app.get('/background-image-blocksfall.jpeg', (req, res) => {
   res.sendFile(__dirname + "/images/background-image-blocksfall.jpeg");
 });
@@ -109,6 +124,20 @@ app.get('/background-image-blocksfall.jpeg', (req, res) => {
 app.get('/blocksfall-logo.png', (req, res) => {
   res.sendFile(__dirname + "/images/logo/blocksfall-logo.png");
 });
+
+app.get('/blocksfall-logo-192.png', (req, res) => {
+  res.sendFile(__dirname + "/images/logo/blocksfall-logo-192.png");
+});
+
+app.get('/blocksfall-logo-256.png', (req, res) => {
+  res.sendFile(__dirname + "/images/logo/blocksfall-logo-256.png");
+});
+
+app.get('/blocksfall-logo-512.png', (req, res) => {
+  res.sendFile(__dirname + "/images/logo/blocksfall-logo-512.png");
+});
+
+
 
 app.get('/blocksfall-logo2.png', (req, res) => {
   res.sendFile(__dirname + "/images/logo/blocksfall-logo2.png");

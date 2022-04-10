@@ -5,6 +5,7 @@
 
 h1, h2, h3, h4, p, a {
     color: #1E212D;
+    text-align: center;
 }
 
 @font-face {
@@ -22,6 +23,7 @@ body {
     background-color: orange;
     background-image: url('./background-image-blocksfall.jpeg');
     background-attachment: fixed;
+    overscroll-behavior-y: contain;
 }
 
 button{
@@ -110,10 +112,19 @@ canvas {
 }
 
 canvas.canvasMobile {
-    margin: 5px 0;
-    width: 72vw;
-    height: 96vw;
+    margin: 0.5vmin;
+    width: 60vh;
+    height: 80vh;
     background-color: #1E212D;
+}
+
+@media all and (orientation: portrait) {
+    canvas.canvasMobile {
+        margin: 0.5vmin 0;
+        width: 84vw;
+        height: 112vw;
+        background-color: #1E212D;
+    }
 }
 
 canvas.canvasMobile1 {
@@ -284,15 +295,16 @@ button.btnPause {
 }
 
 .scoreShow{
+    margin: 1vmin 0;
+    padding: 0;
     font-size: 4vmin;
     color: white;
 }
 
 .text1{
     color: white;
-    font-size: 2.5vmin;
     margin: 0;
-    margin-bottom: 1vmin;
+    text-align: center;
 }
 
 div.dialogDiv{
@@ -323,10 +335,6 @@ div.dialogDiv{
 }
 
 @media screen and (min-aspect-ratio: 2/3){ 
-    canvas.canvasMobile {
-        width: 54vw;
-        height: 72vw;
-    }
     button.btnController {
         height: 8vmin;
     }

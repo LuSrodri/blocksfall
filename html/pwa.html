@@ -87,8 +87,6 @@
                     GAME</button>
                 <button class="btn btnHome" onclick="scrollToMulti()"><i class="fas fa-dice"></i>
                     1v1 BATTLE</button>
-                <button class="btn btnHome" onclick="scrollToDownload()"><i class="fas fa-download"></i>
-                    DOWNLOAD</button>
                 <button class="btn btnHome" onclick="newTabNft()"><i class="fas fa-coins" id="medals"></i>
                     BUY NFTs</button>
                 <button class="btn btnHome" onclick="sesssionStorageMusic()"><i id="buttonMusic"
@@ -191,16 +189,6 @@
 
         </div>
 
-        <div class="main" style="height: auto;
-        min-height: unset;
-        flex-direction: column;" id="download">
-            <h2 style="margin-bottom: 0;"><i class="fas fa-download"></i> DOWNLOAD</h2>
-            <h3 style="margin-top: 0;">ADD THE GAME IN YOUR DEVICE</h3>
-            <div class="scoreAndMenu">
-                <button class="btn" id="buttonDownload"><i class="fas fa-download"></i> ADD</button>
-            </div>
-        </div>
-
         <canvas id="canvasHome"></canvas>
 
         <div class="main">
@@ -248,33 +236,6 @@
             });
         }
 
-        function scrollToDownload() {
-            document.getElementById("download").scrollIntoView({
-                behavior: "smooth"
-            });
-        }
-
-        let deferredPrompt;
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            // Impede que o mini-infobar apareça em mobile
-            e.preventDefault();
-            // Guarda evento para que possa ser disparado depois.
-            deferredPrompt = e;
-        });
-
-        let buttonInstall = document.getElementById("buttonDownload");
-
-        buttonInstall.addEventListener('click', async () => {
-            // Mostra prompt de instalação
-            deferredPrompt.prompt();
-            // Espera usuário responder ao prompt
-            const { outcome } = await deferredPrompt.userChoice;
-            // Opcionalmente, enviar evento analytics com resultado da escolha do usuário
-            // console.log(`User response to the install prompt: ${outcome}`);
-            // Usamos o prompt e não podemos usar de novo; jogue fora
-            deferredPrompt = null;
-        });
     </script>
 
 </body>

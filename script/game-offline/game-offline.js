@@ -9,190 +9,120 @@ canvas.id = "game";
 
 ctx.fillStyle = "#2a2a30";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-const canvas1 = document.createElement('canvas');
-const ctx1 = canvas1.getContext('2d');
-
-canvas1.width = 1200;
-canvas1.height = 1600;
-canvas1.className = "canvasMobile";
-canvas1.id = "game1";
-
-ctx1.fillStyle = "#2a2a30";
-ctx1.fillRect(0, 0, canvas1.width, canvas1.height);
-
+document.getElementById("game").parentNode.replaceChild(canvas, document.getElementById("game"));
 
 let m = null
-let mObj = null
-let m1 = null
 let letter = null
 
-function settingMatrix(matrixAux) {
-    let matrixA = []
-    for (let mat in matrixAux) {
-        matrixA.push(matrixAux[mat])
-    }
-    return matrixA;
-}
+m = new Array();
+m = makeMatrix(12, 16);
 
-function settingMatrixToObj(matrixAux) {
-    let matrixA = {}
-    for (let i = 0; i < matrixAux.length; i++) {
-        matrixA[i] = new Array()
-        for (let j = 0; j < matrixAux[i].length; j++) {
-            matrixA[i][j] = matrixAux[i][j]
-        }
-    }
-    return matrixA;
-}
-
-function setMatrixOnline(users) {
-    if (document.getElementById('hudMobile')) {
-        canvas.className = "canvasMobile";
-        canvas1.className = "canvasMobile";
-        setControlLeftMove1()
-        setControlRightMove1()
-        setControlDownMove1()
-        setControlRotateLeft1()
-        setControlRotateRight1()
-    }
-    document.getElementById("game").parentNode.replaceChild(canvas, document.getElementById("game"));
-    document.getElementById("game1").parentNode.replaceChild(canvas1, document.getElementById("game1"));
-    for (let i = 0; i < users.length; i++) {
-        if (users[i].id === socket.id) {
-            m = settingMatrix(users[i].matrix.obj)
-            scoreGame = users[i].score;
-            document.getElementsByClassName("score")[0].innerHTML = users[i].score;
-        }
-        else {
-            m1 = settingMatrix(users[i].matrix.obj)
-            document.getElementById("scorePlayer2").innerHTML = users[i].score;
-        }
-    }
-    gameOnlineStart()
-    gameCanvasControl = document.getElementById("game");
-    gameCanvasControl.addEventListener("touchstart", touchPosition, true);
-    gameCanvasControl.addEventListener("touchmove", touchIsMoving, true);
-    gameCanvasControl.addEventListener("touchend", touchIsEnded, true);
-}
-
-function onUpdateServer(msg) {
-    for (let i = 0; i < msg.users.length; i++) {
-        if (msg.users[i].id !== socket.id && msg.userEmitterId !== socket.id) {
-            m1 = settingMatrix(msg.users[i].matrix.obj);
-            printGame(msg.users[i].letter, m1, ctx1)
-            document.getElementById("scorePlayer2").innerHTML = msg.users[i].score;
-            return 0;
-        }
-    }
-}
-
-socket.on("gameOver", msg => {
-    for (let i = 0; i < msg.users.length; i++) {
-        if (msg.users[i].id === socket.id) {
-            m = settingMatrix(msg.users[i].matrix.obj);
-            printGame(msg.users[i].letter, m, ctx);
-            scoreGame = msg.users[i].score;
-            document.getElementsByClassName("score")[0].innerHTML = msg.users[i].score;
-        }
-    }
-})
 
 //console.log(m);
 
-let openAux = null
-let gameOverHtml = null
+let gameOverHtml = null;
 gameOverPrintAux();
+
+let openAux = true;
+
 let random = null
 let block = null
 let xPosition = null
 let yPosition = null
 let scoreGame = 0
 let intervalTimeGame = 800
+
+setTotalPlayed();
 let letters = ['T', 'Z', 'I', 'L', 'J', 'S', 'O'];
 
-function gameOnlineStart() {
+if (localStorage.getItem("canvasGameMobile") === null) {
+    random = Math.floor(Math.random() * letters.length);
+    letter = letters[random];
+    block = createBlock(letter);
+    putPiece(block, 0, 5);
+    sombraPiece()
+    printGame(letter);
+    setPieceGenerated();
+    xPosition = wherePiece('x');
+    yPosition = wherePiece('y');
+    scoreGame = 0;
 
-
-
-    gameOverPrintAux();
-
-    openAux = true;
-
-
-
-    setTotalPlayed();
-
-
-
-    let countGameRun = 0;
-
-    function isPlaying() {
-        countGameRun++;
-        if (!paused()) {
-
-
-
-
-            setRecord(scoreGame);
-            let letters = ['T', 'Z', 'I', 'L', 'J', 'S', 'O'];
-            let teste = testIfHavePiece();
-            if (ifCatchTop()) {
-                clearInterval(rodando);
-            }
-
-            if (openAux) {
-
-                if (teste) {
-                    downPiece(letter);
-                    sombraPiece()
-                    printGame(letter, m, ctx);
-                    xPosition = wherePiece('x');
-                    yPosition = wherePiece('y');
-                }
-                else if (verifyIfCompleteALine() >= 0) {
-                    while (verifyIfCompleteALine() >= 0) {
-                        m = clearLine(m, verifyIfCompleteALine());
-                        printGame(letter, m, ctx);
-                        scoreGame += 10
-                        updateScore();
-                        setLinesCompleted();
-                        setTotalScored();
-                    }
-                }
-                else {
-                    let random = Math.floor(Math.random() * letters.length);
-                    letter = letters[random];
-                    block = createBlock(letter);
-                    putPiece(block, 0, 5);
-                    sombraPiece()
-                    printGame(letter, m, ctx);
-                    setPieceGenerated();
-                    xPosition = wherePiece('x');
-                    yPosition = wherePiece('y');
-                }
-            }
-            // console.log("Posicao X = "+ xPosition);
-            // console.log("Posicao y = "+ yPosition);
-
-
-            mObj = settingMatrixToObj(m);
-            socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
-        }
+    let localStorageCanvasGame = { m, letter, scoreGame, xPosition, yPosition, block, intervalTimeGame }
+    //localStorage.setItem("canvasGameMobile", JSON.stringify(localStorageCanvasGame))
+}
+else {
+    scoreGame = JSON.parse(localStorage.getItem("canvasGameMobile")).scoreGame
+    updateScored()
+    xPosition = JSON.parse(localStorage.getItem("canvasGameMobile")).xPosition
+    yPosition = JSON.parse(localStorage.getItem("canvasGameMobile")).yPosition
+    block = JSON.parse(localStorage.getItem("canvasGameMobile")).block
+    if (JSON.parse(localStorage.getItem("canvasGameMobile")).intervalTimeGame !== undefined) {
+        intervalTimeGame = JSON.parse(localStorage.getItem("canvasGameMobile")).intervalTimeGame
     }
-
-    rodando = setInterval(() => {
-        isPlaying()
-    }, intervalTimeGame);
-
-
-
-    gaming = document.getElementById('body');
-
 }
 
-let gaming = null
-let rodando = null
+let countGameRun = 0;
+
+function isPlaying() {
+    countGameRun++;
+    if (!paused()) {
+        let localStorageCanvasGame = { m, letter, scoreGame, xPosition, yPosition, block, intervalTimeGame }
+        //localStorage.setItem("canvasGameMobile", JSON.stringify(localStorageCanvasGame))
+
+        localStorage.setItem('lastScore', scoreGame);
+        setRecord(scoreGame);
+        let letters = ['T', 'Z', 'I', 'L', 'J', 'S', 'O'];
+        let teste = testIfHavePiece();
+        if (ifCatchTop()) {
+            clearInterval(rodando);
+        }
+
+        if (openAux) {
+
+            if (teste) {
+                downPiece(letter);
+                sombraPiece()
+                printGame(letter);
+                xPosition = wherePiece('x');
+                yPosition = wherePiece('y');
+            }
+            else if (verifyIfCompleteALine() >= 0) {
+                while (verifyIfCompleteALine() >= 0) {
+                    m = clearLine(m, verifyIfCompleteALine());
+                    printGame();
+                    scoreGame += 10;
+                    updateScored();
+                    setLinesCompleted();
+                    setTotalScored();
+                }
+            }
+            else {
+                let random = Math.floor(Math.random() * letters.length);
+                letter = letters[random];
+                block = createBlock(letter);
+                putPiece(block, 0, 5);
+                sombraPiece()
+                printGame(letter);
+                setPieceGenerated();
+                xPosition = wherePiece('x');
+                yPosition = wherePiece('y');
+            }
+        }
+        // console.log("Posicao X = "+ xPosition);
+        // console.log("Posicao y = "+ yPosition);
+        if (intervalTimeGame > 250) {
+            intervalTimeGame -= 0.75
+            clearInterval(rodando)
+            rodando = setInterval(() => { isPlaying() }, intervalTimeGame)
+        }
+    }
+}
+
+let rodando = setInterval(() => {
+    isPlaying()
+}, intervalTimeGame);
+
+let gaming = document.getElementById('body');
 
 function getPauseHtml() {
     let xmlHttp = new XMLHttpRequest();
@@ -260,50 +190,44 @@ document.body.addEventListener('keydown', function (event) {
         if (key === "A" || key === "a" || key === "ArrowLeft") {
             changeDirection('L');
             sombraPiece()
-            printGame(letter, m, ctx);
+            printGame(letter);
             xPosition = wherePiece('x');
             yPosition = wherePiece('y');
-            mObj = settingMatrixToObj(m);
-            socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
         }
         if (key === "D" || key === "d" || key === "ArrowRight") {
             changeDirection('R');
             sombraPiece()
-            printGame(letter, m, ctx);
+            printGame(letter);
             xPosition = wherePiece('x');
             yPosition = wherePiece('y');
-            mObj = settingMatrixToObj(m);
-            socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
         }
         if (key === "S" || key === "s" || key === "ArrowDown") {
             downPiece(letter);
             sombraPiece()
-            printGame(letter, m, ctx);
+            printGame(letter);
             xPosition = wherePiece('x');
             yPosition = wherePiece('y');
-            mObj = settingMatrixToObj(m);
-            socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
         }
         if (key === "E" || key === "e" || key === " ") {
             block = rotatePiece('R', block)
             putPiece(block, xPosition, yPosition);
             sombraPiece()
-            printGame(letter, m, ctx);
-            mObj = settingMatrixToObj(m);
-            socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
+            printGame(letter);
         }
         if (key === "Q" || key === "q") {
             block = rotatePiece('L', block);
             putPiece(block, xPosition, yPosition);
             sombraPiece()
-            printGame(letter, m, ctx, ctx);
-            mObj = settingMatrixToObj(m);
-            socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
+            printGame(letter);
         }
     }
 });
 
-let gameCanvasControl = null;
+
+let gameCanvasControl = document.getElementById("game");
+gameCanvasControl.addEventListener("touchstart", touchPosition, true);
+gameCanvasControl.addEventListener("touchmove", touchIsMoving, true);
+gameCanvasControl.addEventListener("touchend", touchIsEnded, true);
 
 function touchIsEnded() {
     if (pieceIsMoving === false) {
@@ -367,11 +291,9 @@ let timerOut1 = null;
 function leftMoveOn() {
     changeDirection('L');
     sombraPiece()
-    printGame(letter, m, ctx);
+    printGame(letter);
     xPosition = wherePiece('x');
     yPosition = wherePiece('y');
-    mObj = settingMatrixToObj(m);
-    socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
     timerOut1 = setTimeout(
         setInterval1, 125);
 }
@@ -380,11 +302,9 @@ function setInterval1() {
     timer1 = setInterval(function () {
         changeDirection('L');
         sombraPiece()
-        printGame(letter, m, ctx);
+        printGame(letter);
         xPosition = wherePiece('x');
         yPosition = wherePiece('y');
-        mObj = settingMatrixToObj(m);
-        socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
     }, 50)
 }
 
@@ -405,11 +325,9 @@ let timerOut2 = null;
 function rightMoveOn() {
     changeDirection('R');
     sombraPiece()
-    printGame(letter, m, ctx);
+    printGame(letter);
     xPosition = wherePiece('x');
     yPosition = wherePiece('y');
-    mObj = settingMatrixToObj(m);
-    socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
 
     timerOut2 = setTimeout(
         setInterval2, 125);
@@ -419,12 +337,9 @@ function setInterval2() {
     timer2 = setInterval(function () {
         changeDirection('R');
         sombraPiece()
-        printGame(letter, m, ctx);
+        printGame(letter);
         xPosition = wherePiece('x');
         yPosition = wherePiece('y');
-        mObj = settingMatrixToObj(m);
-        socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
-
     }, 50)
 }
 
@@ -445,11 +360,9 @@ let timerOut3 = null;
 function downMoveOn() {
     downPiece(letter);
     sombraPiece()
-    printGame(letter, m, ctx);
+    printGame(letter);
     xPosition = wherePiece('x');
     yPosition = wherePiece('y');
-    mObj = settingMatrixToObj(m);
-    socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
 
     timerOut3 = setTimeout(
         setInterval3, 125);
@@ -460,11 +373,9 @@ function setInterval3() {
     timer3 = setInterval(function () {
         downPiece(letter);
         sombraPiece()
-        printGame(letter, m, ctx);
+        printGame(letter);
         xPosition = wherePiece('x');
         yPosition = wherePiece('y');
-        mObj = settingMatrixToObj(m);
-        socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
     }, 50)
 }
 
@@ -483,22 +394,50 @@ function rotateRight() {
     block = rotatePiece('R', block)
     putPiece(block, xPosition, yPosition);
     sombraPiece()
-    printGame(letter, m, ctx);
-    mObj = settingMatrixToObj(m);
-    socket.emit("updateClient", { m: mObj, gameId, scoreGame, letter })
-
+    printGame(letter);
 }
 //
 
 
 function setMedals() {
-    if (localStorage.getItem('goldMedal') === null) {
-        localStorage.setItem('goldMedal', 1);
+    if (scoreGame >= 200 && scoreGame < 500) {
+        if (localStorage.getItem('bronzeMedal') === null) {
+            localStorage.setItem('bronzeMedal', 1);
+        }
+        else {
+            let aux = Number(localStorage.getItem('bronzeMedal'));
+            aux += 1;
+            localStorage.setItem('bronzeMedal', aux);
+        }
+        document.getElementById("medalOne").src = "./bronze_medal.png";
+        document.getElementById("medalOne").alt = "bronze_medal";
+    }
+    else if (scoreGame >= 500 && scoreGame < 1000) {
+        if (localStorage.getItem('silverMedal') === null) {
+            localStorage.setItem('silverMedal', 1);
+        }
+        else {
+            let aux = Number(localStorage.getItem('silverMedal'));
+            aux += 1;
+            localStorage.setItem('silverMedal', aux);
+        }
+        document.getElementById("medalOne").src = "./silver_medal.png";
+        document.getElementById("medalOne").alt = "silver_medal";
+    }
+    else if (scoreGame >= 1000) {
+        if (localStorage.getItem('goldMedal') === null) {
+            localStorage.setItem('goldMedal', 1);
+        }
+        else {
+            let aux = Number(localStorage.getItem('goldMedal'));
+            aux += 1;
+            localStorage.setItem('goldMedal', aux);
+        }
+        document.getElementById("medalOne").src = "./gold_medal.png";
+        document.getElementById("medalOne").alt = "gold_medal";
     }
     else {
-        let aux = Number(localStorage.getItem('goldMedal'));
-        aux += 1;
-        localStorage.setItem('goldMedal', aux);
+        document.getElementById("scoreGameOver").removeChild(document.getElementById("medalOne"));
     }
 }
 
@@ -558,57 +497,37 @@ function setLinesCompleted() {
     }
 }
 
+function ifCatchTop() {
+    for (let i = 0; i < m[0].length; i++) {
+        if (m[0][i] !== 0 && m[0][i] !== 1) {
+            //console.log("gameover!!!");
+            //localStorage.removeItem("canvasGameMobile")
+            // gameOverPrint(gameOverHtml);
+            // setMedals();
+            // finalGameChange()
+            m = makeMatrix(12, 16);
+            scoreGame = 0;
 
-function onPlayerWinner(msg) {
-    gameOverPrint(gameOverHtml);
-    for (let i = 0; i < msg.users.length; i++) {
-        if (msg.users[i].id === msg.winnerId) {
-            document.getElementById("user1").innerHTML = msg.users[i].name;
-            document.getElementById("score").innerHTML = msg.users[i].score;
-            if (msg.users[i].id === socket.id) {
-                document.getElementById("player1").style = "color: #FF9A00"
-            }
-        }
-        else {
-            document.getElementById("user2").innerHTML = msg.users[i].name;
-            document.getElementById("score1").innerHTML = msg.users[i].score;
-            if (msg.users[i].id === socket.id) {
-                document.getElementById("player2").style = "color: #FF9A00"
-            }
-        }
-        if (msg.users[i].id === socket.id && msg.users[i].host === false) {
-            document.getElementById("hostButton").innerHTML = "<h2><i class='fas fa-hourglass'></i> WAITING THE HOST...</h2>"
+            return true;
         }
     }
-
-    setMedals();
-    finalGameChange()
-}
-
-function ifCatchTop() {
-    // for (let i = 0; i < m[0].length; i++) {
-    //     if (m[0][i] !== 0 && m[0][i] !== 1) {
-    //         //console.log("gameover!!!");
-    //         // localStorage.removeItem("canvasGameMobile")
-    //         // gameOverPrint(gameOverHtml);
-    //         // setMedals();
-    //         // finalGameChange()
-
-
-
-    //         return true;
-    //     }
-    // }
-    // return false;
+    return false;
 }
 
 function finalGameChange() {
-    if (sessionStorage.getItem("musicControl") !== "false") {
-        let music = document.createElement("audio")
-        music.src = "/finalMusic.mp3"
-        music.id = "finalMusic"
-        music.setAttribute("autoplay", '')
-        document.getElementsByClassName("container")[0].appendChild(music)
+    if (scoreGame >= 200) {
+        let img = document.createElement("img")
+        img.id = "finalGame"
+        img.src = "/congratulations.gif"
+        img.style = "width: 75%; margin: 0; margin-top: 5vmin;"
+        document.getElementById("finalGame").parentNode.replaceChild(img, document.getElementById("finalGame"))
+        if (sessionStorage.getItem("musicControl") !== "false" && sessionStorage.getItem("musicControl") !== null) {
+            let music = document.createElement("audio")
+            music.src = "/finalMusic.mp3"
+            music.id = "finalMusic"
+            music.setAttribute("autoplay", '')
+            document.getElementById("body paused").appendChild(music)
+        }
     }
 }
 
@@ -621,19 +540,24 @@ function gameOverPrintAux() {
             gameOverHtml = xmlHttp.response;
         }
     }
-    xmlHttp.open("GET", './gameoverOnline.html', true); // true for asynchronous 
+    xmlHttp.open("GET", './gameover.html', true); // true for asynchronous 
     xmlHttp.send(null);
 }
 
 function gameOverPrint(res) {
-    document.getElementsByClassName('container')[0].innerHTML = res.getElementsByClassName('container')[0].innerHTML;
+    let body = res.getElementById('body paused');
+    document.getElementById('body').parentNode.replaceChild(body, document.getElementById('body'));
+    if (document.getElementById("score") !== null) {
+        showScore();
+        showScore();
+    }
 }
 
 function setOpenAux(op) {
     openAux = op;
 }
 
-function updateScore() {
+function updateScored() {
     let score = document.getElementsByClassName("score");
     for (let x = 0; x < score.length; x++) {
         document.getElementsByClassName("score")[x].innerHTML = scoreGame;
@@ -663,30 +587,30 @@ function verifyIfCompleteALine() {
     return -1;
 }
 
-function printGame(letter, matrix, ctxM) { //print the game with the colors of the pieces
-    for (let x = 0; x < matrix.length; x++) {
-        for (let y = 0; y < matrix[x].length; y++) {
-            if (matrix[x][y] === 1) {
-                ctxM.fillStyle = colors(letter);
-                ctxM.fillRect(y * 100, x * 100, (y + 100), (x + 100));
-                ctxM.strokeStyle = '#2a2a30';
-                ctxM.strokeRect(y * 100, x * 100, (y + 100), (x + 100));
+function printGame(letter) { //print the game with the colors of the pieces
+    for (let x = 0; x < m.length; x++) {
+        for (let y = 0; y < m[x].length; y++) {
+            if (m[x][y] === 1) {
+                ctx.fillStyle = colors(letter);
+                ctx.fillRect(y * 100, x * 100, (y + 100), (x + 100));
+                ctx.strokeStyle = '#2a2a30';
+                ctx.strokeRect(y * 100, x * 100, (y + 100), (x + 100));
             }
-            else if (matrix[x][y] === 0) {
-                ctxM.fillStyle = '#2a2a30';
-                ctxM.fillRect(y * 100, x * 100, (y + 100), (x + 100));
-            }
-
-            else if (matrix[x][y] === 2) {
-                ctxM.fillStyle = '#1E212D';
-                ctxM.fillRect(y * 100, x * 100, (y + 100), (x + 100));
+            else if (m[x][y] === 0) {
+                ctx.fillStyle = '#2a2a30';
+                ctx.fillRect(y * 100, x * 100, (y + 100), (x + 100));
             }
 
-            else if (matrix[x][y] !== 1 && matrix[x][y] !== 0 && matrix[x][y] !== 2) {
-                ctxM.fillStyle = colors(matrix[x][y]);
-                ctxM.fillRect(y * 100, x * 100, (y + 100), (x + 100));
-                ctxM.strokeStyle = '#2a2a30';
-                ctxM.strokeRect(y * 100, x * 100, (y + 100), (x + 100));
+            else if (m[x][y] === 2) {
+                ctx.fillStyle = '#1E212D';
+                ctx.fillRect(y * 100, x * 100, (y + 100), (x + 100));
+            }
+
+            else if (m[x][y] !== 1 && m[x][y] !== 0 && m[x][y] !== 2) {
+                ctx.fillStyle = colors(m[x][y]);
+                ctx.fillRect(y * 100, x * 100, (y + 100), (x + 100));
+                ctx.strokeStyle = '#2a2a30';
+                ctx.strokeRect(y * 100, x * 100, (y + 100), (x + 100));
             }
         }
     }

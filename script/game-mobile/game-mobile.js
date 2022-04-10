@@ -5,6 +5,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = 1200;
 canvas.height = 1600;
 canvas.className = "canvasMobile";
+canvas.id = "game";
 
 ctx.fillStyle = "#2a2a30";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -227,12 +228,71 @@ document.body.addEventListener('keydown', function (event) {
     }
 });
 
+
+let gameCanvasControl = document.getElementById("game");
+gameCanvasControl.addEventListener("touchstart", touchPosition, true);
+gameCanvasControl.addEventListener("touchmove", touchIsMoving, true);
+gameCanvasControl.addEventListener("touchend", touchIsEnded, true);
+
+function touchIsEnded() {
+    if(pieceIsMoving === false ){
+        rotateRight();
+    }
+    timerOff1();
+    timerOff2();
+    timerOff3();
+    pieceIsMoving = false;
+}
+
+let xTouchPosition = null;
+let yTouchPosition = null;
+
+let pieceIsMoving = false;
+
+function touchPosition(event) {
+    const touch = event.touches[0];
+    xTouchPosition = touch.clientX;
+    yTouchPosition = touch.clientY;
+}
+
+function touchIsMoving(event) {
+
+    if (pieceIsMoving === true) {
+        return;
+    }
+
+    if (!xTouchPosition || !yTouchPosition) {
+        return;
+    }
+
+    pieceIsMoving = true;
+
+    let xUp = event.touches[0].clientX;
+    let yUp = event.touches[0].clientY;
+
+    let xDiff = xTouchPosition - xUp;
+    let yDiff = yTouchPosition - yUp;
+
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {/*most significant*/
+        if (xDiff > 0) {
+            leftMoveOn();
+        } else {
+            rightMoveOn();
+        }
+    } else if (Math.abs(xDiff) < Math.abs(yDiff)) {
+        if (yDiff > 0) {
+            rotateRight();
+        } else {
+            downMoveOn();
+        }
+    }
+
+}
+
+//left move
 let timer1 = null;
 let timerOut1 = null;
 
-let leftMove1 = document.getElementById("leftMove");
-leftMove1.addEventListener("touchstart", leftMoveOn, true);
-leftMove1.addEventListener("touchend", timerOff1, true);
 function leftMoveOn() {
     changeDirection('L');
     sombraPiece()
@@ -257,15 +317,16 @@ function timerOff1() {
     if (timer1 !== null || timerOut1 !== null) {
         clearInterval(timer1);
         clearTimeout(timerOut1);
+        xDown = null;
+        yDown = null;
     }
 }
+//
 
+//right move
 let timer2 = null;
 let timerOut2 = null;
 
-let rightMove1 = document.getElementById("rightMove");
-rightMove1.addEventListener("touchstart", rightMoveOn, true);
-rightMove1.addEventListener("touchend", timerOff2, true);
 function rightMoveOn() {
     changeDirection('R');
     sombraPiece()
@@ -291,15 +352,16 @@ function timerOff2() {
     if (timer2 !== null || timerOut2 !== null) {
         clearInterval(timer2);
         clearTimeout(timerOut2);
+        xDown = null;
+        yDown = null;
     }
 }
+//
 
+//down move
 let timer3 = null;
 let timerOut3 = null;
 
-let downMove1 = document.getElementById("downMove");
-downMove1.addEventListener("touchstart", downMoveOn, true);
-downMove1.addEventListener("touchend", timerOff3, true);
 function downMoveOn() {
     downPiece(letter);
     sombraPiece()
@@ -326,26 +388,20 @@ function timerOff3() {
     if (timer3 !== null || timerOut3 !== null) {
         clearInterval(timer3);
         clearTimeout(timerOut3);
+        xDown = null;
+        yDown = null;
     }
 }
+//
 
-let rotateRight1 = document.getElementById("rotateRight");
-rotateRight1.addEventListener("mousedown", rotateRight, true);
+//rotate move
 function rotateRight() {
     block = rotatePiece('R', block)
     putPiece(block, xPosition, yPosition);
     sombraPiece()
     printGame(letter);
 }
-
-let rotateLeft1 = document.getElementById("rotateLeft");
-rotateLeft1.addEventListener("mousedown", rotateLeft, true);
-function rotateLeft() {
-    block = rotatePiece('L', block);
-    putPiece(block, xPosition, yPosition);
-    sombraPiece()
-    printGame(letter);
-}
+//
 
 
 function setMedals() {
