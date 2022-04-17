@@ -8,26 +8,29 @@ h1, h2, h3, h4, p, a {
     text-align: center;
 }
 
+
 @font-face {
-	font-family: oswald;
-	src: url(./oswald.ttf)
+    font-family: 'sans serif';
+    font-style: normal;
+    src: local('monospace'), local('monospace'), url(./oswald.ttf);
+    font-display: swap;
 }
 
 html {
     height: 90%;
     width: 100%;
-    font-family: oswald, sans-serif;
+    font-family: 'sans serif';
 }
 
 body {
     background-color: orange;
-    background-image: url('./background-image-blocksfall.jpeg');
+    background-image: url('./background-image-blocksfall.webp');
     background-attachment: fixed;
     overscroll-behavior-y: contain;
 }
 
 button{
-    font-family: oswald, sans-serif;
+    font-family: 'sans serif';
 }
 
 .container{
@@ -237,8 +240,8 @@ button.btnControlerOrange {
     text-decoration: none;
     padding: 3vmin;
     font-size: 4vmin;
-    margin: 3vmin;
-    background-color: #686766;
+    margin: 1.5vmin;
+    background-color: #FF9A00;
     min-width: 200px;
 }
 
@@ -318,6 +321,7 @@ div.dialogDiv{
 
 .medals{
     height: 20vmin;
+    width: auto;
     max-height: 100px;
     margin: 2vmin 0;
     margin-left: -3vmin;

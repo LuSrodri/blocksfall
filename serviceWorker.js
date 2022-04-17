@@ -26,7 +26,7 @@ self.addEventListener("install", (event) => {
         (async () => {
             const cache = await caches.open(CACHE_NAME);
             await cache.addAll(['/', '/offline', '/style.css', '/menu.js', '/music.mpeg',
-                '/oswald.ttf', '/icons.css', '/blocksfall-logo.png', '/background-image-blocksfall.jpeg', '/game-offline.js']);
+                '/oswald.ttf', '/icons.css', '/blocksfall-logo.png', '/background-image-blocksfall.webp', '/game-offline.js']);
         })()
     );
     // Force the waiting service worker to become the active service worker.
@@ -56,6 +56,10 @@ self.addEventListener("fetch", (event) => {
         event.respondWith(
             (async () => {
                 try {
+                    if(event.request.url === '/'){
+                        event.request.url = '/pwa';
+                    }
+
                     // First, try to use the navigation preload response if it's supported.
                     const preloadResponse = await event.preloadResponse;
                     if (preloadResponse) {
@@ -64,7 +68,7 @@ self.addEventListener("fetch", (event) => {
 
                     const cache = await caches.open(CACHE_NAME);
                     await cache.addAll(['/', '/offline', '/style.css', '/menu.js', '/music.mpeg',
-                        '/oswald.ttf', '/icons.css', '/blocksfall-logo.png', '/background-image-blocksfall.jpeg', '/game-offline.js']);
+                        '/oswald.ttf', '/icons.css', '/blocksfall-logo.png', '/background-image-blocksfall.webp', '/game-offline.js']);
 
 
                     // Always try the network first.

@@ -285,8 +285,7 @@ function playNewGame() {
 }
 
 if (localStorage.getItem("canvasGame") === null && localStorage.getItem("canvasGameMobile") === null) {
-    document.getElementById("playGame").className = "btnBlocked"
-    document.getElementById("playGame").onclick = ''
+    document.getElementById("playGame").parentNode.removeChild(document.getElementById("playGame"))
 }
 
 function newTabNft() {

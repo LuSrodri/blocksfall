@@ -23,7 +23,7 @@
     ],
     "start_url": "/pwa",
     "background_color": "#FF9A00",
-    "display": "fullscreen",
+    "display": "standalone",
     "scope": "/",
     "theme_color": "#FF9A00",
     "description": "The Online Game for played Anyplace and Anytime. Enjoy this best puzzle game with your friend or solo. You will love it!"

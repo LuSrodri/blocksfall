@@ -17,14 +17,6 @@ initializeApp({
 const db = getFirestore();
 
 
-app.get('/index', (req, res) => {
-  res.redirect('/');
-});
-
-app.get('/index.html', (req, res) => {
-  res.redirect('/');
-});
-
 app.get('/', (req, res) => {
   res.sendFile(__dirname + "/html/index.html");
 });
@@ -108,17 +100,17 @@ app.get('/oswald.ttf', (req, res) => {
   res.sendFile(__dirname + "/fonts/Oswald-VariableFont_wght.ttf");
 });
 
-app.get('/control.jpeg', (req, res) => {
-  res.sendFile(__dirname + "/images/control.jpeg");
+app.get('/control.webp', (req, res) => {
+  res.sendFile(__dirname + "/images/control.webp");
 });
 
-app.get('/control_mobile.png', (req, res) => {
-  res.sendFile(__dirname + "/images/control_mobile.png");
+app.get('/control_mobile.webp', (req, res) => {
+  res.sendFile(__dirname + "/images/control_mobile.webp");
 });
 
 
-app.get('/background-image-blocksfall.jpeg', (req, res) => {
-  res.sendFile(__dirname + "/images/background-image-blocksfall.jpeg");
+app.get('/background-image-blocksfall.webp', (req, res) => {
+  res.sendFile(__dirname + "/images/background-image-blocksfall.webp");
 });
 
 app.get('/blocksfall-logo.png', (req, res) => {
@@ -160,20 +152,20 @@ app.get('/icons.css', (req, res) => {
   res.sendFile(__dirname + "/fonts/all.css");
 });
 
-app.get('/bronze_medal.png', (req, res) => {
-  res.sendFile(__dirname + "/images/medals/bronze_medal.png");
+app.get('/bronze_medal.webp', (req, res) => {
+  res.sendFile(__dirname + "/images/medals/bronze_medal.webp");
 });
 
-app.get('/silver_medal.png', (req, res) => {
-  res.sendFile(__dirname + "/images/medals/silver_medal.png");
+app.get('/silver_medal.webp', (req, res) => {
+  res.sendFile(__dirname + "/images/medals/silver_medal.webp");
 });
 
-app.get('/gold_medal.png', (req, res) => {
-  res.sendFile(__dirname + "/images/medals/gold_medal.png");
+app.get('/gold_medal.webp', (req, res) => {
+  res.sendFile(__dirname + "/images/medals/gold_medal.webp");
 });
 
 app.get('/music.mpeg', (req, res) => {
-  res.sendFile(__dirname + "/music/music.mpeg");
+  res.sendFile(__dirname + "/music/music.mp3");
 });
 
 app.get('/finalMusic.mp3', (req, res) => {

@@ -27,7 +27,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="apple-touch-icon" href="./blocksfall-logo.png">
-    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="./blocksfall-logo.png">
     <meta name="theme-color" content="#FF9A00" />
     <link rel="stylesheet" href="./style.css">
@@ -108,15 +108,15 @@
 
                 <div class="showMedals">
                     <span class="scoreShow" style="font-size: 5vmin;"><span id="bronzeMedal">0</span> x</span>
-                    <img class="medals" src="./bronze_medal.png" alt="the winning bronze medals">
+                    <img class="medals" src="./bronze_medal.webp" alt="the winning bronze medals">
                 </div>
                 <div class="showMedals">
                     <span class="scoreShow" style="font-size: 5vmin;"><span id="silverMedal">0</span> x</span>
-                    <img class="medals" src="./silver_medal.png" alt="the winning silver medals">
+                    <img class="medals" src="./silver_medal.webp" alt="the winning silver medals">
                 </div>
                 <div class="showMedals">
                     <span class="scoreShow" style="font-size: 5vmin;"><span id="goldMedal">0</span> x</span>
-                    <img class="medals" src="./gold_medal.png" alt="the winning gold medals">
+                    <img class="medals" src="./gold_medal.webp" alt="the winning gold medals">
                 </div>
             </div>
         </div>
@@ -174,18 +174,19 @@
                     <span style="color: orange">SPACEBAR</span> TO ROTATE THE
                     PIECE.</span><br>
                 <span class="text1"> - YOU LOSE WHEN THE PIECES CATCH UP THE TOP BORDER.</span><br>
-                <img src="control.jpeg" style=" width: 50vmin; border: solid 2px white;
+                <img src="control.webp" style=" width: 50vmin; height: auto; border: solid 2px white;
                 margin-top: 0; " alt="control">
             </div>
 
             <div class="scoreAndMenu" style="flex-direction: column; align-items: flex-center; padding-bottom: 2vmin;">
                 <h3 style="color: white; ">HOW TO PLAY IN MOBILE:</h3>
-                <span class="text1"> - <span style="color: orange">DRAG TO LEFT, RIGHT OR DOWN</span> TO MOVE THE
+                <span class="text1"> - DRAG <span style="color: orange">TO LEFT, RIGHT</span> OR <span
+                        style="color: orange">DOWN</span> TO MOVE THE
                     PIECE.</span><br>
-                <span class="text1"> - <span style="color: orange">DRAG TO UP</span> OR <span
+                <span class="text1"> - DRAG <span style="color: orange">TO UP</span> OR <span
                         style="color: orange">TOUCH</span> TO ROTATE THE PIECE.</span><br>
                 <span class="text1"> - YOU LOSE WHEN THE PIECES CATCH UP THE TOP BORDER.</span><br>
-                <img src="/control_mobile.png" style=" width: 20vmin; border: solid 2px white;
+                <img src="/control_mobile.webp" style=" width: 20vmin; height: auto; border: solid 2px white;
                 margin-top: 0; border-radius: 2vmin;" alt="control">
             </div>
 
@@ -209,10 +210,15 @@
 
             <div class="scoreAndMenu" style="display: flex; flex-direction: row; justify-content: space-evenly; margin-bottom: 2vmin;
             padding: 2vmin 0;">
-                <a href="#"><i style="color: white;" class="fab fa-instagram fa-2x"></i></a>
-                <a href="https://www.facebook.com/blocksfall/"><i style="color: white;"
-                        class="fab fa-facebook-f fa-2x"></i></a>
-                <a href="#"><i style="color: white;" class="fab fa-twitter fa-2x"></i></a>
+                <a style="text-decoration: none;" href="#">
+                    <h3 style="color: white;">INSTAGRAM</h3>
+                    <i style="color: white;" class="fab fa-instagram fa-2x"></i></a>
+                <a style="text-decoration: none;" href="https://www.facebook.com/blocksfall/">
+                    <h3 style="color: white;">FACEBOOK</h3>
+                    <i style="color: white;" class="fab fa-facebook-f fa-2x"></i></a>
+                <a style="text-decoration: none;" href="#">
+                    <h3 style="color: white;">TWITTER</h3>
+                    <i style="color: white;" class="fab fa-twitter fa-2x"></i></a>
             </div>
 
         </div>
@@ -267,7 +273,14 @@
 
         buttonInstall.addEventListener('click', async () => {
             // Mostra prompt de instalação
-            deferredPrompt.prompt();
+            try {
+                deferredPrompt.prompt();
+            } catch (error) {
+                let errorMsgDownload = document.createElement("h3");
+                errorMsgDownload.innerHTML = "Your browser or device doesn't support the install app.";
+                errorMsgDownload.style.color = "white";
+                document.getElementById("buttonDownload").parentNode.replaceChild(errorMsgDownload, buttonInstall);
+            }
             // Espera usuário responder ao prompt
             const { outcome } = await deferredPrompt.userChoice;
             // Opcionalmente, enviar evento analytics com resultado da escolha do usuário
