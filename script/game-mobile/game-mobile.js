@@ -414,7 +414,7 @@ function setMedals() {
             aux += 1;
             localStorage.setItem('bronzeMedal', aux);
         }
-        document.getElementById("medalOne").src = "./bronze_medal.png";
+        document.getElementById("medalOne").src = "./bronze_medal.webp";
         document.getElementById("medalOne").alt = "bronze_medal";
     }
     else if (scoreGame >= 500 && scoreGame < 1000) {
@@ -426,7 +426,7 @@ function setMedals() {
             aux += 1;
             localStorage.setItem('silverMedal', aux);
         }
-        document.getElementById("medalOne").src = "./silver_medal.png";
+        document.getElementById("medalOne").src = "./silver_medal.webp";
         document.getElementById("medalOne").alt = "silver_medal";
     }
     else if (scoreGame >= 1000) {
@@ -438,7 +438,7 @@ function setMedals() {
             aux += 1;
             localStorage.setItem('goldMedal', aux);
         }
-        document.getElementById("medalOne").src = "./gold_medal.png";
+        document.getElementById("medalOne").src = "./gold_medal.webp";
         document.getElementById("medalOne").alt = "gold_medal";
     }
     else {

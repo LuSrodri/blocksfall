@@ -56,10 +56,6 @@ self.addEventListener("fetch", (event) => {
         event.respondWith(
             (async () => {
                 try {
-                    if(event.request.url === '/'){
-                        event.request.url = '/pwa';
-                    }
-
                     // First, try to use the navigation preload response if it's supported.
                     const preloadResponse = await event.preloadResponse;
                     if (preloadResponse) {
