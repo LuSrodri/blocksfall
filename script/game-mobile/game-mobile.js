@@ -612,9 +612,10 @@ function printGame(letter) { //print the game with the colors of the pieces
             else if (m[x][y] !== 1 && m[x][y] !== 0 && m[x][y] !== 2) {
                 ctx.fillStyle = colors(m[x][y]);
                 ctx.fillRect(y * 100, x * 100, (y + 100), (x + 100));
-                ctx.strokeStyle = '#2a2a30';
-                ctx.strokeRect(y * 100, x * 100, (y + 100), (x + 100));
             }
+            ctx.strokeStyle = '#1E212D';
+            ctx.strokeRect(y * 100, x * 100, (y + 100), (x + 100));
+            
         }
     }
 }

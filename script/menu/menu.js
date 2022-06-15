@@ -149,6 +149,7 @@ function musicControl(firstTimeMusic = false) {
     if (sessionStorage.getItem('musicControl') === 'false') {
         if (document.getElementById('buttonMusic')) {
             document.getElementById('buttonMusic').className = 'fas fa-volume-mute'
+            document.getElementById('volumeText').innerHTML = 'MUTE'
         }
         if (document.getElementById("music")) {
             document.getElementById('music').parentNode.removeChild(document.getElementById('music'))
@@ -158,6 +159,7 @@ function musicControl(firstTimeMusic = false) {
 
         if (document.getElementById('buttonMusic')) {
             document.getElementById('buttonMusic').className = 'fas fa-volume-up'
+            document.getElementById('volumeText').innerHTML = 'SOUND ON'
         }
 
         if (document.getElementById('music') === null) {

@@ -8,7 +8,7 @@ if (document.getElementById("canvasHome")) {
     const canvasHome = document.createElement('canvas');
     ctxHome = canvasHome.getContext('2d');
 
-    canvasHome.width = 1000;
+    canvasHome.width = 1500;
     canvasHome.height = 500;
 
     canvasHome.id = "canvasHome"
@@ -17,7 +17,7 @@ if (document.getElementById("canvasHome")) {
     ctxHome.fillRect(0, 0, canvasHome.width, canvasHome.height);
     document.getElementById("canvasHome").parentNode.replaceChild(canvasHome, document.getElementById("canvasHome"));
 
-    mHome = makeMatrixHome(10, 7);
+    mHome = makeMatrixHome(15, 10);
 
     let letters = ['T', 'Z', 'I', 'L', 'J', 'S', 'O'];
     let letter = null
@@ -142,23 +142,22 @@ function downPieceHome(letter) { //move the piece down
 
 function printGameHome(letter) { //print the game with the colorsHome of the pieces
 
-    for (let x = 0; x < mHome.length; x++) {
+    for (let x = 3; x < mHome.length; x++) {
         for (let y = 0; y < mHome[x].length; y++) {
 
             if (mHome[x][y] === 0) {
                 ctxHome.fillStyle = '#2a2a30';
-                ctxHome.fillRect(y * 80, x * 80, (y + 80), (x + 80));
+                ctxHome.fillRect(y * 150, (x-3) * 100, (y + 150), ((x-3) + 100));
                 ctxHome.strokeStyle = '#2a2a30';
-                ctxHome.strokeRect(y * 80, x * 80, (y + 80), (x + 80));
+                ctxHome.strokeRect(y * 150, (x-3) * 100, (y + 150), ((x-3) + 100));
             }
 
             if (mHome[x][y] === 1) {
                 ctxHome.fillStyle = colorsHome(letter);
-                ctxHome.fillRect(y * 80, x * 80, (y + 80), (x + 80));
-                ctxHome.strokeStyle = '#2a2a30';
-                ctxHome.strokeRect(y * 80, x * 80, (y + 80), (x + 80));
+                ctxHome.fillRect(y * 150, (x-3) * 100, (y + 150), ((x-3) + 100));
             }
-
+            ctxHome.strokeStyle = '#1E212D';
+            ctxHome.strokeRect(y * 150, (x-3) * 100, (y + 150), ((x-3) + 100));
         }
     }
 

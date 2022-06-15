@@ -685,9 +685,9 @@ function printGame(letter, matrix, ctxM) { //print the game with the colors of t
             else if (matrix[x][y] !== 1 && matrix[x][y] !== 0 && matrix[x][y] !== 2) {
                 ctxM.fillStyle = colors(matrix[x][y]);
                 ctxM.fillRect(y * 100, x * 100, (y + 100), (x + 100));
-                ctxM.strokeStyle = '#2a2a30';
-                ctxM.strokeRect(y * 100, x * 100, (y + 100), (x + 100));
             }
+            ctxM.strokeStyle = '#1E212D';
+            ctxM.strokeRect(y * 100, x * 100, (y + 100), (x + 100));
         }
     }
 }

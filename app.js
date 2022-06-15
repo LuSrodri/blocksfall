@@ -21,9 +21,9 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + "/html/index.html");
 });
 
-app.get('/pwa', (req, res) => {
-  res.sendFile(__dirname + "/html/pwa.html");
-});
+// app.get('/pwa', (req, res) => {
+//   res.sendFile(__dirname + "/html/pwa.html");
+// });
 
 app.get('/play', (req, res) => {
   res.sendFile(__dirname + "/html/play.html");
@@ -51,19 +51,19 @@ app.get('/mobile', (req, res) => {
   res.sendFile(__dirname + "/html/mobile.html");
 });
 
-app.get('/manifest.webmanifest', (req, res) => {
-  res.sendFile(__dirname + "/manifest.webmanifest");
-});
+// app.get('/manifest.webmanifest', (req, res) => {
+//   res.sendFile(__dirname + "/manifest.webmanifest");
+// });
 
-app.get('/serviceWorker.js', (req, res) => {
-  res.sendFile(__dirname + "/serviceWorker.js");
-});
+// app.get('/serviceWorker.js', (req, res) => {
+//   res.sendFile(__dirname + "/serviceWorker.js");
+// });
 
 
 
-app.get('/offline', (req, res) => {
-  res.sendFile(__dirname + "/html/offline.html");
-});
+// app.get('/offline', (req, res) => {
+//   res.sendFile(__dirname + "/html/offline.html");
+// });
 
 
 
@@ -76,9 +76,9 @@ app.get('/game-mobile.js', (req, res) => {
   res.sendFile(__dirname + "/script/game-mobile/game-mobile.js");
 });
 
-app.get('/game-offline.js', (req, res) => {
-  res.sendFile(__dirname + "/script/game-offline/game-offline.js");
-});
+// app.get('/game-offline.js', (req, res) => {
+//   res.sendFile(__dirname + "/script/game-offline/game-offline.js");
+// });
 
 app.get('/canvasHome.js', (req, res) => {
   res.sendFile(__dirname + "/script/canvasHome/canvasHome.js");
