@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" style="height: unset;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play the best tetris-style game online! - Blocks' Fall</title>
+    <meta name="description"
+        content="The Online tetris-style Game for play Anyplace and Anytime. Enjoy this best puzzle game with your friends or solo. You will love it!">
+    <meta name="application-name" content="Play the best tetris-style game online! - Blocks' Fall">
+
+    <meta property="og:title" content="Play the best tetris-style game online! - Blocks' Fall">
+    <meta property="og:type" content="game" />
+    <meta property="og:image" content="./images/logo/blocksfall-logo.png">
+    <meta property="og:url" content="https://blocksfall.io">
+    <meta property="og:description"
+        content="The Online tetris-style Game for play Anyplace and Anytime. Enjoy this best puzzle game with your friends or solo. You will love it!">
+
+    <meta name=”twitter:card” content=”summary” />
+    <meta name="twitter:title" content="Play the best tetris-style game online! - Blocks' Fall">
+    <meta name="twitter:description"
+        content="The Online tetris-style Game for play Anyplace and Anytime. Enjoy this best puzzle game with your friends or solo. You will love it!">
+    <meta name="twitter:image" content="./images/logo/blocksfall-logo.png">
+    <meta name="twitter:url" content="https://blocksfall.io">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="./images/logo/blocksfall-logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="./images/logo/blocksfall-logo.png">
+    <meta name="theme-color" content="#FF9A00" />
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://kit.fontawesome.com/c70750bce8.js" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E8VQL8KMYB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-E8VQL8KMYB');
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-215656117-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-215656117-1');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4463881368194285"
+        crossorigin="anonymous"></script>
+</head>
+
+<body id="body" onblur="ifOnBlur()" onload="pageOnLoad()" onfocus="ifOnFocus()">
+    <div class="container">
+        <div class="main" style="padding: 4vmin 0;" id="home">
+
+            <div style="height: auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;">
+                <div
+                    style="display: flex; flex-direction: row; width: 100%; align-items: center; justify-content: center; ">
+                    <h1 class="title" id="solo" style="text-align: center; justify-content: center;">
+                        BLOCKS' FALL</h1>
+                </div>
+
+                <!-- <p style="padding: 0; margin: 0;">THE FUN PUZZLE GAME FOR PLAY ANYWHERE.</p> -->
+                <p class="scoreShow" style="color: #1E212D; margin: 2vmin 0;">
+                    PLAY THE BEST PUZZLE GAME ONLINE
+                </p>
+            </div>
+
+            <div class="scoreAndMenu">
+                <div class="showMedals">
+                    <span class="scoreShow" style="font-size: 5vmin;"><span id="bronzeMedal">0</span> x</span>
+                    <img class="medals" src="./images/medals/bronze_medal.webp" alt="the winning bronze medals">
+                </div>
+                <div class="showMedals">
+                    <span class="scoreShow" style="font-size: 5vmin;"><span id="silverMedal">0</span> x</span>
+                    <img class="medals" src="./images/medals/silver_medal.webp" alt="the winning silver medals">
+                </div>
+                <div class="showMedals">
+                    <span class="scoreShow" style="font-size: 5vmin;"><span id="goldMedal">0</span> x</span>
+                    <img class="medals" src="./images/medals/gold_medal.webp" alt="the winning gold medals">
+                </div>
+            </div>
+
+            <div
+                style="display: flex; flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap; width: 100%;">
+                <button class="btn btnHome" onclick="playGame()"><i class="fa-solid fa-play"></i>
+                    NEW
+                    GAME</button>
+                <button id="playGame" class="btn btnHome" onclick="playGame(false)"><i class="fas fa-save"></i> CONTINUE
+                    GAME</button>
+                <button class="btn btnHome" disabled><i class="fas fa-users"></i>
+                    MULTIPLAYER</button>
+                <button class="btn btnHome" id="buttonMusic" onclick="setMusicPreference()"><i
+                        class="fas fa-volume-up"></i> SOUND ON</button>
+            </div>
+
+        </div>
+
+        <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;" class="main"
+            id="stats">
+            <h2 style="font-size: 4.5vmin;"><i class="fas fa-star fa-flip" style="--fa-animation-duration: 3s;"></i>
+            </h2>
+            <h2 style="text-align: center; font-size: 4.5vmin;" id="stats">
+                YOUR HIGHSCORE IS <span id="highscore">0</span>
+            </h2>
+            <h2 style="font-size: 4.5vmin;"><i class="fas fa-star fa-flip" style="--fa-animation-duration: 3s;"></i>
+            </h2>
+        </div>
+
+        <div class="main" id="howtoplay">
+            <h2 style="margin-bottom: 0;" id="stats"><i class="fas fa-gamepad"></i> HOW TO PLAY</h2>
+            <h3 style="margin-top: 0;">LEARN ABOUT THE GAME</h3>
+
+            <div class="scoreAndMenu" style="flex-direction: column; align-items: flex-center; padding-bottom: 2vmin;">
+                <h3 style="color: white; ">HOW TO PLAY IN PC:</h3>
+                <div
+                    style="width: 100%; height: 100%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-evenly; text-align: center;">
+                    <div style="width: 80vmin;">
+                        <span class="text1"> - PRESS <span style="color: orange">A, S AND D</span> OR
+                            <span style="color: orange">THE ARROWS</span> TO MOVE THE
+                            PIECE.</span><br>
+                        <span class="text1"> - PRESS <span style="color: orange">Q, AND E</span> OR
+                            <span style="color: orange">SPACEBAR</span> OR <span style="color: orange">ARROW UP</span>
+                            TO ROTATE THE
+                            PIECE.</span><br>
+                        <span class="text1"> - YOU LOSE WHEN THE PIECES CATCH UP THE TOP BORDER.</span><br>
+                    </div>
+                    <img src="./images/control.webp" style=" width: 50vmin; height: auto; border: solid 2px white;
+                margin: 2vmin; " alt="control">
+                </div>
+            </div>
+
+            <div class="scoreAndMenu" style="flex-direction: column; align-items: flex-center; padding-bottom: 2vmin;">
+                <h3 style="color: white; ">HOW TO PLAY IN MOBILE:</h3>
+                <div
+                    style="width: 100%; height: 100%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-evenly; text-align: center;">
+                    <div style="width: 80vmin;">
+                        <span class="text1"> - DRAG <span style="color: orange">TO LEFT, RIGHT</span> OR <span
+                                style="color: orange">DOWN</span> TO MOVE THE
+                            PIECE.</span><br>
+                        <span class="text1"> - DRAG <span style="color: orange">TO UP</span> OR <span
+                                style="color: orange">TOUCH</span> TO ROTATE THE PIECE.</span><br>
+                        <span class="text1"> - YOU LOSE WHEN THE PIECES CATCH UP THE TOP BORDER.</span><br>
+                    </div>
+                    <img src="./images/control_mobile.webp" style=" width: 20vmin; height: auto; border: solid 2px white;
+            margin: 2vmin; border-radius: 2vmin;" alt="control">
+                </div>
+            </div>
+
+        </div>
+
+        <canvas id="canvasHome"></canvas>
+
+        <div class="main" style="height: auto; min-height: unset; padding: 25px 0;">
+
+            <div class="scoreAndMenu" style="display: flex; flex-direction: row; justify-content: space-evenly; margin-bottom: 2vmin;
+            padding: 2vmin 0;">
+                <a style="text-decoration: none;" href="https://www.instagram.com/blocksfallgame/">
+                    <i style="color: white;" class="fab fa-instagram fa-3x"></i>
+                </a>
+                <a style="text-decoration: none;" href="https://www.facebook.com/blocksfall/">
+                    <i style="color: white;" class="fab fa-facebook-f fa-3x"></i>
+                </a>
+                <a style="text-decoration: none;" href="https://twitter.com/blocksfallGAME">
+                    <i style="color: white;" class="fab fa-twitter fa-3x"></i>
+                </a>
+            </div>
+
+            <a href="/"> <img class="logoHome" src="images/logo/blocksfall-logo3.png" alt=""></a>
+
+            <p style="text-align: center;">PLAY ANYWHERE AND ANYTIME. PLAY WITH YOUR FRIENDS OR SOLO. SEE YOUR STATS OR
+                SEE HOW TO PLAY.
+            </p>
+        </div>
+    </div>
+
+    <script src="./scripts/menu.js"></script>
+    <script src="./scripts/canvasHome.js"></script>
+
+</body>
+
+</html>

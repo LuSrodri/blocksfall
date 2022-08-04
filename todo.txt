@@ -1,0 +1,15 @@
+[X] - refatorar o código da gameplay;
+[x] - arrumar música e efeitos sonoros;
+[X] - arrumar o /play, adicionar informação de próxima peça e adicionar animações;
+[X] - arrumar o controle toque;
+[X] - remover sessão stats da home;
+[] - transferir toda a lógica da gameplay para o servidor;
+[] - construir o multiplayer - private match;
+[] - colocar anuncíos;
+[] - adicionar autenticação, com perfis, amizades e multiplayer public match;
+[] - adicionar o premium com modos exclusivos, poder de criar private match, 
+	participar de ranking e tirar os anuncíos;
+
+
+
+🚀🚀🚀🚀🚀🚀

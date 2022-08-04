@@ -1,0 +1,430 @@
+
+* {
+    user-select: none;
+}
+
+h1, h2, h3, h4, p, a {
+    color: #1E212D;
+    text-align: center;
+}
+
+html {
+    height: 90%;
+    width: 100%;
+    font-family: 'Oswald', sans-serif;
+}
+
+body {
+    background-color: orange;
+    background-image: url('../images/background-image-blocksfall.webp');
+    background-attachment: fixed;
+    overscroll-behavior-y: contain;
+}
+
+button{
+    font-family: 'Oswald', sans-serif;
+}
+
+dialog {
+    background: none;
+    border: none;
+    animation: openDialog 750ms;
+    animation-direction: alternate;
+}
+
+dialog::backdrop {
+    animation: openDialog-backdrop 750ms;
+    animation-fill-mode: forwards;
+    animation-direction: alternate;
+}
+
+dialog.hide {
+    animation: closeDialog 750ms;
+}
+
+dialog.hide::backdrop {
+    animation: closeDialog-backdrop 750ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes openDialog {
+    0% {
+        transform: translateY(150%);
+    }
+    50% {
+        transform: translateY(-10%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes openDialog-backdrop {
+    0% {}
+    100% {
+        background-color: rgba(0, 0, 0, .5);
+    }
+}
+
+@keyframes closeDialog {
+    100% {
+        transform: translateY(150%);
+    }
+    0% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes closeDialog-backdrop {
+    100% {
+        background-color: unset;
+    }
+    0% {
+        background-color: rgba(0, 0, 0, .5);
+    }
+}
+
+.container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes initialAnimation {
+    0% {
+    }
+  
+    100% {
+        box-shadow: 15px 15px 3px #00000080;
+    }
+}
+
+.main {
+    margin: 2vmin 0;
+    padding: 10px 0;
+    background-color: #FF9A00;
+    border: 1.5vmin solid #1E212D;
+    border-radius: 15px;
+    width: 85vw;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.score {
+    transition: all .5s ease-in-out;
+}
+
+#home, .main, canvas#canvasHome{
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+    animation-name: initialAnimation;
+    animation-duration: 1s;
+}
+
+canvas#canvasHome {
+    margin: 2vmin 0;
+    height: 42.5vw;
+    width: 85vw;
+    max-width: 700px;
+    max-height: 350px;
+    background-color: #1E212D;
+    border-radius: 15px;
+    border: 1.5vmin solid #1E212D;
+}
+
+.hud {
+    background-color: #FF9A00;
+    border: 1.5vmin solid #1E212D;
+    border-radius: 3vmin;
+    box-shadow: 10px 10px 5px #00000080;
+    width: auto;
+    height: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+div#hudMobile {
+    width: 80vw;
+    height: 80vh;
+    flex-direction: column;
+    align-items: center;
+}
+
+canvas {
+    margin: 0 15px;
+    padding: 0;
+    width: 45vmin;
+    height: 90vmin;
+}
+
+.scoreAndMenu2{
+    background-color: #1E212D;
+    width: 101%;
+    width: 60vh;
+    margin: 1vmin;
+    margin-bottom: 0;
+    height: 10vmin;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+canvas.canvasMobile {
+    margin: 1vmin;
+    width: 60vh;
+    height: 80vh;
+    background-color: #1E212D;
+}
+
+@media all and (orientation: portrait) {
+    div.scoreAndMenu2{
+        width: 93vw;
+    }
+    canvas.canvasMobile {
+        width: 93vw;
+        height: 124vw;
+        background-color: #1E212D;
+    }
+    body {
+        height: 120%;
+    }
+}
+
+canvas.canvasMobile1 {
+    margin: 0 5px;
+    width: 60vmin;
+    height: 80vmin;
+    background-color: #1E212D;
+}
+
+.input {
+    font-size: 5vmin;
+    font-weight: bolder;
+    margin-top: 2vmin;
+    width: auto;
+    font-family: 'Oswald', sans-serif;
+    text-align: center;
+    background: transparent;
+    border: none;
+}
+
+.input::placeholder {
+    color: white;
+}
+
+p.player {
+    text-transform: uppercase;
+}
+
+.controller {
+    background-color: #FF9A00;
+    border: 0.85vmin solid #1E212D;
+    border-radius: 2.5vmin;
+    width: 70vw;
+    height: 18vh;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.rows {
+    width: 100%;
+    margin: 0.7vmin 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button.btnController {
+    border: 0.85vmin solid #1E212D;
+    height: 10vmin;
+    padding: 0;
+    flex: 1;
+    margin: 0 2vmin;
+    border-radius: 2.5vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    animation-iteration-count: 0;
+}
+
+
+button.btnController:active {
+    background-color: #FF9A00;
+}
+
+button.btnControlerOrange {
+    background-color: #ffd849;
+}
+
+.showMedals{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.title {
+    margin: 0;
+    font-size: 10vmin;
+    user-select: none;
+    color: #1E212D;
+    letter-spacing: 5px;
+}
+
+.btn {
+    border: 1vmin solid #1E212D;
+    border-radius: 1vmin;
+    color: #1E212D;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 3vmin;
+    font-size: 4vmin;
+    background-color: #FFCA03;
+    margin: 3vmin;
+    min-width: 200px;
+    transition: 200ms;
+}
+
+
+.btn:disabled {
+    color: #1E212D;
+    background-color: #939393;
+}
+
+.btn:disabled:hover {
+    box-shadow: unset;
+    background-color: #939393;
+    cursor: not-allowed;
+}
+
+a.btnHome ,button.btnHome {
+    margin: 1.5vmin;
+}
+
+.btn:hover {
+    box-shadow: 0 0, 10px 10px #00000080;
+    background-color: #FF9A00;
+}
+
+.btn:active {
+    box-shadow: unset;
+    background-color: #FFCA03;
+}
+
+
+.information{
+    height: 100%;
+    width: 35vmin;
+    display: flex;
+    margin: 0 25px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.scoreAndMenu{
+    background-color: #1E212D;
+    width: 101%;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.scoreAndMenuMobile{
+    height: 9vmin;
+}
+
+.manual{
+    background-color: #1E212D;
+    padding: 25px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+button.btnPause {
+    font-size: 4vmin;
+    padding: 0 1.5rem;
+}
+
+.scoreShow{
+    margin: 1vmin 0;
+    padding: 0;
+    font-size: 4vmin;
+    color: white;
+}
+
+.text1{
+    color: white;
+    margin: 0;
+    text-align: center;
+}
+
+div.dialogDiv{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center; 
+}
+
+.medals{
+    height: 20vmin;
+    width: auto;
+    max-height: 100px;
+    margin: 2vmin 0;
+    margin-left: -3vmin;
+}
+
+.logoFooter a {
+    text-decoration: none;
+    color: #1E212D;
+    margin: 0;
+}
+
+.logoFooter {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.logoHome {
+    width: 20vmin;
+    height: 20vmin;
+    margin: 0;
+    transition: 200ms;
+}
+
+.logoHome:hover{
+    filter: drop-shadow( 10px 10px 0 #00000080);
+}
+
+@media screen and (min-aspect-ratio: 2/3){ 
+    button.btnController {
+        height: 8vmin;
+    }
+    .rows {
+        margin: 0.4vmin;
+    }
+}
+
