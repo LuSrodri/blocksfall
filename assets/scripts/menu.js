@@ -82,9 +82,9 @@ function setStats() {
 }
 
 function ifOnBlur() {
-    if ((document.getElementById("game") !== null)) 
+    if ((document.getElementById("game") !== null))
         pause('open');
-    
+
     removeMusicElement();
 }
 
@@ -107,4 +107,18 @@ function scrollToPath(path) {
     document.getElementById(path).scrollIntoView({
         behavior: "smooth"
     });
+}
+
+async function shareIt() {
+    const shareData = {
+        title: "BLOCKS' FALL!",
+        text: "LOOK THIS, IT'S THE BEST GAME YOU WILL KNOW!",
+        url: 'https://blocksfall.io',
+    }
+    if(navigator.share){
+        await navigator.share(shareData);
+        return;
+    }
+    navigator.clipboard.write(shareData.url);
+    window.location.href = "/";
 }

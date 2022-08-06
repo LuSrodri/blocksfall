@@ -303,6 +303,7 @@ function printControllerMobile(printListener = false) {
     if (printListener === true)
         ctx.drawImage(img, xImg - (img.width / 2), yImg - (img.height / 2));
 
+    
     img.src = "./images/control_mobile/control_mobile_center.png";
     if (isMovingRight)
         img.src = "./images/control_mobile/control_mobile_right.png";
@@ -318,6 +319,7 @@ function printControllerMobile(printListener = false) {
         img.src = "./images/control_mobile/control_mobile_leftDown.png";
 
     ctx.drawImage(img, xImg - (img.width / 2), yImg - (img.height / 2));
+    console.log("printing controller")
 }
 
 function printNextPiece() {
@@ -662,11 +664,13 @@ function controllerTouch() { //set the touch controller
                 clearInterval(movingTouchHorizontal);
                 isMovingRight = false;
                 isMovingLeft = false;
+                printGame(letter[0]);
             }
             if (yDiff > -35 && yDiff < 35) { //only moves vertical
                 clearInterval(movingTouchVertical);
                 isMovingDown = false;
                 isRotate = false;
+                printGame(letter[0]);
             }
             if (xDiff < -35 && !isMovingRight) { //moves to right
                 isMovingRight = true;
