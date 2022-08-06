@@ -4,27 +4,32 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 
-// ---------------------------------- main pages ----------------------------------
+mainPage: {
+  app.get('/', (req, res) => {
+    res.sendFile(__dirname + "/mainpages/index.html");
+  });
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + "/mainpages/index.html");
-});
+  app.get('/play', (req, res) => {
+    res.sendFile(__dirname + "/mainpages/play.html");
+  });
 
-app.get('/play', (req, res) => {
-  res.sendFile(__dirname + "/mainpages/play.html");
-});
+  // app.get('/multiplayer', (req, res) => {
+  //   res.sendFile(__dirname + "/mainpages/multiplayer.html");
+  // });
 
-// app.get('/multiplayer', (req, res) => {
-//   res.sendFile(__dirname + "/mainpages/multiplayer.html");
-// });
+  // app.get('/multiplayer/:gameId', (req, res) => {
+  //   let gameId = req.params['gameId'];
+  //   res.sendFile(__dirname + "/mainpages/multiplayer.html");
+  // });
+}
 
-// app.get('/multiplayer/:gameId', (req, res) => {
-//   let gameId = req.params['gameId'];
-//   res.sendFile(__dirname + "/mainpages/multiplayer.html");
-// });
+assets: {
+  app.use(express.static('assets'));
 
-app.use(express.static('assets'));
-
+  app.get('/blocksfall-logo.png', (req, res) => {
+    res.sendFile(__dirname + "/assets/images/logo/blocksfall-logo.png");
+  });
+}
 
 
 
