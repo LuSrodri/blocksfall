@@ -1,6 +1,7 @@
 
 * {
     user-select: none;
+    -webkit-user-select: none;
 }
 
 h1, h2, h3, h4, p, a {
@@ -188,11 +189,11 @@ canvas.canvasMobile {
 
 @media all and (orientation: portrait) {
     div.scoreAndMenu2{
-        width: 93vw;
+        width: 74.4vw;
     }
     canvas.canvasMobile {
-        width: 93vw;
-        height: 124vw;
+        width: 74.4vw;
+        height: 99.2vw;
         background-color: #1E212D;
     }
     body {
@@ -409,8 +410,8 @@ div.dialogDiv{
 }
 
 .logoHome {
-    width: 20vmin;
-    height: 20vmin;
+    width: 30vmin;
+    height: 30vmin;
     margin: 0;
     transition: 200ms;
 }

@@ -31,7 +31,7 @@
     <link rel="icon" type="image/x-icon" href="./images/logo/blocksfall-logo.png">
     <meta name="theme-color" content="#FF9A00" />
     <link rel="stylesheet" href="./css/style.css">
-    
+
     <script src="https://kit.fontawesome.com/c70750bce8.js" crossorigin="anonymous"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -107,8 +107,8 @@
                     GAME</button>
                 <button id="playGame" class="btn btnHome" onclick="playGame(false)"><i class="fas fa-save"></i> CONTINUE
                     GAME</button>
-                <button class="btn btnHome" disabled><i class="fas fa-users"></i>
-                    MULTIPLAYER</button>
+                <!-- <button class="btn btnHome" disabled><i class="fas fa-users"></i>
+                    MULTIPLAYER</button> -->
                 <button class="btn btnHome" id="buttonMusic" onclick="setMusicPreference()"><i
                         class="fas fa-volume-up"></i> SOUND ON</button>
             </div>
@@ -171,25 +171,16 @@
         <canvas id="canvasHome"></canvas>
 
         <div class="main" style="height: auto; min-height: unset; padding: 25px 0;">
-
-            <div class="scoreAndMenu" style="display: flex; flex-direction: row; justify-content: space-evenly; margin-bottom: 2vmin;
-            padding: 2vmin 0;">
-                <a style="text-decoration: none;" href="https://www.instagram.com/blocksfallgame/">
-                    <i style="color: white;" class="fab fa-instagram fa-3x"></i>
-                </a>
-                <a style="text-decoration: none;" href="https://www.facebook.com/blocksfall/">
-                    <i style="color: white;" class="fab fa-facebook-f fa-3x"></i>
-                </a>
-                <a style="text-decoration: none;" href="https://twitter.com/blocksfallGAME">
-                    <i style="color: white;" class="fab fa-twitter fa-3x"></i>
-                </a>
-            </div>
-
-            <button style="margin-bottom: 0; background-color: unset; border: none; cursor: pointer;" onclick="shareIt()"> <img class="logoHome" src="images/logo/blocksfall-logo3.png" alt=""></button>
-
-            <p style="text-align: center; margin-top: 0;">
+            <p style="text-align: center; margin: 0;">
                 PLAY IT IN PC OR MOBILE AND ENJOY WITH YOUR FRIENDS OR SOLO!
             </p>
+            <button style="margin-bottom: 0; background-color: unset; border: none; cursor: pointer;" onclick="shareIt()"> <img class="logoHome" src="images/logo/blocksfall-logo3.png" alt=""></button>
+            <div>
+                <p style="text-align: center; margin: 0;">
+                    DEVELOPED BY
+                </p>
+                <a style="text-decoration: none;" href="https://lusrodri.me"><h1 style="color: #ef626c; text-align: center; margin: 0; margin-bottom: unset; font-size: 6vmin;">LUSRODRI</h1></a>
+            </div>
         </div>
     </div>
 
