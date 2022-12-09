@@ -10,15 +10,17 @@ h1, h2, h3, h4, p, a {
 }
 
 html {
-    height: 90%;
-    width: 100%;
     font-family: 'Oswald', sans-serif;
 }
 
 body {
-    background-color: orange;
-    background-image: url('../images/background-image-blocksfall.webp');
+    height: 100vh;
+    margin: 0;
+    background-color: #EEF5DB;
+    background-image: url("../images/background_blocksfall_standard.png");
+    background-size: 25vmin 25vmin;
     background-attachment: fixed;
+    background-repeat: space;
     overscroll-behavior-y: contain;
 }
 
@@ -27,6 +29,8 @@ button{
 }
 
 dialog {
+    width: 700px;
+    max-width: 80%;
     background: none;
     border: none;
     animation: openDialog 750ms;
@@ -63,7 +67,9 @@ dialog.hide::backdrop {
 @keyframes openDialog-backdrop {
     0% {}
     100% {
-        background-color: rgba(0, 0, 0, .5);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        background-color: #ffffff20;
     }
 }
 
@@ -81,13 +87,14 @@ dialog.hide::backdrop {
         background-color: unset;
     }
     0% {
-        background-color: rgba(0, 0, 0, .5);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        background-color: #ffffff20;
     }
 }
 
 .container{
     height: 100%;
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -99,18 +106,17 @@ dialog.hide::backdrop {
     }
   
     100% {
-        box-shadow: 15px 15px 3px #00000080;
+        box-shadow: 1.5vmin 1.5vmin #00000080;
     }
 }
 
 .main {
-    margin: 2vmin 0;
     padding: 10px 0;
     background-color: #FF9A00;
     border: 1.5vmin solid #1E212D;
     border-radius: 15px;
-    width: 85vw;
-    max-width: 700px;
+    width: 700px;
+    max-width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -170,7 +176,7 @@ canvas {
 .scoreAndMenu2{
     background-color: #1E212D;
     width: 101%;
-    width: 60vh;
+    width: 54vh;
     margin: 1vmin;
     margin-bottom: 0;
     height: 10vmin;
@@ -182,8 +188,8 @@ canvas {
 
 canvas.canvasMobile {
     margin: 1vmin;
-    width: 60vh;
-    height: 80vh;
+    width: 54vh;
+    height: 72vh;
     background-color: #1E212D;
 }
 
@@ -196,8 +202,16 @@ canvas.canvasMobile {
         height: 99.2vw;
         background-color: #1E212D;
     }
-    body {
-        height: 120%;
+}
+
+@media all and (orientation: portrait) and (max-width: 600px) {
+    div.scoreAndMenu2{
+        width: 89.28vw;
+    }
+    canvas.canvasMobile {
+        width: 89.28vw;
+        height: 119.04vw;
+        background-color: #1E212D;
     }
 }
 
@@ -295,7 +309,7 @@ button.btnControlerOrange {
     text-decoration: none;
     padding: 3vmin;
     font-size: 4vmin;
-    background-color: #FFCA03;
+    background-color: #FFD33B;
     margin: 3vmin;
     min-width: 200px;
     transition: 200ms;
@@ -318,7 +332,6 @@ a.btnHome ,button.btnHome {
 }
 
 .btn:hover {
-    box-shadow: 0 0, 10px 10px #00000080;
     background-color: #FF9A00;
 }
 
@@ -371,7 +384,7 @@ button.btnPause {
 .scoreShow{
     margin: 1vmin 0;
     padding: 0;
-    font-size: 4vmin;
+    font-size: 3.5vmin;
     color: white;
 }
 

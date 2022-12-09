@@ -65,11 +65,10 @@
         crossorigin="anonymous"></script>
 </head>
 
-<body id="body" onblur="ifOnBlur()" onload="pageOnLoad()" onfocus="ifOnFocus()"
-    style="width: 95vw; height: 95vh; margin: 2vmin; overflow: hidden;">
+<body id="body" onblur="ifOnBlur()" onload="pageOnLoad()" onfocus="ifOnFocus()" style="overflow: hidden;">
 
-    <div class="container" style="margin: 0; padding: 0;">
-        <div class="hud" style="margin: 0; padding: 0vmin; flex-direction: column; align-items: center;">
+    <div class="container">
+        <div class="hud" style="margin: auto; padding: 0vmin; flex-direction: column; align-items: center;">
             <div class="scoreAndMenu2" style="border-radius: 2vmin 2vmin 0 0;">
                 <button class="btn" id=""
                     style="margin: 0; font-size: 1rem; padding: 0.75vmin 2.5vmin; border: none; min-width: unset;"
@@ -88,12 +87,14 @@
         </div>
 
         <dialog id="pause">
-            <div class="main">
+            <div class="main" style="max-width: 90%; margin: auto;">
 
                 <h1 style="margin: 0; font-size: 8vmin;">PAUSED</h1>
 
-                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                    <button class="btn" style="margin-bottom: 2vmin;" onclick="pause('close')"> <i
+                <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap;">
+                    <button class="btn btnMobile btnMobile1" onclick="restartDialog('open')"><i
+                        class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
+                    <button class="btn" onclick="pause('close')"> <i
                             class="fas fa-caret-left"></i>
                         RESUME</button>
                     <button class="btn" id="buttonMusic" onclick="setMusicPreference()"><i class="fas fa-volume-up"></i>
@@ -110,7 +111,7 @@
         </dialog>
 
         <dialog id="gameOver">
-            <div class="main">
+            <div class="main" style="max-width: 90%; margin: auto;">
                 <div class="dialogDiv">
                     <h1 style="margin: 0; font-size: 8vmin;">GAME OVER</h1>
                     <div class="scoreAndMenu scoreAndMenu1" id="scoreGameOver" style="
@@ -126,6 +127,31 @@
                 </div>
             </div>
         </dialog>
+
+        <dialog id="restart">
+            <div class="main" style="max-width: 90%; margin: auto;">
+
+                <h1 style="margin: 0; font-size: 8vmin;">DO YOU WANT TO RESTART?</h1>
+
+                <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap;">
+                    <button class="btn btnMobile btnMobile1" onclick="restart()"><i
+                        class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
+                    <button class="btn" onclick="restartDialog('close')"> <i class="fas fa-times"></i>
+                        CANCEL</button>
+                </div>
+
+        </dialog>
+
+        <div
+            style="position: fixed; right: 0; bottom: 0; background-color: #EEF5DB90; padding: 2vmin; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 3vmin 0 0 0;">
+            <p style="text-align: center; margin: 0; font-size: 2vmin;">
+                DEVELOPED BY
+            </p>
+            <a style="text-decoration: none;" href="https://lusrodri.me">
+                <h1 style="color: #ef626c; text-align: center; margin: 0; margin-bottom: unset; font-size: 4vmin;">
+                    LUSRODRI</h1>
+            </a>
+        </div>
 
     </div>
 

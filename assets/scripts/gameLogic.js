@@ -319,7 +319,6 @@ function printControllerMobile(printListener = false) {
         img.src = "./images/control_mobile/control_mobile_leftDown.png";
 
     ctx.drawImage(img, xImg - (img.width / 2), yImg - (img.height / 2));
-    console.log("printing controller")
 }
 
 function printNextPiece() {

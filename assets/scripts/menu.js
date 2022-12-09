@@ -1,3 +1,28 @@
+if (document.getElementById("pressAnyButton")) {
+    setInterval(() => {
+        if (document.getElementById("pressAnyButton").style.opacity == 0) {
+            document.getElementById("pressAnyButton").style.opacity = 1;
+            return;
+        }
+        document.getElementById("pressAnyButton").style.opacity = 0;
+    }, 500);
+
+    document.getElementsByTagName("body")[0].addEventListener("keydown", startWebsite);
+    document.getElementsByTagName("body")[0].addEventListener("mousedown", startWebsite);
+    document.getElementsByTagName("body")[0].addEventListener("touchstart", startWebsite);
+}
+
+function startWebsite() {
+    document.getElementById("initialScreen").style.opacity = 0;
+    setTimeout(() => {
+        document.getElementById("initialScreen").style.display = "none";
+        document.getElementById("mainScreen").style.opacity = 1;
+        pageOnLoad();
+    }, 500);
+    document.getElementsByTagName("body")[0].removeEventListener("keydown", startWebsite);
+    document.getElementsByTagName("body")[0].removeEventListener("mousedown", startWebsite);
+    document.getElementsByTagName("body")[0].removeEventListener("touchstart", startWebsite);
+}
 
 function pageOnLoad() {
     setInitialMusic();
@@ -40,7 +65,7 @@ function setMusicPreference() {
 function addMusicElement() {
     let music = document.createElement('audio');
     music.id = "music";
-    music.src = "./sounds/music2.mp3";
+    music.src = "./sounds/music.mp3";
     music.setAttribute("autoplay", "");
     music.setAttribute("loop", "");
     let musicAux = document.getElementById("music");
@@ -94,13 +119,8 @@ function ifOnFocus() {
     }
 }
 
-function playGame(newGame = true) {
-    if (localStorage.getItem("gameSave") !== null && newGame) localStorage.removeItem("gameSave");
+function playGame() {
     window.location.href = '/play'
-}
-
-if (localStorage.getItem("gameSave") === null && document.getElementById("playGame") !== null) {
-    document.getElementById("playGame").setAttribute("disabled", true);
 }
 
 function scrollToPath(path) {
@@ -115,10 +135,33 @@ async function shareIt() {
         text: "LOOK THIS, IT'S THE BEST GAME YOU WILL KNOW!",
         url: 'https://blocksfall.io',
     }
-    if(navigator.share){
+    if (navigator.share) {
         await navigator.share(shareData);
         return;
     }
     navigator.clipboard.write(shareData.url);
     window.location.href = "/";
+}
+
+function restart() {
+    if (localStorage.getItem("gameSave") !== null) localStorage.removeItem("gameSave");
+    window.location.href = "/play";
+}
+
+function restartDialog(op) {
+    let restartDialog = document.getElementById("restart");
+
+    if (op === 'open' && restartDialog.open === false) {
+        isPaused = true;
+        restartDialog.showModal();
+    }
+    if (op === 'close' && restartDialog.open === true) {
+        restartDialog.classList.add("hide");
+        restartDialog.addEventListener('animationend', function () {
+            restartDialog.classList.remove("hide");
+            restartDialog.close();
+            restartDialog.removeEventListener('animationend', arguments.callee, false);
+        }, false);
+    }
+
 }
