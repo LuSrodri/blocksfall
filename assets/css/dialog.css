@@ -1,0 +1,74 @@
+/* Dialog styles */
+dialog {
+    width: 700px;
+    max-width: 80%;
+    min-width: 60%;
+    background: none;
+    border: none;
+    animation: openDialog 750ms;
+    animation-direction: alternate;
+}
+
+dialog::backdrop {
+    animation: openDialog-backdrop 750ms;
+    animation-fill-mode: forwards;
+    animation-direction: alternate;
+}
+
+dialog.hide {
+    animation: closeDialog 750ms;
+}
+
+dialog.hide::backdrop {
+    animation: closeDialog-backdrop 750ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes openDialog {
+    0% {
+        transform: translateY(200%);
+    }
+    50% {
+        transform: translateY(-10%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes openDialog-backdrop {
+    0% {}
+    100% {
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        background-color: #ffffff20;
+    }
+}
+
+@keyframes closeDialog {
+    100% {
+        transform: translateY(200%);
+    }
+    0% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes closeDialog-backdrop {
+    100% {
+        background-color: unset;
+    }
+    0% {
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        background-color: #ffffff20;
+    }
+}
+
+dialog > .main {
+    min-width: 90%;
+    margin: auto;
+    height: 100%;
+    justify-content: space-around;
+    padding: 2vmin 0;
+}

@@ -31,6 +31,8 @@
     <link rel="icon" type="image/x-icon" href="./images/logo/blocksfall-logo.png">
     <meta name="theme-color" content="#FF9A00" />
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/dialog.css">
+    <link rel="stylesheet" href="./css/textAndButton.css">
 
     <script src="https://kit.fontawesome.com/c70750bce8.js" crossorigin="anonymous"></script>
 
@@ -61,70 +63,35 @@
 </head>
 
 <body id="body" onblur="ifOnBlur()" onfocus="ifOnFocus()">
-    <div id="initialScreen" class="container"
-        style="opacity: 1; z-index: 1; position: fixed; left: 0; right: 0; backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); background-color: #ffffff20; transition: 500ms;">
-        <div class="main" style="padding: 4vmin 0;" id="home">
-            <h1 class="title" id="solo"
-                style="text-align: center; justify-content: center; margin-bottom: 0; padding-bottom: 0;">
-                BLOCKS' FALL</h1>
-            <div
-                style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-top: 0; padding-top: 0;">
-                <p style="text-align: center; margin: 0; font-size: 3vmin; font-weight: bolder;">
-                    DEVELOPED BY <span style="color: #ef626c;">LUSRODRI</span>
-                </p>
-            </div>
-            <p id="pressAnyButton"
-                style="font-size: 4vmin; font-weight: bolder; margin-top: 10vmin; transition: 500ms;">
-                PRESS ANY BUTTON TO START</p>
+    <div id="initialScreen" class="container">
+        <div class="main">
+            <h1 class="title">BLOCKS' FALL</h1>
+            <p>
+                DEVELOPED BY <span style="color: #ef626c;">LUSRODRI</span>
+            </p>
+        
+            <p id="pressAnyButton">PRESS ANY BUTTON OR TAP TO START!</p>
         </div>
     </div>
-    <div id="mainScreen" class="container" style="opacity: 0; z-index: 0; transition: 1000ms;">
-        <div class="main" style="padding: 4vmin 0;" id="home">
+    <div id="mainScreen" class="container">
+        <div class="main">
 
-            <div style="height: auto;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;">
-                <div
-                    style="display: flex; flex-direction: row; width: 100%; align-items: center; justify-content: center; ">
-                    <h1 class="title" id="solo" style="text-align: center; justify-content: center;">
-                        BLOCKS' FALL</h1>
-                </div>
+            <h1 class="title">BLOCKS' FALL</h1>
+
+            <div class="scoreAndMenu">
+                <p>WELCOME STRANGER!</p>
             </div>
 
-            <div class="scoreAndMenu" style="flex-direction: column;">
-                <p style="color: #ffffff; font-size: 4vmin; margin: 4vmin;">WELCOME STRANGER!</p>
-            </div>
-
-            <div
-                style="display: flex; flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap; width: 100%;">
-                <button class="btn btnHome" onclick="playGame()"><i class="fa-solid fa-play"></i>
-                    PLAY
-                    SOLO</button>
-                <!-- <button class="btn btnHome" onclick="playGame()"><i class="fa-solid fa-play"></i>
-                    MULTIPLAYER</button>
-                <button id="playGame" class="btn btnHome" onclick="playGame(false)"><i class="fas fa-save"></i>
-                    ACHIEVEMENT</button> -->
-                <button class="btn btnHome" id="buttonMusic" onclick="setMusicPreference()"><i
-                        class="fas fa-volume-up"></i> SOUND ON</button>
+            <div class="menuArea">
+                <button class="btn" onclick="playGame()"><i class="fa-solid fa-play"></i> PLAY GAME</button>
+                <button class="btn" id="buttonMusic" onclick="setMusicPreference()"><i class="fas fa-volume-up"></i> SOUND ON</button>
             </div>
 
             <p>IN SOON: BETTER GAMEPLAY EXPERIENCE, ACHIEVEMENT, RANKING, USERS, MULTIPLAYER AND MORE!</p>
 
         </div>
 
-        <div
-            style="position: fixed; right: 0; bottom: 0; background-color: #EEF5DB90; padding: 2vmin; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 3vmin 0 0 0;">
-            <p style="text-align: center; margin: 0; font-size: 2vmin;">
-                DEVELOPED BY
-            </p>
-            <a style="text-decoration: none;" href="https://lusrodri.me">
-                <h1 style="color: #ef626c; text-align: center; margin: 0; margin-bottom: unset; font-size: 4vmin;">
-                    LUSRODRI</h1>
-            </a>
-        </div>
+        <div id="theCreator"><p>DEVELOPED BY <a href="https://lusrodri.me">LUSRODRI</a></p></div>
     </div>
 
     <script src="./scripts/menu.js"></script>

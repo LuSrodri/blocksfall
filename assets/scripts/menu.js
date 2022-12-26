@@ -1,15 +1,17 @@
-if (document.getElementById("pressAnyButton")) {
-    setInterval(() => {
-        if (document.getElementById("pressAnyButton").style.opacity == 0) {
-            document.getElementById("pressAnyButton").style.opacity = 1;
-            return;
-        }
-        document.getElementById("pressAnyButton").style.opacity = 0;
-    }, 500);
+{
+    if (document.getElementById("pressAnyButton")) {
+        setInterval(() => {
+            if (document.getElementById("pressAnyButton").style.opacity == 0) {
+                document.getElementById("pressAnyButton").style.opacity = 1;
+                return;
+            }
+            document.getElementById("pressAnyButton").style.opacity = 0;
+        }, 500);
 
-    document.getElementsByTagName("body")[0].addEventListener("keydown", startWebsite);
-    document.getElementsByTagName("body")[0].addEventListener("mousedown", startWebsite);
-    document.getElementsByTagName("body")[0].addEventListener("touchstart", startWebsite);
+        document.getElementsByTagName("body")[0].addEventListener("keydown", startWebsite);
+        document.getElementsByTagName("body")[0].addEventListener("mousedown", startWebsite);
+        document.getElementsByTagName("body")[0].addEventListener("touchstart", startWebsite);
+    }
 }
 
 function startWebsite() {
@@ -27,6 +29,7 @@ function startWebsite() {
 function pageOnLoad() {
     setInitialMusic();
     setStats();
+    window.scrollTo(0, 500);
 }
 
 function setInitialMusic() {
