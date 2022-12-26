@@ -1,99 +1,68 @@
+/* index.html settings */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1b1b1b;
+        background-image: url("../images/background_blocksfall_standard_dark.png");
+    }
+
+    #theCreator {
+        background-color: #1b1b1b90;
+    }
+
+    #theCreator>p {
+        Color: #1b1b1b;
+    }
+
+    .main {
+        background-color: #1b1b1b;
+        border: 1.5vmin solid #FF9A00;
+    }
+
+    .scoreAndMenu {
+        background-color: #FF9A00;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: #EEF5DB;
+        background-image: url("../images/background_blocksfall_standard.png");
+    }
+
+    #theCreator {
+        background-color: #EEF5DB90;
+    }
+
+    .main {
+        background-color: #FF9A00;
+        border: 1.5vmin solid #1E212D;
+    }
+
+    .scoreAndMenu {
+        background-color: #1E212D;
+    }
+}
 
 * {
     user-select: none;
     -webkit-user-select: none;
 }
 
-h1, h2, h3, h4, p, a {
-    color: #1E212D;
-    text-align: center;
-}
-
-html {
+html,
+button {
     font-family: 'Oswald', sans-serif;
 }
 
 body {
     height: 100vh;
     margin: 0;
-    background-color: #EEF5DB;
-    background-image: url("../images/background_blocksfall_standard.png");
     background-size: 25vmin 25vmin;
     background-attachment: fixed;
     background-repeat: space;
     overscroll-behavior-y: contain;
 }
 
-button{
-    font-family: 'Oswald', sans-serif;
-}
-
-dialog {
-    width: 700px;
-    max-width: 80%;
-    background: none;
-    border: none;
-    animation: openDialog 750ms;
-    animation-direction: alternate;
-}
-
-dialog::backdrop {
-    animation: openDialog-backdrop 750ms;
-    animation-fill-mode: forwards;
-    animation-direction: alternate;
-}
-
-dialog.hide {
-    animation: closeDialog 750ms;
-}
-
-dialog.hide::backdrop {
-    animation: closeDialog-backdrop 750ms;
-    animation-fill-mode: forwards;
-}
-
-@keyframes openDialog {
-    0% {
-        transform: translateY(150%);
-    }
-    50% {
-        transform: translateY(-10%);
-    }
-    100% {
-        transform: translateY(0);
-    }
-}
-
-@keyframes openDialog-backdrop {
-    0% {}
-    100% {
-        backdrop-filter: blur(3px);
-        -webkit-backdrop-filter: blur(3px);
-        background-color: #ffffff20;
-    }
-}
-
-@keyframes closeDialog {
-    100% {
-        transform: translateY(150%);
-    }
-    0% {
-        transform: translateY(0);
-    }
-}
-
-@keyframes closeDialog-backdrop {
-    100% {
-        background-color: unset;
-    }
-    0% {
-        backdrop-filter: blur(3px);
-        -webkit-backdrop-filter: blur(3px);
-        background-color: #ffffff20;
-    }
-}
-
-.container{
+.container {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -101,48 +70,110 @@ dialog.hide::backdrop {
     align-items: center;
 }
 
-@keyframes initialAnimation {
-    0% {
-    }
-  
-    100% {
-        box-shadow: 1.5vmin 1.5vmin #00000080;
-    }
-}
-
 .main {
-    padding: 10px 0;
-    background-color: #FF9A00;
-    border: 1.5vmin solid #1E212D;
+    padding: 4vmin 0;
     border-radius: 15px;
     width: 700px;
     max-width: 80%;
+    min-width: 60%;
+    max-height: 80%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
 }
 
-.score {
-    transition: all .5s ease-in-out;
+.menuArea {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: 0.5vmin;
 }
 
-#home, .main, canvas#canvasHome{
+#initialScreen {
+    opacity: 1;
+    z-index: 1;
+    position: fixed;
+    left: 0;
+    right: 0;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    transition: 500ms;
+}
+
+#mainScreen {
+    opacity: 0;
+    z-index: 0;
+    transition: 1000ms;
+}
+
+#theCreator {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    padding: 2vmin;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 3vmin 0 0 0;
+}
+
+#theCreator>p {
+    font-size: 2.5vmin;
+    margin: 0;
+}
+
+#theCreator>p>a {
+    color: #ef626c;
+    text-decoration: none;
+}
+
+.main {
     animation-fill-mode: forwards;
     animation-timing-function: ease-out;
     animation-name: initialAnimation;
     animation-duration: 1s;
 }
 
-canvas#canvasHome {
-    margin: 2vmin 0;
-    height: 42.5vw;
-    width: 85vw;
-    max-width: 700px;
-    max-height: 350px;
-    background-color: #1E212D;
-    border-radius: 15px;
-    border: 1.5vmin solid #1E212D;
+.scoreAndMenu {
+    width: 101%;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+@keyframes initialAnimation {
+    0% {}
+
+    100% {
+        box-shadow: 1.5vmin 1.5vmin #00000080;
+    }
+}
+
+@media (max-width: 600px) {
+    .menuArea {
+        flex-direction: column;
+        margin: 2vmin;
+    }
+
+    #theCreator>p {
+        font-size: 3.5vmin;
+    }
+}
+
+/* ending index.html settings */
+
+/* play.html settings */
+.divFlex {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .hud {
@@ -173,7 +204,7 @@ canvas {
     height: 90vmin;
 }
 
-.scoreAndMenu2{
+.scoreAndMenu2 {
     background-color: #1E212D;
     width: 101%;
     width: 54vh;
@@ -194,9 +225,10 @@ canvas.canvasMobile {
 }
 
 @media all and (orientation: portrait) {
-    div.scoreAndMenu2{
+    div.scoreAndMenu2 {
         width: 74.4vw;
     }
+
     canvas.canvasMobile {
         width: 74.4vw;
         height: 99.2vw;
@@ -205,9 +237,10 @@ canvas.canvasMobile {
 }
 
 @media all and (orientation: portrait) and (max-width: 600px) {
-    div.scoreAndMenu2{
+    div.scoreAndMenu2 {
         width: 89.28vw;
     }
+
     canvas.canvasMobile {
         width: 89.28vw;
         height: 119.04vw;
@@ -263,85 +296,14 @@ p.player {
     align-items: center;
 }
 
-button.btnController {
-    border: 0.85vmin solid #1E212D;
-    height: 10vmin;
-    padding: 0;
-    flex: 1;
-    margin: 0 2vmin;
-    border-radius: 2.5vmin;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    animation-iteration-count: 0;
-}
-
-
-button.btnController:active {
-    background-color: #FF9A00;
-}
-
-button.btnControlerOrange {
-    background-color: #ffd849;
-}
-
-.showMedals{
+.showMedals {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
 }
 
-.title {
-    margin: 0;
-    font-size: 10vmin;
-    user-select: none;
-    color: #1E212D;
-    letter-spacing: 5px;
-}
-
-.btn {
-    border: 1vmin solid #1E212D;
-    border-radius: 1vmin;
-    color: #1E212D;
-    cursor: pointer;
-    text-decoration: none;
-    padding: 3vmin;
-    font-size: 4vmin;
-    background-color: #FFD33B;
-    margin: 3vmin;
-    min-width: 200px;
-    transition: 200ms;
-}
-
-
-.btn:disabled {
-    color: #1E212D;
-    background-color: #939393;
-}
-
-.btn:disabled:hover {
-    box-shadow: unset;
-    background-color: #939393;
-    cursor: not-allowed;
-}
-
-a.btnHome ,button.btnHome {
-    margin: 1.5vmin;
-}
-
-.btn:hover {
-    background-color: #FF9A00;
-}
-
-.btn:active {
-    box-shadow: unset;
-    background-color: #FFCA03;
-}
-
-
-.information{
+.information {
     height: 100%;
     width: 35vmin;
     display: flex;
@@ -351,21 +313,7 @@ a.btnHome ,button.btnHome {
     align-items: center;
 }
 
-.scoreAndMenu{
-    background-color: #1E212D;
-    width: 101%;
-    margin-bottom: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.scoreAndMenuMobile{
-    height: 9vmin;
-}
-
-.manual{
+.manual {
     background-color: #1E212D;
     padding: 25px;
     width: 100%;
@@ -376,34 +324,29 @@ a.btnHome ,button.btnHome {
     align-items: flex-start;
 }
 
-button.btnPause {
-    font-size: 4vmin;
-    padding: 0 1.5rem;
-}
-
-.scoreShow{
+.scoreShow {
     margin: 1vmin 0;
     padding: 0;
     font-size: 3.5vmin;
     color: white;
 }
 
-.text1{
+.text1 {
     color: white;
     margin: 0;
     text-align: center;
 }
 
-div.dialogDiv{
+div.dialogDiv {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: center; 
+    align-items: center;
 }
 
-.medals{
+.medals {
     height: 20vmin;
     width: auto;
     max-height: 100px;
@@ -429,16 +372,6 @@ div.dialogDiv{
     transition: 200ms;
 }
 
-.logoHome:hover{
-    filter: drop-shadow( 10px 10px 0 #00000080);
+.logoHome:hover {
+    filter: drop-shadow(10px 10px 0 #00000080);
 }
-
-@media screen and (min-aspect-ratio: 2/3){ 
-    button.btnController {
-        height: 8vmin;
-    }
-    .rows {
-        margin: 0.4vmin;
-    }
-}
-

@@ -31,6 +31,8 @@
     <link rel="icon" type="image/x-icon" href="./images/logo/blocksfall-logo.png">
     <meta name="theme-color" content="#FF9A00" />
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/dialog.css">
+    <link rel="stylesheet" href="./css/textAndButton.css">
 
     <script src="https://kit.fontawesome.com/c70750bce8.js" crossorigin="anonymous"></script>
 
@@ -71,7 +73,7 @@
         <div class="hud" style="margin: auto; padding: 0vmin; flex-direction: column; align-items: center;">
             <div class="scoreAndMenu2" style="border-radius: 2vmin 2vmin 0 0;">
                 <button class="btn" id=""
-                    style="margin: 0; font-size: 1rem; padding: 0.75vmin 2.5vmin; border: none; min-width: unset;"
+                    style="margin: 0; font-size: 1rem; padding: 0.75vmin 2.5vmin; border: none; min-width: unset; z-index: 2;"
                     onclick="pause('open')"><i class="fas fa-pause"></i></button>
                 <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
                     <h2 class="scoreShow">NEXT PIECE:</h2> <canvas id="nextPiece" width="100" height="100"
@@ -84,74 +86,60 @@
 
             <canvas id="game" class="canvasMobile" style="border-radius: 0 0 2vmin 2vmin;"></canvas>
 
+            <canvas id="controlCanvas" height="100" width="100"
+                style="position: fixed; left: 0; top: 0; margin: 0; width: unset; height: unset;"></canvas>
+
+
         </div>
 
         <dialog id="pause">
-            <div class="main" style="max-width: 90%; margin: auto;">
+            <div class="main">
+                <h1 class="title titleDialog">PAUSED</h1>
 
-                <h1 style="margin: 0; font-size: 8vmin;">PAUSED</h1>
+                <div class="divFlex">
+                    <div class="menuArea">
+                        <button class="btn" onclick="restartDialog('open')"><i
+                                class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
+                        <button class="btn" id="buttonMusic" onclick="setMusicPreference()"><i
+                                class="fas fa-volume-up"></i> SOUND ON</button>
+                        <button class="btn" onclick="pause('close')"> <i class="fas fa-caret-left"></i> RESUME</button>
+                    </div>
 
-                <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap;">
-                    <button class="btn btnMobile btnMobile1" onclick="restartDialog('open')"><i
-                        class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
-                    <button class="btn" onclick="pause('close')"> <i
-                            class="fas fa-caret-left"></i>
-                        RESUME</button>
-                    <button class="btn" id="buttonMusic" onclick="setMusicPreference()"><i class="fas fa-volume-up"></i>
-                        SOUND ON</button>
+                    <div class="scoreAndMenu">
+                        <p>SCORE: <span class="score">0</span></p>
+                    </div>
+                    <button class="btn" onclick="window.location.replace('./')"> <i class="fas fa-home"></i> BACK TO
+                        HOME</button>
                 </div>
-
-                <div class="scoreAndMenu scoreAndMenu1">
-                    <h2 class="scoreShow">SCORE: <span class="score">0</span></h2>
-                </div>
-
-                <button class="btn " onclick="window.location.replace('./')"> <i class="fas fa-home"></i> BACK TO
-                    HOME</button>
             </div>
         </dialog>
 
         <dialog id="gameOver">
-            <div class="main" style="max-width: 90%; margin: auto;">
-                <div class="dialogDiv">
-                    <h1 style="margin: 0; font-size: 8vmin;">GAME OVER</h1>
-                    <div class="scoreAndMenu scoreAndMenu1" id="scoreGameOver" style="
-                    justify-content: center;
-                    align-items: center;">
-                        <img id="medalOne" style="border-color: orange;" class="medals">
-                        <h2 class="scoreShow">YOU SCORED: <span class="score">0</span></h2>
-                    </div>
-                    <button class="btn btnMobile btnMobile1" onclick="window.location.replace('./play')"><i
-                            class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
-                    <button class="btn btnMobile btnMobile1" onclick="window.location.replace('./')"><i
-                            class="fas fa-home"></i> BACK TO HOME</button>
+            <div class="main">
+                <h1 class="title titleDialog">GAME OVER</h1>
+
+                <div class="scoreAndMenu" id="scoreGameOver">
+                    <img id="medalOne" style="display: none;" class="medals">
+                    <p>YOU SCORED: <span class="score">0</span></p>
                 </div>
+                <button class="btn" onclick="window.location.replace('./play')"><i class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
+                <button class="btn" onclick="window.location.replace('./')"><i class="fas fa-home"></i> BACK TO HOME</button>
             </div>
         </dialog>
 
         <dialog id="restart">
-            <div class="main" style="max-width: 90%; margin: auto;">
+            <div class="main" style="min-width: 90%; margin: auto;">
 
-                <h1 style="margin: 0; font-size: 8vmin;">DO YOU WANT TO RESTART?</h1>
+                <h1 class="title titleDialog">DO YOU WANT TO RESTART?</h1>
 
-                <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap;">
-                    <button class="btn btnMobile btnMobile1" onclick="restart()"><i
-                        class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
-                    <button class="btn" onclick="restartDialog('close')"> <i class="fas fa-times"></i>
-                        CANCEL</button>
+                <div class="menuArea">
+                    <button class="btn" onclick="restart()"><i class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
+                    <button class="btn" onclick="restartDialog('close')"> <i class="fas fa-times"></i> CANCEL</button>
                 </div>
 
         </dialog>
 
-        <div
-            style="position: fixed; right: 0; bottom: 0; background-color: #EEF5DB90; padding: 2vmin; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 3vmin 0 0 0;">
-            <p style="text-align: center; margin: 0; font-size: 2vmin;">
-                DEVELOPED BY
-            </p>
-            <a style="text-decoration: none;" href="https://lusrodri.me">
-                <h1 style="color: #ef626c; text-align: center; margin: 0; margin-bottom: unset; font-size: 4vmin;">
-                    LUSRODRI</h1>
-            </a>
-        </div>
+        <div id="theCreator"><p>DEVELOPED BY <a href="https://lusrodri.me">LUSRODRI</a></p></div>
 
     </div>
 
@@ -165,6 +153,16 @@
                 top: 100
             });
         }
+
+        let controlCanvas = document.getElementById("controlCanvas");
+
+        controlCanvas.width = document.getElementsByTagName("body")[0].clientWidth;
+        controlCanvas.height = document.getElementsByTagName("body")[0].clientHeight;
+
+        window.addEventListener("resize", () => {
+            controlCanvas.width = document.getElementsByTagName("body")[0].clientWidth;
+            controlCanvas.height = document.getElementsByTagName("body")[0].clientHeight;
+        });
     </script>
 
 </body>
