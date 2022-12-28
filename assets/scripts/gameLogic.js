@@ -245,14 +245,6 @@ function printGame(letterAux) { //print the game with the colors of the pieces
             ctx.strokeRect(y * 100, x * 100, (y + 100), (x + 100));
         }
     }
-    printEmitter();
-}
-
-function printEmitter() {
-    if (isPrintText === true)
-        printText(0, true);
-    if (isPrintControllerMobile === true)
-        printControllerMobile(true);
 }
 
 let isPrintText = false;
@@ -297,30 +289,6 @@ function printText(scored, printListener = false) { //print text when the player
     }, 1500);
 }
 
-let isPrintControllerMobile = false;
-let img = new Image();
-function printControllerMobile(printListener = false) {
-    if (printListener === true)
-        ctx.drawImage(img, xImg - (img.width / 2), yImg - (img.height / 2));
-
-    
-    img.src = "./images/control_mobile/control_mobile_center.png";
-    if (isMovingRight)
-        img.src = "./images/control_mobile/control_mobile_right.png";
-    if (isMovingLeft)
-        img.src = "./images/control_mobile/control_mobile_left.png";
-    if (isMovingDown)
-        img.src = "./images/control_mobile/control_mobile_down.png";
-    if (isRotate)
-        img.src = "./images/control_mobile/control_mobile_up.png";
-    if (isMovingRight && isMovingDown)
-        img.src = "./images/control_mobile/control_mobile_rightDown.png";
-    if (isMovingLeft && isMovingDown)
-        img.src = "./images/control_mobile/control_mobile_leftDown.png";
-
-    ctx.drawImage(img, xImg - (img.width / 2), yImg - (img.height / 2));
-}
-
 function printNextPiece() {
     let canvasNextPiece = document.getElementById("nextPiece");
     let nextPiece = createPiece(letter[1]);
@@ -328,26 +296,26 @@ function printNextPiece() {
     if (nextPiece.length === 2 && nextPiece[0].length === 3) {
         canvasNextPiece.width = "300";
         canvasNextPiece.height = "200";
-        canvasNextPiece.style.width = "7.5vmin";
-        canvasNextPiece.style.height = "5vmin";
+        canvasNextPiece.style.width = "9vmin";
+        canvasNextPiece.style.height = "6vmin";
     }
     if (nextPiece.length === 1 && nextPiece[0].length === 4) {
         canvasNextPiece.width = "400";
         canvasNextPiece.height = "100";
-        canvasNextPiece.style.width = "10vmin";
-        canvasNextPiece.style.height = "2.5vmin";
+        canvasNextPiece.style.width = "12vmin";
+        canvasNextPiece.style.height = "3vmin";
     }
     if (nextPiece.length === 3 && nextPiece[0].length === 2) {
         canvasNextPiece.width = "200";
         canvasNextPiece.height = "300";
-        canvasNextPiece.style.width = "5vmin";
-        canvasNextPiece.style.height = "7.5vmin";
+        canvasNextPiece.style.width = "6vmin";
+        canvasNextPiece.style.height = "9vmin";
     }
     if (nextPiece.length === 2 && nextPiece[0].length === 2) {
         canvasNextPiece.width = "200";
         canvasNextPiece.height = "200";
-        canvasNextPiece.style.width = "5vmin";
-        canvasNextPiece.style.height = "5vmin";
+        canvasNextPiece.style.width = "6vmin";
+        canvasNextPiece.style.height = "6vmin";
     }
     let ctxNextPiece = canvasNextPiece.getContext("2d");
 
@@ -616,124 +584,6 @@ function controller() { //set the controller
     });
 }
 
-let xImg = null;
-let yImg = null;
-let isMovingLeft = false;
-let isMovingRight = false;
-let isMovingDown = false;
-let isRotate = false;
-function controllerTouch() { //set the touch controller
-    let gameTouchController = null;
-    let xTouchPositionStart = null;
-    let yTouchPositionStart = null;
-    let xDiff = null;
-    let yDiff = null;
-    let movingTouchHorizontal = null;
-    let movingTouchVertical = null;
-    const rect = canvas.getBoundingClientRect();
-
-    gameTouchController = document.getElementById("game");
-
-    gameTouchController.addEventListener("touchstart", setStartTouchPosition, true);
-    gameTouchController.addEventListener("touchmove", startMove, true);
-    gameTouchController.addEventListener("touchend", endMove, true);
-
-    function setStartTouchPosition(event) {
-        const touch = event.touches[0];
-        xTouchPositionStart = touch.clientX;
-        yTouchPositionStart = touch.clientY;
-        xImg = (xTouchPositionStart - rect.left) * canvas.width / rect.width;
-        yImg = (yTouchPositionStart - rect.top) * canvas.height / rect.height;
-        isTouching = true;
-        isPrintControllerMobile = true;
-        printControllerMobile();
-    }
-
-    function startMove(event) {
-
-        const touch = event.touches[0];
-        let xTouchPositionEnd = touch.clientX;
-        let yTouchPositionEnd = touch.clientY;
-
-        xDiff = xTouchPositionStart - xTouchPositionEnd;
-        yDiff = yTouchPositionStart - yTouchPositionEnd;
-
-        if (!isPaused && !isGameOver) {
-            if (xDiff > -35 && xDiff < 35) { //only moves horizontal
-                clearInterval(movingTouchHorizontal);
-                isMovingRight = false;
-                isMovingLeft = false;
-                printGame(letter[0]);
-            }
-            if (yDiff > -35 && yDiff < 35) { //only moves vertical
-                clearInterval(movingTouchVertical);
-                isMovingDown = false;
-                isRotate = false;
-                printGame(letter[0]);
-            }
-            if (xDiff < -35 && !isMovingRight) { //moves to right
-                isMovingRight = true;
-                changeDirection('R');
-                shadowPiece();
-                printGame(letter[0]);
-                movingTouchHorizontal = setInterval(() => {
-                    changeDirection('R');
-                    shadowPiece();
-                    printGame(letter[0]);
-                }, 125);
-            }
-            if (xDiff > 35 && !isMovingLeft) { //moves to left
-                isMovingLeft = true;
-                changeDirection('L');
-                shadowPiece();
-                printGame(letter[0]);
-                movingTouchHorizontal = setInterval(() => {
-                    changeDirection('L');
-                    shadowPiece();
-                    printGame(letter[0]);
-                }, 125);
-            }
-            if (yDiff < -35 && !isMovingDown) { //moves down
-                isMovingDown = true;
-                downPiece(letter[0]);
-                shadowPiece();
-                printGame(letter[0]);
-                movingTouchVertical = setInterval(() => {
-                    downPiece(letter[0]);
-                    shadowPiece();
-                    printGame(letter[0]);
-                }, 125);
-            }
-            if (yDiff > 35 && !isRotate && !isMovingDown && !isMovingRight && !isMovingLeft) { //rotate
-                isRotate = true;
-                let auxPiece = rotatePiece('R', piece);
-                putPieceV1(auxPiece);
-                shadowPiece();
-                printGame(letter[0]);
-            }
-            printControllerMobile();
-        }
-    }
-
-    function endMove() {
-        if (!isMovingDown && !isMovingRight && !isMovingLeft && !isRotate) {
-            let auxPiece = rotatePiece('R', piece);
-            putPieceV1(auxPiece);
-            shadowPiece();
-            printGame(letter[0]);
-        }
-
-        isMovingDown = false;
-        isMovingRight = false;
-        isMovingLeft = false;
-        isRotate = false;
-        isPrintControllerMobile = false;
-        printGame(letter[0]);
-        clearInterval(movingTouchHorizontal);
-        clearInterval(movingTouchVertical);
-    }
-}
-
 function changeDirection(direction) { //change the direction of the piece
     let count = 0;
     for (let x = 0; x < matrix.length; x++) {
@@ -867,7 +717,7 @@ function ifScored() { //verify if the player scored
         for (let i = 0; i < scores.length; i++) {
             let Score = parseInt(scores[i].innerHTML) + scored;
             scores[i].innerHTML = Score;
-            scores[i].style.color = "#00CC66"
+            scores[i].style.color = "#FF9A00"
         }
 
         if (sessionStorage.getItem("musicPreference") !== 'false')

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content= "width=device-width, user-scalable=no">
     <title>Enjoy the best puzzle game online! - Blocks' Fall!</title>
     <meta name="description"
         content="The Online Game for play Anyplace and Anytime. Enjoy this best puzzle game with your friends or solo. You will love it!">
@@ -70,26 +70,16 @@
 <body id="body" onblur="ifOnBlur()" onload="pageOnLoad()" onfocus="ifOnFocus()" style="overflow: hidden;">
 
     <div class="container">
-        <div class="hud" style="margin: auto; padding: 0vmin; flex-direction: column; align-items: center;">
+        <div class="hud">
             <div class="scoreAndMenu2" style="border-radius: 2vmin 2vmin 0 0;">
-                <button class="btn" id=""
-                    style="margin: 0; font-size: 1rem; padding: 0.75vmin 2.5vmin; border: none; min-width: unset; z-index: 2;"
-                    onclick="pause('open')"><i class="fas fa-pause"></i></button>
-                <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
-                    <h2 class="scoreShow">NEXT PIECE:</h2> <canvas id="nextPiece" width="100" height="100"
-                        style="width: 10vmin; height: 10vmin; margin: 0.5vmin;"></canvas>
-                </div>
-                <div>
-                    <h2 class="scoreShow">SCORE: <span class="score">0</span> </h2>
-                </div>
+                <button class="btn btnPause" onclick="pause('open')"><i class="fas fa-pause"></i> PAUSE</button>
+                <canvas id="nextPiece" width="100" height="100"></canvas>
+                <p class="scoreShow">SCORE: <span class="score">0</span> </p>
             </div>
 
-            <canvas id="game" class="canvasMobile" style="border-radius: 0 0 2vmin 2vmin;"></canvas>
+            <canvas id="game" class="canvasMobile"></canvas>
 
-            <canvas id="controlCanvas" height="100" width="100"
-                style="position: fixed; left: 0; top: 0; margin: 0; width: unset; height: unset;"></canvas>
-
-
+            <canvas id="controlCanvas" height="100" width="100"></canvas>
         </div>
 
         <dialog id="pause">
@@ -122,8 +112,10 @@
                     <img id="medalOne" style="display: none;" class="medals">
                     <p>YOU SCORED: <span class="score">0</span></p>
                 </div>
-                <button class="btn" onclick="window.location.replace('./play')"><i class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
-                <button class="btn" onclick="window.location.replace('./')"><i class="fas fa-home"></i> BACK TO HOME</button>
+                <button class="btn" onclick="window.location.replace('./play')"><i
+                        class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
+                <button class="btn" onclick="window.location.replace('./')"><i class="fas fa-home"></i> BACK TO
+                    HOME</button>
             </div>
         </dialog>
 
@@ -133,16 +125,20 @@
                 <h1 class="title titleDialog">DO YOU WANT TO RESTART?</h1>
 
                 <div class="menuArea">
-                    <button class="btn" onclick="restart()"><i class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
+                    <button class="btn" onclick="restart()"><i class="fa-solid fa-arrow-rotate-right"></i>
+                        RESTART</button>
                     <button class="btn" onclick="restartDialog('close')"> <i class="fas fa-times"></i> CANCEL</button>
                 </div>
 
         </dialog>
 
-        <div id="theCreator"><p>DEVELOPED BY <a href="https://lusrodri.me">LUSRODRI</a></p></div>
+        <div id="theCreator">
+            <p>DEVELOPED BY <a href="https://lusrodri.me">LUSRODRI</a></p>
+        </div>
 
     </div>
 
+    <script src="./scripts/hud.js"></script>
     <script src="./scripts/gameLogic.js"></script>
     <script src="./scripts/menu.js"></script>
 
@@ -153,16 +149,6 @@
                 top: 100
             });
         }
-
-        let controlCanvas = document.getElementById("controlCanvas");
-
-        controlCanvas.width = document.getElementsByTagName("body")[0].clientWidth;
-        controlCanvas.height = document.getElementsByTagName("body")[0].clientHeight;
-
-        window.addEventListener("resize", () => {
-            controlCanvas.width = document.getElementsByTagName("body")[0].clientWidth;
-            controlCanvas.height = document.getElementsByTagName("body")[0].clientHeight;
-        });
     </script>
 
 </body>

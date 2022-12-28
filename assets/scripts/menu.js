@@ -14,6 +14,28 @@
     }
 }
 
+{
+    if (document.getElementById("howtoplay")) {
+        document.getElementById("howtoplay").addEventListener("click", () => howToPlayDialog("open", "howtoplayDialogPC"));
+        document.getElementById("howtoplay").addEventListener("touchend", () => howToPlayDialog("open", "howtoplayDialogMobile"));
+    }
+}
+
+{
+    if (document.getElementById("greetings")){
+        let now = new Date();
+        if (now.getHours() >= 5 && now.getHours() < 12) {
+            document.getElementById("greetings").innerHTML = "GOOD MORNING!";
+        }
+        else if (now.getHours() >= 12 && now.getHours() < 18) {
+            document.getElementById("greetings").innerHTML = "GOOD AFTERNOON!";
+        }
+        else if (now.getHours() >= 18 || now.getHours() < 5) {
+            document.getElementById("greetings").innerHTML = "GOOD EVENING!";
+        }
+    }
+}
+
 function startWebsite() {
     document.getElementById("initialScreen").style.opacity = 0;
     setTimeout(() => {
@@ -24,6 +46,9 @@ function startWebsite() {
     document.getElementsByTagName("body")[0].removeEventListener("keydown", startWebsite);
     document.getElementsByTagName("body")[0].removeEventListener("mousedown", startWebsite);
     document.getElementsByTagName("body")[0].removeEventListener("touchstart", startWebsite);
+
+    document.getElementsByTagName("body")[0].setAttribute("onblur", "ifOnBlur()");
+    document.getElementsByTagName("body")[0].setAttribute("onfocus", "ifOnFocus()");
 }
 
 function pageOnLoad() {
@@ -132,20 +157,6 @@ function scrollToPath(path) {
     });
 }
 
-async function shareIt() {
-    const shareData = {
-        title: "BLOCKS' FALL!",
-        text: "LOOK THIS, IT'S THE BEST GAME YOU WILL KNOW!",
-        url: 'https://blocksfall.io',
-    }
-    if (navigator.share) {
-        await navigator.share(shareData);
-        return;
-    }
-    navigator.clipboard.write(shareData.url);
-    window.location.href = "/";
-}
-
 function restart() {
     if (localStorage.getItem("gameSave") !== null) localStorage.removeItem("gameSave");
     window.location.href = "/play";
@@ -167,4 +178,18 @@ function restartDialog(op) {
         }, false);
     }
 
+}
+
+function howToPlayDialog(op1, op2) {
+    let howToPlay = document.getElementById(op2);
+    if (op1 === "open") {
+        howToPlay.showModal();
+        return;
+    }
+    howToPlay.classList.add("hide");
+    howToPlay.addEventListener('animationend', function () {
+        howToPlay.classList.remove("hide");
+        howToPlay.close();
+        howToPlay.removeEventListener('animationend', arguments.callee, false);
+    }, false);
 }

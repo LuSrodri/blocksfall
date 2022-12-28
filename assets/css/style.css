@@ -1,7 +1,7 @@
 /* index.html settings */
 @media (prefers-color-scheme: dark) {
     body {
-        background-color: #1b1b1b;
+        background-color: #1c3144;
         background-image: url("../images/background_blocksfall_standard_dark.png");
     }
 
@@ -10,16 +10,16 @@
     }
 
     #theCreator>p {
-        Color: #1b1b1b;
+        Color: #ffffff;
     }
 
     .main {
-        background-color: #1b1b1b;
-        border: 1.5vmin solid #FF9A00;
+        background-color: #1E212D;
+        border: 1.5vmin solid #1b1b1b;
     }
 
     .scoreAndMenu {
-        background-color: #FF9A00;
+        background-color: #1b1b1b;
     }
 }
 
@@ -46,11 +46,13 @@
 * {
     user-select: none;
     -webkit-user-select: none;
+    touch-action: auto;
 }
 
 html,
 button {
     font-family: 'Oswald', sans-serif;
+    touch-action: auto;
 }
 
 body {
@@ -60,6 +62,7 @@ body {
     background-attachment: fixed;
     background-repeat: space;
     overscroll-behavior-y: contain;
+    touch-action: auto;
 }
 
 .container {
@@ -146,6 +149,21 @@ body {
     align-items: center;
 }
 
+img {
+    border: 1vmin solid #ffffff;
+    border-radius: 15px;
+}
+
+img.controlPC {
+    width: 80%;
+    margin: 4vmin;
+}
+
+img.controlMobile {
+    width: 35%;
+    margin: 4vmin;
+}
+
 @keyframes initialAnimation {
     0% {}
 
@@ -162,6 +180,12 @@ body {
 
     #theCreator>p {
         font-size: 3.5vmin;
+    }
+}
+
+@media (orientation: landscape) or (min-width: 1000px) {
+    img.controlMobile {
+        width: 20%;
     }
 }
 
@@ -183,18 +207,10 @@ body {
     box-shadow: 10px 10px 5px #00000080;
     width: auto;
     height: auto;
-    padding: 15px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: flex-start;
-}
-
-div#hudMobile {
-    width: 80vw;
-    height: 80vh;
     flex-direction: column;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 canvas {
@@ -207,143 +223,58 @@ canvas {
 .scoreAndMenu2 {
     background-color: #1E212D;
     width: 101%;
-    width: 54vh;
+    width: 42.4vh;
     margin: 1vmin;
     margin-bottom: 0;
     height: 10vmin;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-canvas.canvasMobile {
-    margin: 1vmin;
-    width: 54vh;
-    height: 72vh;
-    background-color: #1E212D;
-}
-
-@media all and (orientation: portrait) {
-    div.scoreAndMenu2 {
-        width: 74.4vw;
-    }
-
-    canvas.canvasMobile {
-        width: 74.4vw;
-        height: 99.2vw;
-        background-color: #1E212D;
-    }
-}
-
-@media all and (orientation: portrait) and (max-width: 600px) {
-    div.scoreAndMenu2 {
-        width: 89.28vw;
-    }
-
-    canvas.canvasMobile {
-        width: 89.28vw;
-        height: 119.04vw;
-        background-color: #1E212D;
-    }
-}
-
-canvas.canvasMobile1 {
-    margin: 0 5px;
-    width: 60vmin;
-    height: 80vmin;
-    background-color: #1E212D;
-}
-
-.input {
-    font-size: 5vmin;
-    font-weight: bolder;
-    margin-top: 2vmin;
-    width: auto;
-    font-family: 'Oswald', sans-serif;
-    text-align: center;
-    background: transparent;
-    border: none;
-}
-
-.input::placeholder {
-    color: white;
-}
-
-p.player {
-    text-transform: uppercase;
-}
-
-.controller {
-    background-color: #FF9A00;
-    border: 0.85vmin solid #1E212D;
-    border-radius: 2.5vmin;
-    width: 70vw;
-    height: 18vh;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: flex-start;
-}
-
-.rows {
-    width: 100%;
-    margin: 0.7vmin 0;
+    padding: 1vmin 4vh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
-.showMedals {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.information {
-    height: 100%;
-    width: 35vmin;
-    display: flex;
-    margin: 0 25px;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.manual {
+canvas.canvasMobile {
+    margin: 1vmin;
+    width: 50.4vh;
+    height: 67.2vh;
     background-color: #1E212D;
-    padding: 25px;
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: flex-start;
+    border-radius: 0 0 2vmin 2vmin;
 }
 
-.scoreShow {
-    margin: 1vmin 0;
-    padding: 0;
-    font-size: 3.5vmin;
-    color: white;
-}
-
-.text1 {
-    color: white;
+canvas#controlCanvas {
+    position: fixed;
+    left: 0;
+    top: 0;
     margin: 0;
-    text-align: center;
+    width: unset;
+    height: unset;
 }
 
-div.dialogDiv {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+@media all and (orientation: portrait) {
+    div.scoreAndMenu2 {
+        width: 55vw;
+        padding: 2vmin 4vw;
+    }
+
+    canvas.canvasMobile {
+        width: 63vw;
+        height: 84vw;
+        background-color: #1E212D;
+    }
+}
+
+@media all and (orientation: portrait) and (max-width: 600px) {
+    div.scoreAndMenu2 {
+        width: 61vw;
+        padding: 2vmin 4vw;
+    }
+
+    canvas.canvasMobile {
+        width: 69vw;
+        height: 92vw;
+        background-color: #1E212D;
+    }
 }
 
 .medals {
@@ -354,24 +285,8 @@ div.dialogDiv {
     margin-left: -3vmin;
 }
 
-.logoFooter a {
-    text-decoration: none;
-    color: #1E212D;
+canvas#nextPiece {
     margin: 0;
 }
 
-.logoFooter {
-    font-size: 2rem;
-    margin: 0;
-}
-
-.logoHome {
-    width: 30vmin;
-    height: 30vmin;
-    margin: 0;
-    transition: 200ms;
-}
-
-.logoHome:hover {
-    filter: drop-shadow(10px 10px 0 #00000080);
-}
+/* ending play.html settings */
