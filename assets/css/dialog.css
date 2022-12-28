@@ -1,8 +1,6 @@
 /* Dialog styles */
 dialog {
-    width: 700px;
-    max-width: 80%;
-    min-width: 60%;
+    width: 80vw;
     background: none;
     border: none;
     animation: openDialog 750ms;
@@ -41,7 +39,7 @@ dialog.hide::backdrop {
     100% {
         backdrop-filter: blur(3px);
         -webkit-backdrop-filter: blur(3px);
-        background-color: #ffffff20;
+        background-color: #00000080;
     }
 }
 
@@ -61,7 +59,7 @@ dialog.hide::backdrop {
     0% {
         backdrop-filter: blur(3px);
         -webkit-backdrop-filter: blur(3px);
-        background-color: #ffffff20;
+        background-color: #00000080;
     }
 }
 

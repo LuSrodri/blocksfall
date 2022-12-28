@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content= "width=device-width, user-scalable=no">
     <title>Play the best tetris-style game online! - Blocks' Fall!</title>
     <meta name="description"
         content="The Online tetris-style Game for play in PC or Mobile. Enjoy this best puzzle game with your friends or solo. You will love it!">
@@ -62,14 +62,14 @@
     </script>
 </head>
 
-<body id="body" onblur="ifOnBlur()" onfocus="ifOnFocus()">
+<body>
     <div id="initialScreen" class="container">
         <div class="main">
             <h1 class="title">BLOCKS' FALL</h1>
             <p>
                 DEVELOPED BY <span style="color: #ef626c;">LUSRODRI</span>
             </p>
-        
+
             <p id="pressAnyButton">PRESS ANY BUTTON OR TAP TO START!</p>
         </div>
     </div>
@@ -79,19 +79,58 @@
             <h1 class="title">BLOCKS' FALL</h1>
 
             <div class="scoreAndMenu">
-                <p>WELCOME STRANGER!</p>
+                <p id="greetings">WELCOME!</p>
             </div>
 
             <div class="menuArea">
                 <button class="btn" onclick="playGame()"><i class="fa-solid fa-play"></i> PLAY GAME</button>
-                <button class="btn" id="buttonMusic" onclick="setMusicPreference()"><i class="fas fa-volume-up"></i> SOUND ON</button>
+                <button class="btn" id="buttonMusic" onclick="setMusicPreference()"><i class="fas fa-volume-up"></i>
+                    SOUND ON</button>
+                <button class="btn" id="howtoplay"><i class="fa-solid fa-gamepad"></i> HOW TO PLAY</button>
             </div>
 
-            <p>IN SOON: BETTER GAMEPLAY EXPERIENCE, ACHIEVEMENT, RANKING, USERS, MULTIPLAYER AND MORE!</p>
+            <!-- <p></p> -->
 
         </div>
 
-        <div id="theCreator"><p>DEVELOPED BY <a href="https://lusrodri.me">LUSRODRI</a></p></div>
+        <div id="theCreator">
+            <p>DEVELOPED BY <a href="https://lusrodri.me">LUSRODRI</a></p>
+        </div>
+
+        <dialog id="howtoplayDialogPC" class="howToPlay">
+            <div class="main">
+                <h1 class="title titleDialog"><i class="fa-solid fa-gamepad"></i> HOW TO PLAY</h1>
+                <div class="divFlex">
+
+                    <div class="scoreAndMenu">
+                        <img class="controlPC" src="./images/control.webp">
+                    </div>
+                    <p>USE <span class="contrast">A KEY, S KEY, D KEY OR THE ARROWS</span> TO MOVE THE PIECE TO SIDES OR DOWN.
+                        <br>USE <span class="contrast">Q KEY, E KEY, THE SPACE OR THE UP ARROW</span> TO ROTATE THE PIECE.
+                    </p>
+                    <button class="btn" onclick="howToPlayDialog('close', 'howtoplayDialogPC')">I GOT
+                        IT!</button>
+                </div>
+            </div>
+        </dialog>
+
+        <dialog id="howtoplayDialogMobile" class="howToPlay">
+            <div class="main">
+                <h1 class="title titleDialog"><i class="fa-solid fa-gamepad"></i> HOW TO PLAY</h1>
+                <div class="divFlex">
+
+                    <div class="scoreAndMenu">
+                        <img class="controlMobile" src="./images/control_mobile.webp">
+                    </div>
+                    <p><span class="contrast">DRAG TO SIDES OR TO DOWN</span> TO MOVE THE PIECE TO SIDES OR DOWN.
+                        <br><span class="contrast">TOUCH OR DRAG TO UP</span> TO ROTATE THE PIECE.
+                    </p>
+                    <button class="btn" onclick="howToPlayDialog('close', 'howtoplayDialogMobile')">I GOT
+                        IT!</button>
+                </div>
+            </div>
+        </dialog>
+
     </div>
 
     <script src="./scripts/menu.js"></script>

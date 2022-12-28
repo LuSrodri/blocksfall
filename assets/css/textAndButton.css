@@ -1,20 +1,31 @@
 /* Texts styles */
 @media (prefers-color-scheme: dark) {
     .btn {
-        border: 0.65vmin solid #1E212D;
-        color: #ffffff;
-        background-color: #1b1b1b;
+        border: 0.65vmin solid #1b1b1b;
+        background-color: #1c3144;
+        color: #FF9A00;
     }
 
     .btn:hover {
-        background-color: #1E212D;
-        color: #1b1b1b;
+        background-color: #1b1b1b;
+    }
+
+    .btn:active {
+        background-color: #1b1b1b;
     }
 
     .scoreAndMenu>p {
-        color: #1b1b1b;
+        color: #ffffff;
     }
-    
+
+    dialog.howToPlay p {
+        color: #ffffff;
+    }
+
+    .contrast {
+        color: #FF9A00;
+    }
+
     h1,
     h2,
     h3,
@@ -35,7 +46,19 @@
         background-color: #FF9A00;
     }
 
+    .btn:active {
+        background-color: #FFCA03;
+    }
+
     .scoreAndMenu>p {
+        color: #ffffff;
+    }
+
+    dialog.howToPlay p {
+        color: #1E212D;
+    }
+
+    .contrast {
         color: #ffffff;
     }
 
@@ -83,6 +106,17 @@ p {
     font-size: 3vmin;
 }
 
+dialog.howToPlay p {
+    font-size: 2.5vmin;
+    margin: 1vmin 5vmin 2.5vmin 5vmin;
+}
+
+.scoreShow {
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
 @media (max-width: 600px) {
     h1 {
         font-size: 12vmin;
@@ -90,6 +124,10 @@ p {
 
     P {
         font-size: 5vmin;
+    }
+
+    dialog.howToPlay p {
+        font-size: 4.5vmin;
     }
 
     .titleDialog {
@@ -101,7 +139,6 @@ p {
 
 /* Buttons styles */
 .btn {
-    color: #1E212D;
     border-radius: 0.65vmin;
     cursor: pointer;
     text-decoration: none;
@@ -114,12 +151,16 @@ p {
 
 .btn:active {
     box-shadow: unset;
-    background-color: #FFCA03;
 }
 
 button.btnPause {
-    font-size: 4vmin;
-    padding: 0 1.5rem;
+    width: unset;
+    margin: 0;
+    font-size: 2.5vmin;
+    padding: 1vmin 3vmin;
+    border: none;
+    min-width: unset;
+    z-index: 2;
 }
 
 @media (max-width: 600px) {
@@ -129,6 +170,12 @@ button.btnPause {
         border-width: 1vmin;
         margin: 2vmin;
         font-weight: 700;
+    }
+
+
+    button.btnPause {
+        font-size: 4vmin;
+        padding: 0.8vmin 2.5vmin;
     }
 }
 
