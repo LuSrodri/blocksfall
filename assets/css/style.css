@@ -254,17 +254,17 @@ canvas#controlCanvas {
     margin: 0;
     width: unset;
     height: unset;
-    z-index: 2;
+    z-index: 3;
 }
 
-canvas#hud {
+canvas#hudGameplay {
     position: fixed;
     left: 0;
     top: 0;
     margin: 0;
     width: unset;
     height: unset;
-    z-index: 1;
+    z-index: 2;
 }
 
 @media all and (orientation: portrait) {

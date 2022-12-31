@@ -167,7 +167,7 @@ button.btnPause {
     padding: 1vmin 3vmin;
     border: none;
     min-width: unset;
-    z-index: 3;
+    z-index: 4;
 }
 
 @media (max-width: 600px) {
