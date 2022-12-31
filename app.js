@@ -31,6 +31,12 @@ assets: {
   });
 }
 
+other: {
+  app.get("/greetings", (req, res) => {
+    res.send({greetings: process.env.GREETINGS || ""});
+  });
+}
+
 
 
 
