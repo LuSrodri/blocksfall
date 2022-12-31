@@ -51,7 +51,7 @@ function gameOver() {
 
     let score = parseInt(document.getElementsByClassName("score")[0].innerHTML);
     if (score >= 200 && score < 500) {
-        document.getElementById("medalOne").src = "./images/medals/bronze_medal.webp";
+        document.getElementById("medalOne").src = "./images/medals/bronze_medal.png";
         let aux = localStorage.getItem("bronzeMedal");
         if (aux) {
             aux = parseInt(aux) + 1;
@@ -61,7 +61,7 @@ function gameOver() {
             localStorage.setItem("bronzeMedal", 1);
     }
     if (score >= 500 && score < 1000) {
-        document.getElementById("medalOne").src = "./images/medals/silver_medal.webp";
+        document.getElementById("medalOne").src = "./images/medals/silver_medal.png";
         let aux = localStorage.getItem("silverMedal");
         if (aux) {
             aux = parseInt(aux) + 1;
@@ -71,7 +71,7 @@ function gameOver() {
             localStorage.setItem("silverMedal", 1);
     }
     if (score >= 1000) {
-        document.getElementById("medalOne").src = "./images/medals/gold_medal.webp";
+        document.getElementById("medalOne").src = "./images/medals/gold_medal.png";
         let aux = localStorage.getItem("goldMedal");
         if (aux) {
             aux = parseInt(aux) + 1;
