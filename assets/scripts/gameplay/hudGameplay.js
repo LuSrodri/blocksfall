@@ -25,6 +25,9 @@ imgComboX3.src = "./images/combos/COMBO_X3.png";
 let imgComboX4 = new Image();
 imgComboX4.src = "./images/combos/COMBO_X4.png";
 
+let imgInitialGame = new Image();
+imgInitialGame.src = "./images/initialGame.png";
+
 function printInfosByScore(scored) {
     if (scored < 20)
         return;
@@ -32,9 +35,9 @@ function printInfosByScore(scored) {
     let img = null;
     let alpha = 0.0;
     let timing = 0;
-    let scaleOfImageHud = 1.2;
+    let scaleOfImageHud = 1;
     if (parseInt(hudCanvas.style.width, 10) <= 700)
-        scaleOfImageHud = 0.5
+        scaleOfImageHud = 0.5;
 
     if (scored === 20)
         img = imgComboX2
@@ -48,14 +51,14 @@ function printInfosByScore(scored) {
         ctxHudCanvas.globalAlpha = alpha;
         ctxHudCanvas.drawImage(img, (hudCanvas.width / 2) - (img.width / (2 / scaleOfImageHud)), (hudCanvas.height / 2) - (img.height / (2 / scaleOfImageHud)), (img.width * scaleOfImageHud), (img.height * scaleOfImageHud));
 
-        if (alpha <= 1.0 && timing < 80){
+        if (alpha <= 1.0 && timing < 80) {
             alpha += 0.05;
             if (alpha > 1)
                 alpha = 1;
         }
-        if (alpha >= 0.0 && timing > 120){
+        if (alpha >= 0.0 && timing > 120) {
             alpha -= 0.05;
-            if (alpha < 0) 
+            if (alpha < 0)
                 alpha = 0;
         }
 
@@ -65,4 +68,39 @@ function printInfosByScore(scored) {
         ctxHudCanvas.clearRect(0, 0, hudCanvas.width, hudCanvas.height);
         clearInterval(loop);
     }, 3000);
+}
+
+function printInitialGame() {
+    let alpha = 0.0;
+    let timing = 0;
+    let scaleOfImageHud = 0.6;
+    if (parseInt(hudCanvas.style.width, 10) <= 700)
+        scaleOfImageHud = 0.3;
+
+    let loopInitialGame = setInterval(() => {
+        ctxHudCanvas.clearRect(0, 0, hudCanvas.width, hudCanvas.height);
+        ctxHudCanvas.save();
+        ctxHudCanvas.fillStyle = "#00000090";
+        ctxHudCanvas.fillRect(0, 0, hudCanvas.width, hudCanvas.height);
+        ctxHudCanvas.restore();
+        ctxHudCanvas.globalAlpha = alpha;
+        ctxHudCanvas.drawImage(imgInitialGame, (hudCanvas.width / 2) - (imgInitialGame.width / (2 / scaleOfImageHud)), (hudCanvas.height / 2) - (imgInitialGame.height / (2 / scaleOfImageHud)), (imgInitialGame.width * scaleOfImageHud), (imgInitialGame.height * scaleOfImageHud));
+
+        if (alpha <= 1.0 && timing < 100) {
+            alpha += 0.20;
+            if (alpha > 1)
+                alpha = 1;
+        }
+        if (alpha >= 0.0 && timing > 150) {
+            alpha -= 0.20;
+            if (alpha < 0)
+                alpha = 0;
+        }
+
+        timing++;
+    }, 20);
+    setTimeout(() => {
+        ctxHudCanvas.clearRect(0, 0, hudCanvas.width, hudCanvas.height);
+        clearInterval(loopInitialGame);
+    }, 4000);
 }

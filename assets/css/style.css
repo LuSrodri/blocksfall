@@ -267,6 +267,11 @@ canvas#hudGameplay {
     z-index: 2;
 }
 
+canvas#nextPiece {
+    width: 10vmin;
+    height: 10vmin;
+}
+
 @media all and (orientation: portrait) {
     div.scoreAndMenu2 {
         width: 55vw;

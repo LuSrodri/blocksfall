@@ -2,11 +2,14 @@
 gameStart();
 
 function gameStart() {
-    defineCanvas();
-    startGameLoop();
-    printNextPiece();
-    controllerKeyboard();
-    controllerTouch();
+    printInitialGame();
+    setTimeout(() => {
+        defineCanvas();
+        startGameLoop();
+        printNextPiece();
+        controllerKeyboard();
+        controllerTouch();
+    }, 3000);
 }
 
 function pause(op) {
@@ -30,7 +33,7 @@ function pause(op) {
     }
 }
 
-function gameOver() { 
+function gameOver() {
     let gameOverDialog = document.getElementById("gameOver");
 
     let stats = { highscore: gameScore };
