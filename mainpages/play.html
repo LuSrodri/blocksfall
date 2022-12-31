@@ -80,6 +80,7 @@
             <canvas id="game" class="canvasMobile"></canvas>
 
             <canvas id="controlCanvas" height="100" width="100"></canvas>
+            <canvas id="hud" height="100" width="100"></canvas>
         </div>
 
         <dialog id="pause">
@@ -123,7 +124,7 @@
             <div class="main" style="min-width: 90%; margin: auto;">
 
                 <h1 class="title titleDialog">DO YOU WANT TO RESTART?</h1>
-
+                <p>YOU WILL LOSE ANY PROGRESS. THIS ACTION CAN'T BE UNDONE.</p>
                 <div class="menuArea">
                     <button class="btn" onclick="restart()"><i class="fa-solid fa-arrow-rotate-right"></i>
                         RESTART</button>
@@ -138,8 +139,14 @@
 
     </div>
 
-    <script src="./scripts/hud.js"></script>
-    <script src="./scripts/gameLogic.js"></script>
+    <script src="./scripts/gameplay/ControllerKeyboard.js"></script>
+    <script src="./scripts/gameplay/ControllerTouch.js"></script>
+    <script src="./scripts/gameplay/hud.js"></script>
+    <script src="./scripts/gameplay/gameLogic.js"></script>
+    <script src="./scripts/gameplay/gameCanvas.js"></script>
+    <script src="./scripts/gameplay/game.js"></script>
+
+
     <script src="./scripts/menu.js"></script>
 
     <script>

@@ -96,6 +96,7 @@ a {
     font-weight: bolder;
     margin-top: 10vmin;
     transition: 500ms;
+    -webkit-transition: 500ms;
 }
 
 h1 {
@@ -115,6 +116,11 @@ dialog.howToPlay p {
     margin: 0;
     padding: 0;
     color: white;
+}
+
+.score {
+    transition: 500ms;
+    -webkit-transition: 500ms;
 }
 
 @media (max-width: 600px) {
@@ -147,6 +153,7 @@ dialog.howToPlay p {
     font-weight: 500;
     margin: 1vmin;
     transition: 200ms;
+    -webkit-transition: 200ms;
 }
 
 .btn:active {
@@ -160,7 +167,7 @@ button.btnPause {
     padding: 1vmin 3vmin;
     border: none;
     min-width: unset;
-    z-index: 2;
+    z-index: 3;
 }
 
 @media (max-width: 600px) {

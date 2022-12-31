@@ -58,7 +58,7 @@ function pageOnLoad() {
 }
 
 function setInitialMusic() {
-    if (sessionStorage.getItem('musicPreference') === null || sessionStorage.getItem('musicPreference') === 'true') {
+    if (localStorage.getItem('musicPreference') === null || localStorage.getItem('musicPreference') === 'true') {
         document.getElementById("buttonMusic").innerHTML = "<i class='fas fa-volume-up'></i> SOUND ON";
         addMusicElement();
     }
@@ -69,19 +69,19 @@ function setInitialMusic() {
 }
 
 function setMusicPreference() {
-    if (sessionStorage.getItem('musicPreference') === null || sessionStorage.getItem('musicPreference') === 'true') {
-        sessionStorage.setItem('musicPreference', 'false');
+    if (localStorage.getItem('musicPreference') === null || localStorage.getItem('musicPreference') === 'true') {
+        localStorage.setItem('musicPreference', 'false');
         document.getElementById("buttonMusic").innerHTML = "<i class='fas fa-volume-mute'></i> MUTE";
     }
-    else if (sessionStorage.getItem('musicPreference') === 'false') {
-        sessionStorage.setItem('musicPreference', 'true');
+    else if (localStorage.getItem('musicPreference') === 'false') {
+        localStorage.setItem('musicPreference', 'true');
         document.getElementById("buttonMusic").innerHTML = "<i class='fas fa-volume-up'></i> SOUND ON";
     }
 
     setMusic();
 
     function setMusic() {
-        if (sessionStorage.getItem('musicPreference') === null || sessionStorage.getItem('musicPreference') === 'true') {
+        if (localStorage.getItem('musicPreference') === null || localStorage.getItem('musicPreference') === 'true') {
             addMusicElement();
         }
         else {
@@ -142,7 +142,7 @@ function ifOnBlur() {
 }
 
 function ifOnFocus() {
-    if (sessionStorage.getItem('musicPreference') === "true" || sessionStorage.getItem('musicPreference') === null) {
+    if (localStorage.getItem('musicPreference') === "true" || localStorage.getItem('musicPreference') === null) {
         addMusicElement();
     }
 }

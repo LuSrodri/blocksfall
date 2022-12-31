@@ -3,7 +3,7 @@
 [X] - Arrumar o /play, adicionar informação de próxima peça e adicionar animações;
 [X] - Arrumar o controle toque;
 [X] - Remover sessão stats da home;
-[] - Melhorar a gameplay;
+[*] - Melhorar a gameplay;
 [] - Transferir toda a lógica da gameplay para o servidor;
 [] - Adicionar autenticação;
 [] - Adicionar badges com figurinhas que se obtem fazendo certas coisas durante o jogo;

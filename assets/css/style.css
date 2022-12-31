@@ -104,12 +104,14 @@ body {
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
     transition: 500ms;
+    -webkit-transition: 500ms;
 }
 
 #mainScreen {
     opacity: 0;
     z-index: 0;
     transition: 1000ms;
+    -webkit-transition: 1000ms;
 }
 
 #theCreator {
@@ -146,6 +148,10 @@ body {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+}
+
+#gameOver .scoreAndMenu {
+    justify-content: center;
 }
 
 img {
@@ -222,11 +228,11 @@ canvas {
 .scoreAndMenu2 {
     background-color: #1E212D;
     width: 101%;
-    width: 42.4vh;
+    width: 46.4vh;
     margin: 1vmin;
     margin-bottom: 0;
     height: 10vmin;
-    padding: 1vmin 4vh;
+    padding: 1vmin 2vh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -248,6 +254,17 @@ canvas#controlCanvas {
     margin: 0;
     width: unset;
     height: unset;
+    z-index: 2;
+}
+
+canvas#hud {
+    position: fixed;
+    left: 0;
+    top: 0;
+    margin: 0;
+    width: unset;
+    height: unset;
+    z-index: 1;
 }
 
 @media all and (orientation: portrait) {
@@ -265,23 +282,27 @@ canvas#controlCanvas {
 
 @media all and (orientation: portrait) and (max-width: 600px) {
     div.scoreAndMenu2 {
-        width: 61vw;
+        width: 76vw;
         padding: 2vmin 4vw;
     }
 
     canvas.canvasMobile {
-        width: 69vw;
-        height: 92vw;
+        width: 84vw;
+        height: 112vw;
         background-color: #1E212D;
+    }
+
+    img.medals {
+        border: unset;
+        height: 25vmin;
+        width: auto;
     }
 }
 
 .medals {
-    height: 20vmin;
+    border: unset;
+    height: 15vmin;
     width: auto;
-    max-height: 100px;
-    margin: 2vmin 0;
-    margin-left: -3vmin;
 }
 
 canvas#nextPiece {
