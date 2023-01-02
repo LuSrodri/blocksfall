@@ -13,11 +13,11 @@ function defineCanvas() { //define the canvas
     document.getElementById("game").parentNode.replaceChild(canvas, document.getElementById("game"));
 }
 
-function printGame(letterAux) { //print the game with the colors of the pieces
+function printGame(letterPrinting, matrix) { //print the game with the colors of the pieces
     for (let x = 0; x < matrix.length; x++) {
         for (let y = 0; y < matrix[x].length; y++) {
             if (matrix[x][y] === 1) {
-                ctx.fillStyle = colors(letterAux);
+                ctx.fillStyle = colors(letterPrinting);
                 ctx.fillRect(y * 100, x * 100, (y + 100), (x + 100));
                 ctx.strokeStyle = '#000000';
                 ctx.lineWidth = 2;
@@ -44,9 +44,9 @@ function printGame(letterAux) { //print the game with the colors of the pieces
     }
 }
 
-function printNextPiece() {
+function printNextPiece(letterOfNextPiece) {
     let canvasNextPiece = document.getElementById("nextPiece");
-    let nextPiece = pieces(letter[1]);
+    let nextPiece = pieces(letterOfNextPiece);
 
     if (nextPiece.length === 2 && nextPiece[0].length === 3) {
         canvasNextPiece.width = "300";
@@ -77,7 +77,7 @@ function printNextPiece() {
     for (let x = 0; x < nextPiece.length; x++) {
         for (let y = 0; y < nextPiece[x].length; y++) {
             if (nextPiece[x][y] === 1) {
-                ctxNextPiece.fillStyle = colors(letter[1]);
+                ctxNextPiece.fillStyle = colors(letterOfNextPiece);
                 ctxNextPiece.fillRect(y * 100, x * 100, (y + 100), (x + 100));
                 ctxNextPiece.strokeStyle = '#000000';
                 ctxNextPiece.lineWidth = 3;
@@ -88,6 +88,38 @@ function printNextPiece() {
                 ctxNextPiece.fillRect(y * 100, x * 100, (y + 100), (x + 100));
             }
         }
+    }
+}
+
+function pieces(op) {
+    if (op === 'T') {
+        return [[0, 1, 0],
+        [1, 1, 1]];
+    }
+    if (op === 'Z') {
+        return [[1, 1, 0],
+        [0, 1, 1]];
+    }
+    if (op === 'I') {
+        return [[1, 1, 1, 1]];
+    }
+    if (op === 'L') {
+        return [[1, 0],
+        [1, 0],
+        [1, 1]];
+    }
+    if (op === 'J') {
+        return [[0, 1],
+        [0, 1],
+        [1, 1]];
+    }
+    if (op === 'S') {
+        return [[0, 1, 1],
+        [1, 1, 0]];
+    }
+    if (op === 'O') {
+        return [[1, 1],
+        [1, 1]];
     }
 }
 

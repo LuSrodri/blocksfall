@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content= "width=device-width, user-scalable=no">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>Enjoy the best puzzle game online! - Blocks' Fall!</title>
     <meta name="description"
         content="The Online Game for play Anyplace and Anytime. Enjoy this best puzzle game with your friends or solo. You will love it!">
@@ -67,7 +67,7 @@
         crossorigin="anonymous"></script>
 </head>
 
-<body id="body" onblur="ifOnBlur()" onload="pageOnLoad()" onfocus="ifOnFocus()" style="overflow: hidden;">
+<body id="body" onblur="ifOnBlur()" onfocus="ifOnFocus()" onload="pageOnLoad()" style="overflow: hidden;">
 
     <div class="container">
         <div class="hud">
@@ -142,12 +142,13 @@
     <script src="./scripts/gameplay/ControllerKeyboard.js"></script>
     <script src="./scripts/gameplay/ControllerTouch.js"></script>
     <script src="./scripts/gameplay/hudGameplay.js"></script>
-    <script src="./scripts/gameplay/gameLogic.js"></script>
     <script src="./scripts/gameplay/gameCanvas.js"></script>
     <script src="./scripts/gameplay/game.js"></script>
 
 
     <script src="./scripts/menu.js"></script>
+
+    <script src="/socket.io/socket.io.js"></script>
 
     <script>
         scrollToEvent();
@@ -156,6 +157,8 @@
                 top: 100
             });
         }
+
+        var socket = io();
     </script>
 
 </body>
