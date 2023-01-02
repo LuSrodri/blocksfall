@@ -98,49 +98,47 @@ function controllerTouch() { //set the touch controller
         xDiff = xTouchPositionStart - xTouchPositionEnd;
         yDiff = yTouchPositionStart - yTouchPositionEnd;
 
-        if (!isPaused && !isGameOver) {
-            if (xDiff > -sensitivityXAxis && xDiff < sensitivityXAxis) { //only moves horizontal
-                clearInterval(movingTouchHorizontal);
-                isMovingRight = false;
-                isMovingLeft = false;
-            }
-            if (yDiff > -sensitivityYAxis && yDiff < sensitivityYAxis) { //only moves vertical
-                clearInterval(movingTouchVertical);
-                isMovingDown = false;
-                isRotate = false;
-            }
-            if (xDiff < -sensitivityXAxis && !isMovingRight) { //moves to right
-                isMovingRight = true;
-                changeDirection('R');
-                movingTouchHorizontal = setInterval(() => {
-                    changeDirection('R');
-                }, 175);
-            }
-            if (xDiff > sensitivityXAxis && !isMovingLeft) { //moves to left
-                isMovingLeft = true;
-                changeDirection('L');
-                movingTouchHorizontal = setInterval(() => {
-                    changeDirection('L');
-                }, 175);
-            }
-            if (yDiff < -sensitivityYAxis && !isMovingDown) { //moves down
-                isMovingDown = true;
-                downPiece(letter[0]);
-                movingTouchVertical = setInterval(() => {
-                    downPiece(letter[0]);
-                }, 125);
-            }
-            if (yDiff > sensitivityYAxis && !isMovingUp){
-                isMovingUp = true;
-            }
-            printControllerMobile();
+        if (xDiff > -sensitivityXAxis && xDiff < sensitivityXAxis) { //only moves horizontal
+            clearInterval(movingTouchHorizontal);
+            isMovingRight = false;
+            isMovingLeft = false;
         }
+        if (yDiff > -sensitivityYAxis && yDiff < sensitivityYAxis) { //only moves vertical
+            clearInterval(movingTouchVertical);
+            isMovingDown = false;
+            isRotate = false;
+        }
+        if (xDiff < -sensitivityXAxis && !isMovingRight) { //moves to right
+            isMovingRight = true;
+            socket.emit("change direction of piece", "R");
+            movingTouchHorizontal = setInterval(() => {
+                socket.emit("change direction of piece", "R");
+            }, 175);
+        }
+        if (xDiff > sensitivityXAxis && !isMovingLeft) { //moves to left
+            isMovingLeft = true;
+            socket.emit("change direction of piece", "L");
+            movingTouchHorizontal = setInterval(() => {
+                socket.emit("change direction of piece", "L");
+            }, 175);
+        }
+        if (yDiff < -sensitivityYAxis && !isMovingDown) { //moves down
+            isMovingDown = true;
+            socket.emit("down the piece");
+            movingTouchVertical = setInterval(() => {
+                socket.emit("down the piece");
+            }, 125);
+        }
+        if (yDiff > sensitivityYAxis && !isMovingUp) {
+            isMovingUp = true;
+        }
+        printControllerMobile();
     }
 
     function endMove() {
-        if (!isMovingDown && !isMovingUp && !isMovingRight && !isMovingLeft) 
-            rotatePiece('R', piece);
-        
+        if (!isMovingDown && !isMovingUp && !isMovingRight && !isMovingLeft)
+            socket.emit("rotate the piece", "R");
+
 
         isMovingDown = false;
         isMovingUp = false;

@@ -5,40 +5,67 @@ function gameStart() {
     printInitialGame();
     setTimeout(() => {
         defineCanvas();
-        startGameLoop();
-        printNextPiece();
+        starting();
         controllerKeyboard();
         controllerTouch();
     }, 3000);
 }
 
+function starting() {
+    socket.emit("start game", "");
+
+    socket.on(socket.id + "", (gameJSONString) => {
+        game = JSON.parse(gameJSONString);
+        printNextPiece(game.letter[1]);
+        printGame(game.letter[0], game.matrix);
+    });
+
+    socket.on(socket.id + "scored", (score) => {
+        let scores = document.getElementsByClassName("score");
+        let scored = score - parseInt(scores[0].innerHTML);
+
+        printInfosByScore(scored);
+
+        for (let i = 0; i < scores.length; i++) {
+            let Score = parseInt(scores[i].innerHTML) + scored;
+            scores[i].innerHTML = Score;
+            scores[i].style.color = "#FF9A00"
+        }
+
+        if (localStorage.getItem("musicPreference") !== 'false')
+            setScoredMusic();
+    });
+
+    socket.on(socket.id + "gameover", (finalScore) => {
+        gameOver(finalScore);
+    });
+}
+
 function pause(op) {
     let pauseDialog = document.getElementById("pause");
 
-    if (!isGameOver) {
-        if (op === 'open' && pauseDialog.open === false) {
-            isPaused = true;
-            pauseDialog.showModal();
-        }
-        if (op === 'close' && pauseDialog.open === true) {
-            pauseDialog.classList.add("hide");
-            pauseDialog.addEventListener('animationend', function () {
-                pauseDialog.classList.remove("hide");
-                pauseDialog.close();
-                pauseDialog.removeEventListener('animationend', arguments.callee, false);
-            }, false);
-            isPaused = false;
-            document.getElementById("game").focus();
-        }
+    if (op === 'open' && pauseDialog.open === false) {
+        socket.emit("pause", true);
+        pauseDialog.showModal();
+    }
+    if (op === 'close' && pauseDialog.open === true) {
+        pauseDialog.classList.add("hide");
+        pauseDialog.addEventListener('animationend', function () {
+            pauseDialog.classList.remove("hide");
+            pauseDialog.close();
+            pauseDialog.removeEventListener('animationend', arguments.callee, false);
+        }, false);
+        socket.emit("pause", false);
+        document.getElementById("game").focus();
     }
 }
 
-function gameOver() {
+function gameOver(finalScore) {
     let gameOverDialog = document.getElementById("gameOver");
 
-    let stats = { highscore: gameScore };
+    let stats = { highscore: finalScore };
     if (localStorage.getItem("stats")) {
-        if (JSON.parse(localStorage.getItem("stats")).highscore < gameScore) {
+        if (JSON.parse(localStorage.getItem("stats")).highscore < finalScore) {
             localStorage.setItem("stats", JSON.stringify(stats));
         }
     }
