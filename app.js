@@ -23,6 +23,7 @@ const {
   wherePiece,
   ifScored
 } = require("./gameLogic");
+const gameMatches = [];
 
 mainPage: {
   app.get('/', (req, res) => {
@@ -53,14 +54,18 @@ socketio: {
       if (gameId === "") {
         gameMatch = defineNewGame(socket.id);
         gameMatch.loop = setInterval(() => gameLoop(gameMatch), gameMatch.timeLoop);
+        gameMatches.push(gameMatch);
       }
-      // else if (gameMatches.find(x => x.gameId === gameId) !== undefined) {
-      //   gameMatch = gameMatches.find(x => x.gameId === gameId);
-      //   gameMatch.loop = setInterval(() => gameLoop(gameMatch), gameMatch.timeLoop);
-      // }
-      // else {
-      //   startGameLoop(socket.id);
-      // }
+      else if (gameMatches.find(x => x.gameId === gameId)) {
+        gameMatch = gameMatches.find(x => x.gameId === gameId);
+        gameMatch.gameId = socket.id;
+        gameMatch.loop = setInterval(() => gameLoop(gameMatch), gameMatch.timeLoop);
+      }
+      else {
+        gameMatch = defineNewGame(socket.id);
+        gameMatch.loop = setInterval(() => gameLoop(gameMatch), gameMatch.timeLoop);
+        gameMatches.push(gameMatch);
+      }
     });
 
     socket.on("change direction of piece", (op) => {
@@ -87,6 +92,7 @@ socketio: {
     socket.on('disconnect', () => {
       console.log('user disconnected: ' + socket.id);
       clearInterval(gameMatch.loop);
+      gameMatch.isPaused = false;
     });
   });
 
@@ -113,6 +119,8 @@ game: {
 
   function gameLoop(thisGame) {
     if (!thisGame.isPaused) {
+      gameMatches[gameMatches.findIndex(x => x.gameId === thisGame.gameId)] = thisGame;
+
       emitGameInfos(thisGame);
 
       let verifyIfScored = ifScored(thisGame.matrix);
@@ -134,6 +142,7 @@ game: {
         if (ifCatchedTop(thisGame.matrix)) {
           emitGameOver(thisGame.gameId, thisGame.gameScore);
           clearInterval(thisGame.loop);
+          gameMatches.splice(gameMatches.findIndex(x => x.gameId === thisGame.gameId), 1);
           return;
         }
         thisGame.letter = setLetter(thisGame.letter);
