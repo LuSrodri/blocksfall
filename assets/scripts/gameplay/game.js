@@ -12,9 +12,15 @@ function gameStart() {
 }
 
 function starting() {
-    socket.emit("start game", "");
+    if (localStorage.getItem("gameSave")) {
+        socket.emit("start game", localStorage.getItem("gameSave"));
+    }
+    else {
+        socket.emit("start game", "");
+    }
 
     socket.on(socket.id + "", (gameJSONString) => {
+        localStorage.setItem("gameSave", socket.id);
         game = JSON.parse(gameJSONString);
         printNextPiece(game.letter[1]);
         printGame(game.letter[0], game.matrix);

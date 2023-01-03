@@ -265,6 +265,10 @@ function changeDirection(mAux, direction) {
 }
 
 function rotatePiece(mAux, direction, pieceAux) {
+    if (!pieceAux) {
+        return;
+    }
+
     let pieceRotated = [];
     if (direction === 'L') {
         for (let y = (pieceAux[0].length - 1); y >= 0; y--) {
@@ -296,7 +300,13 @@ function rotatePiece(mAux, direction, pieceAux) {
 
 function collide(mAux, pieceAux, xAux, yAux) {
     for (let x = xAux; x <= (xAux + (pieceAux.length - 1)); x++) {
+        if (mAux[x] === undefined) {
+            return true;
+        }
         for (let y = yAux; y <= (yAux + (pieceAux[0].length - 1)); y++) {
+            if (mAux[x][y] === undefined) {
+                return true;
+            }
             if (mAux[x][y] !== 1 && mAux[x][y] !== 0 && mAux[x][y] !== 2) {
                 return true;
             }
