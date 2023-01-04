@@ -5,6 +5,8 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
+const { CreateAGameInDataBase, GetAGameInDatabase, UpdateAGameInDataBase, DeleteAGameInDataBase } = require("./database");
+const { gameStringify } = require("./util");
 const {
   defineNewGame,
   setLetter,
@@ -23,7 +25,6 @@ const {
   wherePiece,
   ifScored
 } = require("./gameLogic");
-const gameMatches = [];
 
 mainPage: {
   app.get('/', (req, res) => {
@@ -45,65 +46,82 @@ assets: {
 
 socketio: {
 
-  io.on('connection', (socket) => {
+  io.on('connection', async (socket) => {
+    let gameMatch = null;
     console.log('a user connected: ' + socket.id);
 
-    let gameMatch = null;
+    socket.on("start game", async (gameId) => {
+      if (gameId === null || gameId === undefined)
+        return;
 
-    socket.on("start game", (gameId) => {
       if (gameId === "") {
         gameMatch = defineNewGame(socket.id);
         gameMatch.loop = setInterval(() => gameLoop(gameMatch), gameMatch.timeLoop);
-        gameMatches.push(gameMatch);
+        gameMatch.gameId = await CreateAGameInDataBase(gameMatch);
+        emitCreatedGame(gameMatch.gameId, socket.id);
       }
-      else if (gameMatches.find(x => x.gameId === gameId)) {
-        gameMatch = gameMatches.find(x => x.gameId === gameId);
-        gameMatch.gameId = socket.id;
+      else if (await GetAGameInDatabase(gameId)) {
+        gameMatch = await GetAGameInDatabase(gameId);
         gameMatch.loop = setInterval(() => gameLoop(gameMatch), gameMatch.timeLoop);
+        gameMatch.isPaused = false;
+        emitCreatedGame(gameMatch.gameId, socket.id);
       }
       else {
         gameMatch = defineNewGame(socket.id);
         gameMatch.loop = setInterval(() => gameLoop(gameMatch), gameMatch.timeLoop);
-        gameMatches.push(gameMatch);
+        gameMatch.gameId = await CreateAGameInDataBase(gameMatch);
+        emitCreatedGame(gameMatch.gameId, socket.id);
       }
     });
 
-    socket.on("change direction of piece", (op) => {
+    socket.on("change direction of piece", async (op) => {
+      if (gameMatch === null)
+        return;
       gameMatch.matrix = changeDirection(gameMatch.matrix, op);
+      UpdateAGameInDataBase(gameMatch);
       emitGameInfos(gameMatch);
     });
 
-    socket.on("down the piece", () => {
+    socket.on("down the piece", async () => {
+      if (gameMatch === null)
+        return;
       gameMatch.matrix = downPiece(gameMatch.matrix, gameMatch.letter[0]);
+      UpdateAGameInDataBase(gameMatch);
       emitGameInfos(gameMatch);
     });
 
-    socket.on("rotate the piece", (op) => {
+    socket.on("rotate the piece", async (op) => {
+      if (gameMatch === null)
+        return;
       let resultRotatedPiece = rotatePiece(gameMatch.matrix, op, gameMatch.piece);
       gameMatch.matrix = resultRotatedPiece.matrix;
       gameMatch.piece = resultRotatedPiece.piece;
+      UpdateAGameInDataBase(gameMatch);
       emitGameInfos(gameMatch);
     });
 
-    socket.on("pause", (bool) => {
+    socket.on("pause", async (bool) => {
+      if (gameMatch === null)
+        return;
       gameMatch.isPaused = bool;
+      UpdateAGameInDataBase(gameMatch);
+    });
+
+    socket.on("delete gameSave", async (gameId) => {
+      await DeleteAGameInDataBase(gameId);
     });
 
     socket.on('disconnect', () => {
       console.log('user disconnected: ' + socket.id);
+      if (gameMatch === null)
+        return;
       clearInterval(gameMatch.loop);
-      gameMatch.isPaused = false;
     });
   });
 
   function emitGameInfos(gameInfos) {
-    gameInfosId = gameInfos.gameId;
-    let tempLoop = gameInfos.loop;
-    gameInfos.loop = null;
-    let gameInfosJSONString = JSON.parse(JSON.stringify(gameInfos));
-    gameInfos.loop = tempLoop;
-    gameInfosJSONString = JSON.stringify(gameInfosJSONString);
-    io.emit(gameInfosId + "", gameInfosJSONString);
+    let gameInfosJSONString = gameStringify(gameInfos);
+    io.emit(gameInfos.gameId + "", gameInfosJSONString);
   }
 
   function emitHadAScore(gameId, score) {
@@ -113,48 +131,48 @@ socketio: {
   function emitGameOver(gameId, score) {
     io.emit(gameId + "gameover", score);
   }
+
+  function emitCreatedGame(gameId, socketId) {
+    io.emit(socketId + "created game", gameId);
+  }
 }
 
-game: {
+async function gameLoop(thisGame) {
+  if (!thisGame.isPaused) {
+    UpdateAGameInDataBase(thisGame);
 
-  function gameLoop(thisGame) {
-    if (!thisGame.isPaused) {
-      gameMatches[gameMatches.findIndex(x => x.gameId === thisGame.gameId)] = thisGame;
+    emitGameInfos(thisGame);
 
-      emitGameInfos(thisGame);
+    let verifyIfScored = ifScored(thisGame.matrix);
 
-      let verifyIfScored = ifScored(thisGame.matrix);
-
-      if (testIfHaveFreePiece(thisGame.matrix)) {
-        thisGame.matrix = downPiece(thisGame.matrix, thisGame.letter[0]);
-      }
-      else if (verifyIfScored != false) {
-        if (thisGame.timeLoop > 250) {
-          thisGame.timeLoop -= 10;
-          clearInterval(thisGame.loop);
-          thisGame.loop = setInterval(() => gameLoop(thisGame), thisGame.timeLoop);
-        }
-        thisGame.matrix = verifyIfScored.matrix;
-        thisGame.gameScore += verifyIfScored.scored;
-        emitHadAScore(thisGame.gameId, thisGame.gameScore);
-      }
-      else {
-        if (ifCatchedTop(thisGame.matrix)) {
-          emitGameOver(thisGame.gameId, thisGame.gameScore);
-          clearInterval(thisGame.loop);
-          gameMatches.splice(gameMatches.findIndex(x => x.gameId === thisGame.gameId), 1);
-          return;
-        }
-        thisGame.letter = setLetter(thisGame.letter);
-        thisGame.piece = pieces(thisGame.letter[0]);
-        thisGame.matrix = putANewPiece(thisGame.matrix, thisGame.piece, 0, 5);
-      }
-      thisGame.matrix = shadowPiece(thisGame.matrix);
-
-      emitGameInfos(thisGame);
+    if (testIfHaveFreePiece(thisGame.matrix)) {
+      thisGame.matrix = downPiece(thisGame.matrix, thisGame.letter[0]);
     }
-  }
+    else if (verifyIfScored != false) {
+      if (thisGame.timeLoop > 250) {
+        thisGame.timeLoop -= 10;
+        clearInterval(thisGame.loop);
+        thisGame.loop = setInterval(() => gameLoop(thisGame), thisGame.timeLoop);
+      }
+      thisGame.matrix = verifyIfScored.matrix;
+      thisGame.gameScore += verifyIfScored.scored;
+      emitHadAScore(thisGame.gameId, verifyIfScored.scored);
+    }
+    else {
+      if (ifCatchedTop(thisGame.matrix)) {
+        clearInterval(thisGame.loop);
+        setTimeout(async () => await DeleteAGameInDataBase(thisGame.gameId), 1000);
+        emitGameOver(thisGame.gameId, thisGame.gameScore);
+        return;
+      }
+      thisGame.letter = setLetter(thisGame.letter);
+      thisGame.piece = pieces(thisGame.letter[0]);
+      thisGame.matrix = putANewPiece(thisGame.matrix, thisGame.piece, 0, 5);
+    }
+    thisGame.matrix = shadowPiece(thisGame.matrix);
 
+    emitGameInfos(thisGame);
+  }
 }
 
 other: {

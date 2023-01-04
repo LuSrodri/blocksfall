@@ -22,7 +22,7 @@
 }
 
 {
-    if (document.getElementById("greetings")){
+    if (document.getElementById("greetings")) {
         let now = new Date();
         if (now.getHours() >= 5 && now.getHours() < 12) {
             document.getElementById("greetings").innerHTML = "GOOD MORNING!";
@@ -158,7 +158,10 @@ function scrollToPath(path) {
 }
 
 function restart() {
-    if (localStorage.getItem("gameSave") !== null) localStorage.removeItem("gameSave");
+    if (localStorage.getItem("gameSave") !== null) {
+        socket.emit("delete gameSave", localStorage.getItem("gameSave"));
+        localStorage.removeItem("gameSave");
+    };
     window.location.href = "/play";
 }
 
