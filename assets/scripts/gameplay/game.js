@@ -19,32 +19,54 @@ function starting() {
         socket.emit("start game", "");
     }
 
-    socket.on(socket.id + "", (gameJSONString) => {
-        localStorage.setItem("gameSave", socket.id);
+    socket.io.on("reconnect", (attempt) => {
+        socket.emit("start game", localStorage.getItem("gameSave"));
+    });
+
+    socket.on(socket.id + "created game", (gameId) => {
+        localStorage.setItem("gameSave", gameId);
+        initializeSocketListeners(gameId);
+    });
+}
+
+function initializeSocketListeners(gameId) {
+
+    socket.on(gameId + "", (gameJSONString) => {
         game = JSON.parse(gameJSONString);
+
+        let scores = document.getElementsByClassName("score");
+        for (let i = 0; i < scores.length; i++) {
+            scores[i].style.color = "";
+            scores[i].innerHTML = game.gameScore;
+        }
+
         printNextPiece(game.letter[1]);
         printGame(game.letter[0], game.matrix);
     });
 
-    socket.on(socket.id + "scored", (score) => {
-        let scores = document.getElementsByClassName("score");
-        let scored = score - parseInt(scores[0].innerHTML);
-
-        printInfosByScore(scored);
-
-        for (let i = 0; i < scores.length; i++) {
-            let Score = parseInt(scores[i].innerHTML) + scored;
-            scores[i].innerHTML = Score;
-            scores[i].style.color = "#FF9A00"
-        }
+    socket.on(gameId + "scored", (score) => {
+        scored(score);
+        printInfosByScore(score);
 
         if (localStorage.getItem("musicPreference") !== 'false')
             setScoredMusic();
     });
 
-    socket.on(socket.id + "gameover", (finalScore) => {
+    socket.on(gameId + "gameover", (finalScore) => {
         gameOver(finalScore);
+        localStorage.removeItem("gameSave");
     });
+}
+
+function scored(score) {
+    let scores = document.getElementsByClassName("score");
+    let scored = score - parseInt(scores[0].innerHTML);
+
+    for (let i = 0; i < scores.length; i++) {
+        let Score = parseInt(scores[i].innerHTML) + scored;
+        scores[i].innerHTML = Score;
+        scores[i].style.color = "#FF9A00";
+    }
 }
 
 function pause(op) {
