@@ -23,7 +23,9 @@ function starting() {
     }
 
     socket.io.on("reconnect", (attempt) => {
+        clearTimeout(timeToReconnect);
         socket.emit("start game", localStorage.getItem("gameSave"));
+        reconnection("close");
     });
 
     socket.on(socket.id + "created game", (gameId) => {
@@ -165,4 +167,25 @@ function gameOver(finalScore) {
         gameOverMusic.setAttribute("autoplay", "");
         document.getElementsByTagName("body")[0].appendChild(gameOverMusic);
     }
+}
+
+function reconnection(op) {
+    let disconnectionDialog = document.getElementById("lostconnection");
+
+    if (op === 'open' && !disconnectionDialog.open) {
+        disconnectionDialog.showModal();
+    }
+    else if (op === 'close' && disconnectionDialog.open) {
+        disconnectionDialog.classList.add("hide");
+        disconnectionDialog.addEventListener('animationend', function () {
+            disconnectionDialog.classList.remove("hide");
+            disconnectionDialog.close();
+            disconnectionDialog.removeEventListener('animationend', arguments.callee, false);
+        }, false);
+    }
+}
+
+function disconnection() {
+    document.getElementById("tryingText").innerHTML = "COULDN'T TO RECONNECT";
+    document.getElementById("buttonToReloading").style.display = "unset";
 }

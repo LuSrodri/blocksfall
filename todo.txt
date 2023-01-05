@@ -3,15 +3,16 @@
 [X] - Arrumar o /play, adicionar informação de próxima peça e adicionar animações;
 [X] - Arrumar o controle toque;
 [X] - Remover sessão stats da home;
-[*] - Melhorar a gameplay;
-[] - Transferir toda a lógica da gameplay para o servidor;
+[x] - Melhorar a gameplay;
+[x] - Transferir toda a lógica da gameplay para o servidor;
 [] - Adicionar autenticação;
 [] - Adicionar badges com figurinhas que se obtem fazendo certas coisas durante o jogo;
 [] - Adicionar o premium. No primeiro momento terá um ranking exclusivo e badges exclusivos;
 [] - Adicionar sistema de amizades;
 [] - Adicionar o modo divertivo com armadilhas durante o jogo. Exclusivo para o premium;
 [] - Multiplayer - private match;
-[] - Multiplayer - public match
+[] - Multiplayer - public match;
+[] - Adicionar anúncios.
 
 
 
