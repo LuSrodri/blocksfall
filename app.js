@@ -4,7 +4,10 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(server);
+const io = new Server(server, {
+  pingTimeout: 1000,
+  pingInterval: 1000
+});
 const { CreateAGameInDataBase, GetAGameInDatabase, UpdateAGameInDataBase, DeleteAGameInDataBase } = require("./database");
 const { gameStringify } = require("./util");
 const {
@@ -111,12 +114,13 @@ socketio: {
       await DeleteAGameInDataBase(gameId);
     });
 
-    socket.on('disconnect', () => {
-      // console.log('user disconnected: ' + socket.id);
+    socket.on('disconnect', (reason) => {
+      // console.log('user disconnected: ' + socket.id + " by " + reason);
       if (gameMatch === null)
         return;
       clearInterval(gameMatch.loop);
     });
+
   });
 
   function emitGameInfos(gameInfos) {
