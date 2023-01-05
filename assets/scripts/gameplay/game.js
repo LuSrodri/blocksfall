@@ -43,12 +43,6 @@ function initializeSocketListeners(gameId) {
 
         game = JSON.parse(gameJSONString);
 
-        let scores = document.getElementsByClassName("score");
-        for (let i = 0; i < scores.length; i++) {
-            scores[i].style.color = "";
-            scores[i].innerHTML = game.gameScore;
-        }
-
         printNextPiece(game.letter[1]);
         printGame(game.letter[0], game.matrix);
     });
@@ -76,6 +70,14 @@ function scored(score) {
         scores[i].innerHTML = Score;
         scores[i].style.color = "#FF9A00";
     }
+
+    setTimeout(() => {
+        for (let i = 0; i < scores.length; i++) {
+            let Score = parseInt(scores[i].innerHTML) + scored;
+            scores[i].innerHTML = Score;
+            scores[i].style.color = "#FFFFFF";
+        }    
+    }, 500);
 }
 
 function pause(op) {
