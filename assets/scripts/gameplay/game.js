@@ -1,4 +1,7 @@
 
+let isGameOver = false;
+let isPaused = false;
+
 gameStart();
 
 function gameStart() {
@@ -8,7 +11,7 @@ function gameStart() {
         starting();
         controllerKeyboard();
         controllerTouch();
-    }, 3000);
+    }, 2000);
 }
 
 function starting() {
@@ -32,6 +35,10 @@ function starting() {
 function initializeSocketListeners(gameId) {
 
     socket.on(gameId + "", (gameJSONString) => {
+        if (isPaused && !isGameOver) {
+            socket.emit("pause", true);
+        }
+
         game = JSON.parse(gameJSONString);
 
         let scores = document.getElementsByClassName("score");
@@ -70,13 +77,18 @@ function scored(score) {
 }
 
 function pause(op) {
+    if (isGameOver)
+        return;
+
     let pauseDialog = document.getElementById("pause");
 
     if (op === 'open' && pauseDialog.open === false) {
+        isPaused = true;
         socket.emit("pause", true);
         pauseDialog.showModal();
     }
     if (op === 'close' && pauseDialog.open === true) {
+        isPaused = false;
         pauseDialog.classList.add("hide");
         pauseDialog.addEventListener('animationend', function () {
             pauseDialog.classList.remove("hide");
@@ -89,6 +101,8 @@ function pause(op) {
 }
 
 function gameOver(finalScore) {
+    isGameOver = true;
+
     let gameOverDialog = document.getElementById("gameOver");
 
     let stats = { highscore: finalScore };

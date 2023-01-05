@@ -168,6 +168,7 @@ button.btnPause {
     border: none;
     min-width: unset;
     z-index: 4;
+    display: none;
 }
 
 @media (max-width: 600px) {

@@ -71,7 +71,7 @@ function printInfosByScore(scored) {
 }
 
 function printInitialGame() {
-    let alpha = 0.0;
+    let alpha = 1.0;
     let timing = 0;
     let scaleOfImageHud = 0.6;
     if (parseInt(hudCanvas.style.width, 10) <= 700)
@@ -86,11 +86,6 @@ function printInitialGame() {
         ctxHudCanvas.globalAlpha = alpha;
         ctxHudCanvas.drawImage(imgInitialGame, (hudCanvas.width / 2) - (imgInitialGame.width / (2 / scaleOfImageHud)), (hudCanvas.height / 2) - (imgInitialGame.height / (2 / scaleOfImageHud)), (imgInitialGame.width * scaleOfImageHud), (imgInitialGame.height * scaleOfImageHud));
 
-        if (alpha <= 1.0 && timing < 100) {
-            alpha += 0.20;
-            if (alpha > 1)
-                alpha = 1;
-        }
         if (alpha >= 0.0 && timing > 150) {
             alpha -= 0.20;
             if (alpha < 0)
@@ -102,5 +97,6 @@ function printInitialGame() {
     setTimeout(() => {
         ctxHudCanvas.clearRect(0, 0, hudCanvas.width, hudCanvas.height);
         clearInterval(loopInitialGame);
-    }, 4000);
+        document.getElementsByClassName("btn btnPause")[0].style.display = "unset";
+    }, 3000);
 }
