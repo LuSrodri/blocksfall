@@ -48,7 +48,7 @@ socketio: {
 
   io.on('connection', async (socket) => {
     let gameMatch = null;
-    console.log('a user connected: ' + socket.id);
+    // console.log('a user connected: ' + socket.id);
 
     socket.on("start game", async (gameId) => {
       if (gameId === null || gameId === undefined)
@@ -112,7 +112,7 @@ socketio: {
     });
 
     socket.on('disconnect', () => {
-      console.log('user disconnected: ' + socket.id);
+      // console.log('user disconnected: ' + socket.id);
       if (gameMatch === null)
         return;
       clearInterval(gameMatch.loop);

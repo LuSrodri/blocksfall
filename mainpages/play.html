@@ -133,6 +133,19 @@
 
         </dialog>
 
+        <dialog id="lostconnection">
+            <div class="main" style="min-width: 90%; margin: auto;">
+
+                <h1 class="title titleDialog">LOST CONNECTION :(</h1>
+                <p id="tryingText">WE ARE TRYING TO RECONNECT.</p>
+                <div class="menuArea">
+                    <button id="buttonToReloading" style="display: none;" class="btn"
+                        onclick="location.href = '/play'"><i class="fa-solid fa-arrow-rotate-right"></i>
+                        RELOAD</button>
+                </div>
+
+        </dialog>
+
         <div id="theCreator">
             <p>DEVELOPED BY <a href="https://lusrodri.me">LUSRODRI</a></p>
         </div>
@@ -159,6 +172,17 @@
         }
 
         var socket = io();
+        let timeToReconnect;
+
+        socket.on("disconnect", (reason) => {
+            timeToReconnect = setTimeout(() => {
+                reconnection("open");
+            }, 2500);
+        });
+
+        socket.io.on("reconnect_failed", (error) => {
+            disconnection();
+        });
     </script>
 
 </body>
