@@ -1,6 +1,7 @@
 
 let isGameOver = false;
 let isPaused = false;
+let scores = document.getElementsByClassName("score");
 
 gameStart();
 
@@ -43,13 +44,17 @@ function initializeSocketListeners(gameId) {
 
         game = JSON.parse(gameJSONString);
 
+        for (let i = 0; i < scores.length; i++) {
+            scores[i].innerHTML = game.gameScore;
+        }
+
         printNextPiece(game.letter[1]);
         printGame(game.letter[0], game.matrix);
     });
 
-    socket.on(gameId + "scored", (score) => {
-        scored(score);
-        printInfosByScore(score);
+    socket.on(gameId + "scored", (data) => {
+        scored(data.score);
+        printInfosByScore(data.scored);
 
         if (localStorage.getItem("musicPreference") !== 'false')
             setScoredMusic();
@@ -62,21 +67,15 @@ function initializeSocketListeners(gameId) {
 }
 
 function scored(score) {
-    let scores = document.getElementsByClassName("score");
-    let scored = score - parseInt(scores[0].innerHTML);
-
     for (let i = 0; i < scores.length; i++) {
-        let Score = parseInt(scores[i].innerHTML) + scored;
-        scores[i].innerHTML = Score;
+        scores[i].innerHTML = score;
         scores[i].style.color = "#FF9A00";
     }
 
     setTimeout(() => {
         for (let i = 0; i < scores.length; i++) {
-            let Score = parseInt(scores[i].innerHTML) + scored;
-            scores[i].innerHTML = Score;
             scores[i].style.color = "#FFFFFF";
-        }    
+        }
     }, 500);
 }
 

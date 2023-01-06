@@ -128,8 +128,8 @@ socketio: {
     io.emit(gameInfos.gameId + "", gameInfosJSONString);
   }
 
-  function emitHadAScore(gameId, score) {
-    io.emit(gameId + "scored", score);
+  function emitHadAScore(gameId, scored, score) {
+    io.emit(gameId + "scored", {scored, score});
   }
 
   function emitGameOver(gameId, score) {
@@ -160,7 +160,7 @@ async function gameLoop(thisGame) {
       }
       thisGame.matrix = verifyIfScored.matrix;
       thisGame.gameScore += verifyIfScored.scored;
-      emitHadAScore(thisGame.gameId, verifyIfScored.scored);
+      emitHadAScore(thisGame.gameId, verifyIfScored.scored, thisGame.gameScore);
     }
     else {
       if (ifCatchedTop(thisGame.matrix)) {
