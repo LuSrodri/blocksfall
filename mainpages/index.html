@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content= "width=device-width, user-scalable=no">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>Play the best tetris-style game online! - Blocks' Fall!</title>
     <meta name="description"
         content="The Online tetris-style Game for play in PC or Mobile. Enjoy this best puzzle game with your friends or solo. You will love it!">
@@ -42,6 +42,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
         rel="stylesheet">
 
+        
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4463881368194285"
+        crossorigin="anonymous"></script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E8VQL8KMYB"></script>
     <script>
@@ -50,16 +54,6 @@
         gtag('js', new Date());
 
         gtag('config', 'G-E8VQL8KMYB');
-    </script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-215656117-1">
-    </script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-215656117-1');
     </script>
 </head>
 
@@ -106,8 +100,10 @@
                     <div class="scoreAndMenu">
                         <img class="controlPC" src="./images/control.webp">
                     </div>
-                    <p>USE <span class="contrast">A KEY, S KEY, D KEY OR THE ARROWS</span> TO MOVE THE PIECE TO SIDES OR DOWN.
-                        <br>USE <span class="contrast">Q KEY, E KEY, THE SPACE OR THE UP ARROW</span> TO ROTATE THE PIECE.
+                    <p>USE <span class="contrast">A KEY, S KEY, D KEY OR THE ARROWS</span> TO MOVE THE PIECE TO SIDES OR
+                        DOWN.
+                        <br>USE <span class="contrast">Q KEY, E KEY, THE SPACE OR THE UP ARROW</span> TO ROTATE THE
+                        PIECE.
                     </p>
                     <button class="btn" onclick="howToPlayDialog('close', 'howtoplayDialogPC')">I GOT
                         IT!</button>
@@ -137,7 +133,7 @@
     <script src="./scripts/menu.js"></script>
 
     <script>
-        axios.get("/greetings").then( (response) => {
+        axios.get("/greetings").then((response) => {
             if (response.data.greetings !== "") {
                 document.getElementById("greetings").innerHTML = response.data.greetings;
             }
