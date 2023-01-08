@@ -104,56 +104,24 @@ function pause(op) {
 }
 
 function gameOver(finalScore) {
-    isGameOver = true;
-
     let gameOverDialog = document.getElementById("gameOver");
-
-    let stats = { highscore: finalScore };
-    if (localStorage.getItem("stats")) {
-        if (JSON.parse(localStorage.getItem("stats")).highscore < finalScore) {
-            localStorage.setItem("stats", JSON.stringify(stats));
-        }
-    }
-    else {
-        localStorage.setItem("stats", JSON.stringify(stats));
-    }
-
     isGameOver = true;
-    clearInterval(game);
 
-    let score = parseInt(document.getElementsByClassName("score")[0].innerHTML);
-    if (score >= 200 && score < 500) {
-        document.getElementById("medalOne").src = "./images/medals/bronze_medal.png";
-        let aux = localStorage.getItem("bronzeMedal");
-        if (aux) {
-            aux = parseInt(aux) + 1;
-            localStorage.setItem("bronzeMedal", aux);
-        }
-        else
-            localStorage.setItem("bronzeMedal", 1);
+    document.getElementById("medalOne").style.display = "unset";
+    if (finalScore >= 0 && finalScore < 200) {
+        document.getElementById("medalOne").src = "./images/badges/banana.png";
     }
-    if (score >= 500 && score < 1000) {
-        document.getElementById("medalOne").src = "./images/medals/silver_medal.png";
-        let aux = localStorage.getItem("silverMedal");
-        if (aux) {
-            aux = parseInt(aux) + 1;
-            localStorage.setItem("silverMedal", aux);
-        }
-        else
-            localStorage.setItem("silverMedal", 1);
+    if (finalScore >= 200 && finalScore < 500) {
+        document.getElementById("medalOne").src = "./images/badges/bronze_medal.png";
     }
-    if (score >= 1000) {
-        document.getElementById("medalOne").src = "./images/medals/gold_medal.png";
-        let aux = localStorage.getItem("goldMedal");
-        if (aux) {
-            aux = parseInt(aux) + 1;
-            localStorage.setItem("goldMedal", aux);
-        }
-        else
-            localStorage.setItem("goldMedal", 1);
+    if (finalScore >= 500 && finalScore < 1000) {
+        document.getElementById("medalOne").src = "./images/badges/silver_medal.png";
     }
-    if (score >= 200) {
-        document.getElementById("medalOne").style.display = "unset";
+    if (finalScore >= 1000 && finalScore < 10000) {
+        document.getElementById("medalOne").src = "./images/badges/gold_medal.png";
+    }
+    if (finalScore >= 10000) {
+        document.getElementById("medalOne").src = "./images/badges/trophy.png";
     }
 
     if (localStorage.getItem("musicPreference") !== 'false')
