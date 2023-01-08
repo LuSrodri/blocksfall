@@ -8,7 +8,7 @@ const io = new Server(server, {
   pingTimeout: 1000,
   pingInterval: 1000
 });
-require('./gameFlow').startSocketIO(io);
+require('./singlePlayer/gameFlow').startSocketIO(io);
 
 mainPage: {
   app.get('/', (req, res) => {
