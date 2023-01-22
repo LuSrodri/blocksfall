@@ -1,19 +1,12 @@
-[X] - Refatorar o código da gameplay;
-[x] - Arrumar música e efeitos sonoros;
-[X] - Arrumar o /play, adicionar informação de próxima peça e adicionar animações;
-[X] - Arrumar o controle toque;
-[X] - Remover sessão stats da home;
-[x] - Melhorar a gameplay;
-[x] - Transferir toda a lógica da gameplay para o servidor;
-[] - Adicionar autenticação;
+[] - Adicionar anúncios;
+[] - Adicionar highscore;
 [] - Adicionar badges com figurinhas que se obtem fazendo certas coisas durante o jogo;
-[] - Adicionar o premium. No primeiro momento terá um ranking exclusivo e badges exclusivos;
+[] - Mostrar quantos players onlines na página inicial;
+[] - Adicionar o modo divertivo com armadilhas durante o jogo;
+[] - Multiplayer;
+[] - Adicionar autenticação;
 [] - Adicionar sistema de amizades;
-[] - Adicionar o modo divertivo com armadilhas durante o jogo. Exclusivo para o premium;
-[] - Multiplayer - private match;
-[] - Multiplayer - public match;
-[] - Adicionar anúncios.
-
+[] - Adicionar o premium. No primeiro momento terá um ranking exclusivo e badges exclusivos.
 
 
 🚀🚀🚀🚀🚀🚀
