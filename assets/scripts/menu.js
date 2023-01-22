@@ -53,7 +53,6 @@ function startWebsite() {
 
 function pageOnLoad() {
     setInitialMusic();
-    setStats();
     window.scrollTo(0, 500);
 }
 
@@ -105,33 +104,6 @@ function removeMusicElement() {
     let music = document.getElementById("music");
     if (music !== null)
         music.parentNode.removeChild(music);
-}
-
-function setStats() {
-    if (document.getElementById("bronzeMedal") !== null &&
-        localStorage.getItem('bronzeMedal') !== null) {
-        let scoreAux = localStorage.getItem('bronzeMedal');
-        scoreAux = parseInt(scoreAux);
-        document.getElementById("bronzeMedal").innerHTML = scoreAux;
-    }
-    if (document.getElementById("silverMedal") !== null &&
-        localStorage.getItem('silverMedal') !== null) {
-        let scoreAux = localStorage.getItem('silverMedal');
-        scoreAux = parseInt(scoreAux);
-        document.getElementById("silverMedal").innerHTML = scoreAux;
-    }
-    if (document.getElementById("goldMedal") !== null &&
-        localStorage.getItem('goldMedal') !== null) {
-        let scoreAux = localStorage.getItem('goldMedal');
-        scoreAux = parseInt(scoreAux);
-        document.getElementById("goldMedal").innerHTML = scoreAux;
-    }
-
-    if (document.getElementById("highscore") !== null &&
-        localStorage.getItem('stats') !== null) {
-        let stats = JSON.parse(localStorage.getItem('stats'));
-        document.getElementById("highscore").innerHTML = stats.highscore;
-    }
 }
 
 function ifOnBlur() {
