@@ -34,5 +34,9 @@ other: {
   });
 }
 
+app.get('/ads.txt', (req, res) => {
+  res.sendFile(__dirname + "/ads.txt");
+});
+
 server.listen(process.env.PORT || 3000, function () {
 });
