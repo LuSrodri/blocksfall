@@ -1,4 +1,3 @@
-[] - Adicionar anúncios;
 [] - Adicionar highscore;
 [] - Adicionar badges com figurinhas que se obtem fazendo certas coisas durante o jogo;
 [] - Mostrar quantos players onlines na página inicial;
