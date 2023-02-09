@@ -299,14 +299,14 @@ canvas#nextPiece {
 
     img.medals {
         border: unset;
-        height: 25vmin;
+        height: 35vmin;
         width: auto;
     }
 }
 
 .medals {
     border: unset;
-    height: 15vmin;
+    height: 25vmin;
     width: auto;
 }
 
