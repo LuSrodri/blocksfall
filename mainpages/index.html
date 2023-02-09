@@ -63,7 +63,7 @@
         <div class="main">
             <h1 class="title">BLOCKS' FALL</h1>
             <p>
-                DEVELOPED BY <span style="color: #ef626c;">LUSRODRI</span>
+                DEVELOPED BY LUSRODRI
             </p>
 
             <p id="pressAnyButton">PRESS ANY BUTTON OR TAP TO START!</p>
@@ -132,14 +132,6 @@
     </div>
 
     <script src="./scripts/menu.js"></script>
-
-    <script>
-        axios.get("/greetings").then((response) => {
-            if (response.data.greetings !== "") {
-                document.getElementById("greetings").innerHTML = response.data.greetings;
-            }
-        });
-    </script>
 
 </body>
 
