@@ -28,12 +28,6 @@ assets: {
   });
 }
 
-other: {
-  app.get("/greetings", (req, res) => {
-    res.send({ greetings: process.env.GREETINGS || "" });
-  });
-}
-
 app.get('/ads.txt', (req, res) => {
   res.sendFile(__dirname + "/ads.txt");
 });
