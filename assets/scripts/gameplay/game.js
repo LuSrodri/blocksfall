@@ -55,9 +55,6 @@ function initializeSocketListeners(gameId) {
     socket.on(gameId + "scored", (data) => {
         scored(data.score);
         printInfosByScore(data.scored);
-
-        if (localStorage.getItem("musicPreference") !== 'false')
-            setScoredMusic();
     });
 
     socket.on(gameId + "gameover", (finalScore) => {
@@ -124,7 +121,7 @@ function gameOver(finalScore) {
         document.getElementById("medalOne").src = "./images/badges/trophy.png";
     }
 
-    if (localStorage.getItem("musicPreference") !== 'false')
+    if (sessionStorage.getItem("musicPreference") === 'true')
         setGameOverMusic();
 
     gameOverDialog.showModal();
@@ -132,6 +129,7 @@ function gameOver(finalScore) {
 
     function setGameOverMusic() {
         let gameOverMusic = document.createElement("audio");
+        gameOverMusic.volume = 0.4;
         gameOverMusic.src = "./sounds/success.mp3";
         gameOverMusic.setAttribute("autoplay", "");
         document.getElementsByTagName("body")[0].appendChild(gameOverMusic);

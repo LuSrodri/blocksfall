@@ -59,87 +59,87 @@
 
 <body id="body" onblur="ifOnBlur()" onfocus="ifOnFocus()" onload="pageOnLoad()" style="overflow: hidden;">
 
+    <button class="btn btnPause" onclick="pause('open')"><i class="fas fa-pause"></i> PAUSE</button>
+
     <div class="container">
         <div class="hud">
             <div class="scoreAndMenu2" style="border-radius: 2vmin 2vmin 0 0;">
-                <button class="btn btnPause" onclick="pause('open')"><i class="fas fa-pause"></i> PAUSE</button>
                 <canvas id="nextPiece" width="100" height="100"></canvas>
                 <p class="scoreShow">SCORE: <span class="score">0</span> </p>
             </div>
 
             <canvas id="game" class="canvasMobile"></canvas>
-
-            <canvas id="controlCanvas" height="100" width="100"></canvas>
-            <canvas id="hudGameplay" height="100" width="100"></canvas>
         </div>
+    </div>
 
-        <dialog id="pause">
-            <div class="main">
-                <h1 class="title titleDialog">PAUSED</h1>
+    <canvas id="controlCanvas" height="100" width="100"></canvas>
+    <canvas id="hudGameplay" height="100" width="100"></canvas>
 
-                <div class="divFlex">
-                    <div class="menuArea">
-                        <button class="btn" onclick="restartDialog('open')"><i
-                                class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
-                        <button class="btn" id="buttonMusic" onclick="setMusicPreference()"><i
-                                class="fas fa-volume-up"></i> SOUND ON</button>
-                        <button class="btn" onclick="pause('close')"> <i class="fas fa-caret-left"></i> RESUME</button>
-                    </div>
+    <dialog id="pause">
+        <div class="main">
+            <h1 class="title titleDialog">PAUSED</h1>
 
-                    <div class="scoreAndMenu">
-                        <p>SCORE: <span class="score">0</span></p>
-                    </div>
-                    <button class="btn" onclick="window.location.replace('./')"> <i class="fas fa-home"></i> BACK TO
-                        HOME</button>
+            <div class="divFlex">
+                <div class="menuArea">
+                    <button class="btn" onclick="restartDialog('open')"><i
+                            class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
+                    <button class="btn" id="buttonMusic" onclick="setMusicPreference()"><i
+                            class="fas fa-volume-up"></i> SOUND ON</button>
+                    <button class="btn" onclick="pause('close')"> <i class="fas fa-caret-left"></i> RESUME</button>
                 </div>
-            </div>
-        </dialog>
 
-        <dialog id="gameOver">
-            <div class="main">
-                <h1 class="title titleDialog">GAME OVER</h1>
-
-                <div class="scoreAndMenu" id="scoreGameOver">
-                    <img id="medalOne" style="display: none;" class="medals">
-                    <p>YOU SCORED <span class="score">0</span>.</p>
+                <div class="scoreAndMenu">
+                    <p>SCORE: <span class="score">0</span></p>
                 </div>
-                <button class="btn" onclick="window.location.replace('./play')"><i
-                        class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
-                <button class="btn" onclick="window.location.replace('./')"><i class="fas fa-home"></i> BACK TO
+                <button class="btn" onclick="window.location.replace('./')"> <i class="fas fa-home"></i> BACK TO
                     HOME</button>
             </div>
-        </dialog>
-
-        <dialog id="restart">
-            <div class="main" style="min-width: 90%; margin: auto;">
-
-                <h1 class="title titleDialog">DO YOU WANT TO RESTART?</h1>
-                <p>YOU WILL LOSE ANY PROGRESS. THIS ACTION CAN'T BE UNDONE.</p>
-                <div class="menuArea">
-                    <button class="btn" onclick="restart()"><i class="fa-solid fa-arrow-rotate-right"></i>
-                        RESTART</button>
-                    <button class="btn" onclick="restartDialog('close')"> <i class="fas fa-times"></i> CANCEL</button>
-                </div>
-
-        </dialog>
-
-        <dialog id="lostconnection">
-            <div class="main" style="min-width: 90%; margin: auto;">
-
-                <h1 class="title titleDialog">LOST CONNECTION :(</h1>
-                <p id="tryingText">WE ARE TRYING TO RECONNECT.</p>
-                <div class="menuArea">
-                    <button id="buttonToReloading" style="display: none;" class="btn"
-                        onclick="location.href = '/play'"><i class="fa-solid fa-arrow-rotate-right"></i>
-                        RELOAD</button>
-                </div>
-
-        </dialog>
-
-        <div id="theCreator">
-            <p>DEVELOPED BY <a href="https://lusrodri.me">LUSRODRI <i class="fa-solid fa-up-right-from-square"></i></a></p>
         </div>
+    </dialog>
 
+    <dialog id="gameOver">
+        <div class="main">
+            <h1 class="title titleDialog">GAME OVER</h1>
+
+            <div class="scoreAndMenu" id="scoreGameOver">
+                <img id="medalOne" style="display: none;" class="medals">
+                <p>YOU SCORED <span class="score">0</span>.</p>
+            </div>
+            <button class="btn" onclick="window.location.replace('./play')"><i
+                    class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
+            <button class="btn" onclick="window.location.replace('./')"><i class="fas fa-home"></i> BACK TO
+                HOME</button>
+        </div>
+    </dialog>
+
+    <dialog id="restart">
+        <div class="main" style="min-width: 90%; margin: auto;">
+
+            <h1 class="title titleDialog">DO YOU WANT TO RESTART?</h1>
+            <p>YOU WILL LOSE ANY PROGRESS. THIS ACTION CAN'T BE UNDONE.</p>
+            <div class="menuArea">
+                <button class="btn" onclick="restart()"><i class="fa-solid fa-arrow-rotate-right"></i>
+                    RESTART</button>
+                <button class="btn" onclick="restartDialog('close')"> <i class="fas fa-times"></i> CANCEL</button>
+            </div>
+
+    </dialog>
+
+    <dialog id="lostconnection">
+        <div class="main" style="min-width: 90%; margin: auto;">
+
+            <h1 class="title titleDialog">LOST CONNECTION :(</h1>
+            <p id="tryingText">WE ARE TRYING TO RECONNECT.</p>
+            <div class="menuArea">
+                <button id="buttonToReloading" style="display: none;" class="btn"
+                    onclick="location.href = '/play'"><i class="fa-solid fa-arrow-rotate-right"></i>
+                    RELOAD</button>
+            </div>
+
+    </dialog>
+
+    <div id="theCreator">
+        <p>DEVELOPED BY <a href="https://lusrodri.me">LUSRODRI <i class="fa-solid fa-up-right-from-square"></i></a></p>
     </div>
 
     <script src="./scripts/gameplay/ControllerKeyboard.js"></script>

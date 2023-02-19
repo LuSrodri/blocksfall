@@ -163,12 +163,14 @@ dialog.howToPlay p {
 button.btnPause {
     width: unset;
     margin: 0;
-    font-size: 2.5vmin;
+    font-size: 25px;
     padding: 1vmin 3vmin;
-    border: none;
     min-width: unset;
     z-index: 4;
     display: none;
+    position: fixed;
+    left: 3vw;
+    bottom: 3vw;
 }
 
 @media (max-width: 600px) {
