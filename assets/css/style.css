@@ -107,13 +107,6 @@ body {
     -webkit-transition: 500ms;
 }
 
-#mainScreen {
-    opacity: 0;
-    z-index: 0;
-    transition: 1000ms;
-    -webkit-transition: 1000ms;
-}
-
 #theCreator {
     position: fixed;
     right: 0;

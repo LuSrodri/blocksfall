@@ -36,28 +36,13 @@
     }
 }
 
-function startWebsite() {
-    document.getElementById("initialScreen").style.opacity = 0;
-    setTimeout(() => {
-        document.getElementById("initialScreen").style.display = "none";
-        document.getElementById("mainScreen").style.opacity = 1;
-        pageOnLoad();
-    }, 500);
-    document.getElementsByTagName("body")[0].removeEventListener("keydown", startWebsite);
-    document.getElementsByTagName("body")[0].removeEventListener("mousedown", startWebsite);
-    document.getElementsByTagName("body")[0].removeEventListener("touchstart", startWebsite);
-
-    document.getElementsByTagName("body")[0].setAttribute("onblur", "ifOnBlur()");
-    document.getElementsByTagName("body")[0].setAttribute("onfocus", "ifOnFocus()");
-}
-
 function pageOnLoad() {
     setInitialMusic();
     window.scrollTo(0, 500);
 }
 
 function setInitialMusic() {
-    if (localStorage.getItem('musicPreference') === null || localStorage.getItem('musicPreference') === 'true') {
+    if (sessionStorage.getItem('musicPreference') === 'true') {
         document.getElementById("buttonMusic").innerHTML = "<i class='fas fa-volume-up'></i> SOUND ON";
         addMusicElement();
     }
@@ -68,19 +53,19 @@ function setInitialMusic() {
 }
 
 function setMusicPreference() {
-    if (localStorage.getItem('musicPreference') === null || localStorage.getItem('musicPreference') === 'true') {
-        localStorage.setItem('musicPreference', 'false');
+    if (sessionStorage.getItem('musicPreference') === 'true') {
+        sessionStorage.setItem('musicPreference', 'false');
         document.getElementById("buttonMusic").innerHTML = "<i class='fas fa-volume-mute'></i> MUTE";
     }
-    else if (localStorage.getItem('musicPreference') === 'false') {
-        localStorage.setItem('musicPreference', 'true');
+    else if (sessionStorage.getItem('musicPreference') === 'false' || sessionStorage.getItem('musicPreference') === null) {
+        sessionStorage.setItem('musicPreference', 'true');
         document.getElementById("buttonMusic").innerHTML = "<i class='fas fa-volume-up'></i> SOUND ON";
     }
 
     setMusic();
 
     function setMusic() {
-        if (localStorage.getItem('musicPreference') === null || localStorage.getItem('musicPreference') === 'true') {
+        if (sessionStorage.getItem('musicPreference') === 'true') {
             addMusicElement();
         }
         else {
@@ -93,6 +78,7 @@ function addMusicElement() {
     let music = document.createElement('audio');
     music.id = "music";
     music.src = "./sounds/music.mp3";
+    music.volume = 0.4;
     music.setAttribute("autoplay", "");
     music.setAttribute("loop", "");
     let musicAux = document.getElementById("music");
@@ -114,7 +100,7 @@ function ifOnBlur() {
 }
 
 function ifOnFocus() {
-    if (localStorage.getItem('musicPreference') === "true" || localStorage.getItem('musicPreference') === null) {
+    if (sessionStorage.getItem('musicPreference') === "true") {
         addMusicElement();
     }
 }
