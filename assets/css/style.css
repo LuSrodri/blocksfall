@@ -65,12 +65,18 @@ body {
     touch-action: auto;
 }
 
-.container {
+.container,
+.containerHome {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.container,
+.container * {
+    z-index: -2;
 }
 
 .main {
@@ -93,18 +99,6 @@ body {
     flex-wrap: wrap;
     width: 80%;
     margin: 0.5vmin;
-}
-
-#initialScreen {
-    opacity: 1;
-    z-index: 1;
-    position: fixed;
-    left: 0;
-    right: 0;
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-    transition: 500ms;
-    -webkit-transition: 500ms;
 }
 
 #theCreator {
@@ -247,7 +241,7 @@ canvas#controlCanvas {
     margin: 0;
     width: unset;
     height: unset;
-    z-index: 3;
+    z-index: 0;
 }
 
 canvas#hudGameplay {
@@ -257,7 +251,7 @@ canvas#hudGameplay {
     margin: 0;
     width: unset;
     height: unset;
-    z-index: 2;
+    z-index: -1;
 }
 
 canvas#nextPiece {
