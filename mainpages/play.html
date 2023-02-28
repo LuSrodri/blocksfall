@@ -11,20 +11,6 @@
     <meta name="application-name" content="Blocks' Fall!">
     <meta name="keywords" content="tetris, game, online, play, pc, mobile, iphone, android, ipad, puzzle, fun, friends, solo, blocks, fall">
 
-    <meta property="og:title" content="Enjoy this best puzzle game in Anyplace and Anytime! - Blocks' Fall!.">
-    <meta property="og:type" content="game" />
-    <meta property="og:image" content="https://blocksfall.io/blocksfall-logo.png">
-    <meta property="og:url" content="https://blocksfall.io/play">
-    <meta property="og:description"
-        content="The Online Game for play Anyplace and Anytime. Enjoy this best puzzle game with your friends or solo. You will love it!">
-
-    <meta name=”twitter:card” content=”summary” />
-    <meta name="twitter:title" content="Enjoy this best puzzle game in Anyplace and Anytime! - Blocks' Fall!.">
-    <meta name="twitter:description"
-        content="The Online Game for play Anyplace and Anytime. Enjoy this best puzzle game with your friends or solo. You will love it!">
-    <meta name="twitter:image" content="https://blocksfall.io/blocksfall-logo.png">
-    <meta name="twitter:url" content="https://blocksfall.io/play">
-
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="apple-touch-icon" href="./images/logo/blocksfall-logo.png">
@@ -42,19 +28,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-        
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4463881368194285"
-        crossorigin="anonymous"></script>
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E8VQL8KMYB"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-E8VQL8KMYB');
-    </script>
 </head>
 
 <body id="body" onblur="ifOnBlur()" onfocus="ifOnFocus()" onload="pageOnLoad()" style="overflow: hidden;">
@@ -81,8 +54,6 @@
 
             <div class="divFlex">
                 <div class="menuArea">
-                    <button class="btn" onclick="restartDialog('open')"><i
-                            class="fa-solid fa-arrow-rotate-right"></i> RESTART</button>
                     <button class="btn" id="buttonMusic" onclick="setMusicPreference()"><i
                             class="fas fa-volume-up"></i> SOUND ON</button>
                     <button class="btn" onclick="pause('close')"> <i class="fas fa-caret-left"></i> RESUME</button>
@@ -112,32 +83,6 @@
         </div>
     </dialog>
 
-    <dialog id="restart">
-        <div class="main" style="min-width: 90%; margin: auto;">
-
-            <h1 class="title titleDialog">DO YOU WANT TO RESTART?</h1>
-            <p>YOU WILL LOSE ANY PROGRESS. THIS ACTION CAN'T BE UNDONE.</p>
-            <div class="menuArea">
-                <button class="btn" onclick="restart()"><i class="fa-solid fa-arrow-rotate-right"></i>
-                    RESTART</button>
-                <button class="btn" onclick="restartDialog('close')"> <i class="fas fa-times"></i> CANCEL</button>
-            </div>
-
-    </dialog>
-
-    <dialog id="lostconnection">
-        <div class="main" style="min-width: 90%; margin: auto;">
-
-            <h1 class="title titleDialog">LOST CONNECTION :(</h1>
-            <p id="tryingText">WE ARE TRYING TO RECONNECT.</p>
-            <div class="menuArea">
-                <button id="buttonToReloading" style="display: none;" class="btn"
-                    onclick="location.href = '/play'"><i class="fa-solid fa-arrow-rotate-right"></i>
-                    RELOAD</button>
-            </div>
-
-    </dialog>
-
     <div id="theCreator">
         <p>DEVELOPED BY <a href="https://lusrodri.me">LUSRODRI <i class="fa-solid fa-up-right-from-square"></i></a></p>
     </div>
@@ -162,15 +107,8 @@
         }
 
         var socket = io();
-        let timeToReconnect;
 
-        socket.on("disconnect", (reason) => {
-            timeToReconnect = setTimeout(() => {
-                reconnection("open");
-            }, 2500);
-        });
-
-        socket.io.on("reconnect_failed", (error) => {
+        socket.on("disconnect", () => {
             disconnection();
         });
     </script>

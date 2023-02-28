@@ -1,6 +1,3 @@
-
-const { CreateAGameInDataBase, GetAGameInDatabase, UpdateAGameInDataBase, DeleteAGameInDataBase } = require("./database");
-const { gameStringify } = require("./util");
 const {
     defineNewGame,
     setLetter,
@@ -22,37 +19,17 @@ function startSocketIO(thisio) {
 
     io.on('connection', async (socket) => {
         let gameMatch = null;
-        // console.log('a user connected: ' + socket.id);
 
-        socket.on("start game", async (gameId) => {
-            if (gameId === null || gameId === undefined)
-                return;
-
-            if (gameId === "") {
-                gameMatch = defineNewGame(socket.id);
-                gameMatch.loop = setInterval(() => gameLoop(gameMatch), gameMatch.timeLoop);
-                gameMatch.gameId = await CreateAGameInDataBase(gameMatch);
-                emitCreatedGame(gameMatch.gameId, socket.id);
-            }
-            else if (await GetAGameInDatabase(gameId)) {
-                gameMatch = await GetAGameInDatabase(gameId);
-                gameMatch.loop = setInterval(() => gameLoop(gameMatch), gameMatch.timeLoop);
-                gameMatch.isPaused = false;
-                emitCreatedGame(gameMatch.gameId, socket.id);
-            }
-            else {
-                gameMatch = defineNewGame(socket.id);
-                gameMatch.loop = setInterval(() => gameLoop(gameMatch), gameMatch.timeLoop);
-                gameMatch.gameId = await CreateAGameInDataBase(gameMatch);
-                emitCreatedGame(gameMatch.gameId, socket.id);
-            }
+        socket.on("start game", async () => {
+            gameMatch = defineNewGame(socket.id);
+            gameMatch.loop = setInterval(() => gameLoop(gameMatch), gameMatch.timeLoop);
+            emitCreatedGame(gameMatch.gameId, socket.id);
         });
 
         socket.on("change direction of piece", async (op) => {
             if (gameMatch === null)
                 return;
             gameMatch.matrix = changeDirection(gameMatch.matrix, op);
-            UpdateAGameInDataBase(gameMatch);
             emitGameInfos(gameMatch);
         });
 
@@ -60,7 +37,6 @@ function startSocketIO(thisio) {
             if (gameMatch === null)
                 return;
             gameMatch.matrix = downPiece(gameMatch.matrix, gameMatch.letter[0]);
-            UpdateAGameInDataBase(gameMatch);
             emitGameInfos(gameMatch);
         });
 
@@ -70,7 +46,6 @@ function startSocketIO(thisio) {
             let resultRotatedPiece = rotatePiece(gameMatch.matrix, op, gameMatch.piece);
             gameMatch.matrix = resultRotatedPiece.matrix;
             gameMatch.piece = resultRotatedPiece.piece;
-            UpdateAGameInDataBase(gameMatch);
             emitGameInfos(gameMatch);
         });
 
@@ -78,15 +53,9 @@ function startSocketIO(thisio) {
             if (gameMatch === null)
                 return;
             gameMatch.isPaused = bool;
-            UpdateAGameInDataBase(gameMatch);
-        });
-
-        socket.on("delete gameSave", async (gameId) => {
-            await DeleteAGameInDataBase(gameId);
         });
 
         socket.on('disconnect', (reason) => {
-            // console.log('user disconnected: ' + socket.id + " by " + reason);
             if (gameMatch === null)
                 return;
             clearInterval(gameMatch.loop);
@@ -114,7 +83,6 @@ function emitCreatedGame(gameId, socketId) {
 
 async function gameLoop(thisGame) {
     if (!thisGame.isPaused) {
-        UpdateAGameInDataBase(thisGame);
 
         emitGameInfos(thisGame);
 
@@ -136,7 +104,6 @@ async function gameLoop(thisGame) {
         else {
             if (ifCatchedTop(thisGame.matrix)) {
                 clearInterval(thisGame.loop);
-                setTimeout(async () => await DeleteAGameInDataBase(thisGame.gameId), 1000);
                 emitGameOver(thisGame.gameId, thisGame.gameScore);
                 return;
             }
@@ -148,6 +115,15 @@ async function gameLoop(thisGame) {
 
         emitGameInfos(thisGame);
     }
+}
+
+function gameStringify(game) {
+    gameInfosId = game.gameId;
+    let tempLoop = game.loop;
+    game.loop = null;
+    let gameInfosJSONString = JSON.parse(JSON.stringify(game));
+    game.loop = tempLoop;
+    return JSON.stringify(gameInfosJSONString);
 }
 
 module.exports = {
