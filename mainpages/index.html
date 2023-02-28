@@ -11,20 +11,6 @@
     <meta name="application-name" content="Play the best tetris-style game online! - Blocks' Fall">
     <meta name="keywords" content="tetris, game, online, play, pc, mobile, iphone, android, ipad, puzzle, fun, friends, solo, blocks, fall">
 
-    <meta property="og:title" content="Play the best tetris-style game online! - Blocks' Fall">
-    <meta property="og:type" content="game" />
-    <meta property="og:image" content="https://blocksfall.io/blocksfall-logo.png">
-    <meta property="og:url" content="https://blocksfall.io">
-    <meta property="og:description"
-        content="The Online tetris-style Game for play in PC or Mobile. Enjoy this best puzzle game with your friends or solo. You will love it!">
-
-    <meta name=”twitter:card” content=”summary” />
-    <meta name="twitter:title" content="Play the best tetris-style game online! - Blocks' Fall">
-    <meta name="twitter:description"
-        content="The Online tetris-style Game for play in PC or Mobile. Enjoy this best puzzle game with your friends or solo. You will love it!">
-    <meta name="twitter:image" content="https://blocksfall.io/blocksfall-logo.png">
-    <meta name="twitter:url" content="https://blocksfall.io">
-
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="apple-touch-icon" href="./images/logo/blocksfall-logo.png">
@@ -36,26 +22,12 @@
     <link rel="stylesheet" href="./css/textAndButton.css">
 
     <script src="https://kit.fontawesome.com/c70750bce8.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-        
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4463881368194285"
-        crossorigin="anonymous"></script>
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E8VQL8KMYB"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-E8VQL8KMYB');
-    </script>
 </head>
 
 <body id="body" onblur="ifOnBlur()" onfocus="ifOnFocus()" onload="pageOnLoad()" style="overflow: hidden;">
@@ -69,7 +41,7 @@
             </div>
 
             <div class="menuArea">
-                <button class="btn" onclick="playGame()"><i class="fa-solid fa-play"></i> PLAY GAME</button>
+                <button class="btn" onclick="window.location.href = '/play'"><i class="fa-solid fa-play"></i> PLAY GAME</button>
                 <button class="btn" id="buttonMusic" onclick="setMusicPreference()"><i class='fas fa-volume-mute'></i> MUTE</button>
                 <button class="btn" id="howtoplay"><i class="fa-solid fa-gamepad"></i> HOW TO PLAY</button>
             </div>

@@ -16,21 +16,9 @@ function gameStart() {
 }
 
 function starting() {
-    if (localStorage.getItem("gameSave")) {
-        socket.emit("start game", localStorage.getItem("gameSave"));
-    }
-    else {
-        socket.emit("start game", "");
-    }
-
-    socket.io.on("reconnect", (attempt) => {
-        clearTimeout(timeToReconnect);
-        socket.emit("start game", localStorage.getItem("gameSave"));
-        reconnection("close");
-    });
+    socket.emit("start game", "");
 
     socket.on(socket.id + "created game", (gameId) => {
-        localStorage.setItem("gameSave", gameId);
         initializeSocketListeners(gameId);
     });
 }
@@ -59,7 +47,6 @@ function initializeSocketListeners(gameId) {
 
     socket.on(gameId + "gameover", (finalScore) => {
         gameOver(finalScore);
-        localStorage.removeItem("gameSave");
     });
 }
 
@@ -125,7 +112,6 @@ function gameOver(finalScore) {
         setGameOverMusic();
 
     gameOverDialog.showModal();
-    localStorage.removeItem("gameSave");
 
     function setGameOverMusic() {
         let gameOverMusic = document.createElement("audio");
@@ -133,22 +119,6 @@ function gameOver(finalScore) {
         gameOverMusic.src = "./sounds/success.mp3";
         gameOverMusic.setAttribute("autoplay", "");
         document.getElementsByTagName("body")[0].appendChild(gameOverMusic);
-    }
-}
-
-function reconnection(op) {
-    let disconnectionDialog = document.getElementById("lostconnection");
-
-    if (op === 'open' && !disconnectionDialog.open) {
-        disconnectionDialog.showModal();
-    }
-    else if (op === 'close' && disconnectionDialog.open) {
-        disconnectionDialog.classList.add("hide");
-        disconnectionDialog.addEventListener('animationend', function () {
-            disconnectionDialog.classList.remove("hide");
-            disconnectionDialog.close();
-            disconnectionDialog.removeEventListener('animationend', arguments.callee, false);
-        }, false);
     }
 }
 

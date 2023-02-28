@@ -1,5 +1,3 @@
-
-require('dotenv').config()
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -28,10 +26,6 @@ assets: {
     res.sendFile(__dirname + "/assets/images/logo/blocksfall-logo.png");
   });
 }
-
-app.get('/ads.txt', (req, res) => {
-  res.sendFile(__dirname + "/ads.txt");
-});
 
 server.listen(process.env.PORT || 3000, function () {
 });

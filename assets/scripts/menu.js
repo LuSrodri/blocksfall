@@ -105,40 +105,10 @@ function ifOnFocus() {
     }
 }
 
-function playGame() {
-    window.location.href = '/play'
-}
-
 function scrollToPath(path) {
     document.getElementById(path).scrollIntoView({
         behavior: "smooth"
     });
-}
-
-function restart() {
-    if (localStorage.getItem("gameSave") !== null) {
-        socket.emit("delete gameSave", localStorage.getItem("gameSave"));
-        localStorage.removeItem("gameSave");
-    };
-    window.location.href = "/play";
-}
-
-function restartDialog(op) {
-    let restartDialog = document.getElementById("restart");
-
-    if (op === 'open' && restartDialog.open === false) {
-        isPaused = true;
-        restartDialog.showModal();
-    }
-    if (op === 'close' && restartDialog.open === true) {
-        restartDialog.classList.add("hide");
-        restartDialog.addEventListener('animationend', function () {
-            restartDialog.classList.remove("hide");
-            restartDialog.close();
-            restartDialog.removeEventListener('animationend', arguments.callee, false);
-        }, false);
-    }
-
 }
 
 function howToPlayDialog(op1, op2) {
